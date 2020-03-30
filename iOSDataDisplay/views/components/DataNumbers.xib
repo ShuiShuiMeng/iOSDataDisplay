@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DataNumbers" customModule="iOSDataDisplay" customModuleProvider="target">
+            <connections>
+                <outlet property="dnyss" destination="OPn-ee-Y4e" id="uFl-Ar-5cd"/>
+                <outlet property="zxed" destination="xUN-fU-eHc" id="Aqv-gM-6fn"/>
+                <outlet property="zxl" destination="Xtq-O9-tS5" id="djB-n2-mu4"/>
+                <outlet property="zzjhzs" destination="EzZ-LY-Gn5" id="JA6-63-92i"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OPn-ee-Y4e" customClass="DataNumber" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="10" y="5" width="175" height="80"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EzZ-LY-Gn5" customClass="DataNumber" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="190" y="5" width="175" height="80"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUN-fU-eHc" customClass="DataNumber" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="10" y="90" width="175" height="80"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtq-O9-tS5" customClass="DataPercent" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="190" y="90" width="175" height="80"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OPn-ee-Y4e" secondAttribute="trailing" constant="190" id="3Wh-LT-xU3"/>
+                <constraint firstItem="EzZ-LY-Gn5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="190" id="6WO-Yt-YrC"/>
+                <constraint firstItem="Xtq-O9-tS5" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-10" id="CLG-iK-qhl"/>
+                <constraint firstItem="Xtq-O9-tS5" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="90" id="J8h-hI-Lqk"/>
+                <constraint firstItem="xUN-fU-eHc" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-5" id="U7E-r1-pWT"/>
+                <constraint firstItem="EzZ-LY-Gn5" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-10" id="Xum-Kj-Nqb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="EzZ-LY-Gn5" secondAttribute="bottom" constant="90" id="fGt-fa-eM1"/>
+                <constraint firstItem="EzZ-LY-Gn5" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="i2s-c6-lo2"/>
+                <constraint firstItem="Xtq-O9-tS5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="190" id="kMf-Oj-kUs"/>
+                <constraint firstItem="xUN-fU-eHc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="mMJ-d6-sRk"/>
+                <constraint firstItem="OPn-ee-Y4e" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="pJx-L7-kba"/>
+                <constraint firstItem="Xtq-O9-tS5" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-5" id="qVK-RE-vdv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xUN-fU-eHc" secondAttribute="trailing" constant="190" id="tap-Vw-Brg"/>
+                <constraint firstItem="xUN-fU-eHc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="90" id="uLg-4f-L3s"/>
+                <constraint firstItem="OPn-ee-Y4e" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="vL8-S4-Xvz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="OPn-ee-Y4e" secondAttribute="bottom" constant="90" id="yK8-jg-dV2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="55.200000000000003" y="72.413793103448285"/>
+        </view>
+    </objects>
+</document>
