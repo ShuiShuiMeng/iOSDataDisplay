@@ -15,6 +15,7 @@ class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         historyItem.selectedImage = Icons.historyIconB.iconFontImage(fontSize: 35, color: .gray)
+        print("history load")
     }
     
 }

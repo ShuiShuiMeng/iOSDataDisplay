@@ -15,6 +15,7 @@ class MineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mineItem.selectedImage = Icons.mineIconB.iconFontImage(fontSize: 35, color: .gray)
+        print("mine load")
     }
 
 }

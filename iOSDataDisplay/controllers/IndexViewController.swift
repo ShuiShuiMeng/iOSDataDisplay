@@ -15,18 +15,13 @@ class IndexViewController: UIViewController {
     @IBOutlet var indexItem: UITabBarItem!
     
     override func viewDidLoad() {
-        if (getLoginStatus() == LoginStatus.UNLOG) {
-            // let destination = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
-            // self.present(destination, animated: true, completion: nil)
-        }
-        else {
-            super.viewDidLoad()
+        super.viewDidLoad()
             initial()
-        }
+            print("index load")
     }
     
     func getLoginStatus() -> LoginStatus {
-        return LoginStatus.UNLOG
+        return LoginStatus.LOGIN
     }
     
     func initial() {
