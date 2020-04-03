@@ -38,6 +38,10 @@ class DataPercent: UIView {
         imageBG.image = img
     }
     
+    func setColorImage(color: UIColor) {
+        imageBG.setBackgroundColor(color: color)
+    }
+    
     func setIcon(img: UIImage) {
         icon.image = img
     }

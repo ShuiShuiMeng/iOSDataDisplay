@@ -100,22 +100,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZON-yK-zbN">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZON-yK-zbN">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6u7-10-DcW"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="Title" id="d0H-kg-PhA">
                                         <barButtonItem key="leftBarButtonItem" title="返回" id="4Lc-ol-xJA"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAg-Ak-eW8">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ILG-T3-ttq" firstAttribute="bottom" secondItem="KAg-Ak-eW8" secondAttribute="bottom" id="5fx-Cy-RQN"/>
+                            <constraint firstItem="ZON-yK-zbN" firstAttribute="leading" secondItem="ILG-T3-ttq" secondAttribute="leading" id="LbK-30-Q2D"/>
+                            <constraint firstItem="KAg-Ak-eW8" firstAttribute="top" secondItem="ZON-yK-zbN" secondAttribute="bottom" id="McX-id-KCM"/>
+                            <constraint firstItem="ZON-yK-zbN" firstAttribute="top" secondItem="ILG-T3-ttq" secondAttribute="top" id="Qan-ey-dMU"/>
+                            <constraint firstItem="ILG-T3-ttq" firstAttribute="trailing" secondItem="KAg-Ak-eW8" secondAttribute="trailing" id="WC9-xi-htj"/>
+                            <constraint firstItem="ZON-yK-zbN" firstAttribute="trailing" secondItem="ILG-T3-ttq" secondAttribute="trailing" id="WFQ-jB-kUE"/>
+                            <constraint firstItem="KAg-Ak-eW8" firstAttribute="leading" secondItem="ILG-T3-ttq" secondAttribute="leading" id="cI2-ze-cOX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ILG-T3-ttq"/>
                     </view>
                     <connections>
                         <outlet property="back" destination="4Lc-ol-xJA" id="O65-bL-5h9"/>
                         <outlet property="barTxt" destination="d0H-kg-PhA" id="WiY-Tx-obD"/>
+                        <outlet property="scroll" destination="KAg-Ak-eW8" id="Re0-v6-NEf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nx2-px-Scg" userLabel="First Responder" sceneMemberID="firstResponder"/>

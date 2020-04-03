@@ -33,10 +33,17 @@ class DataNumbers: UIView {
     }
     
     func initBackgrounds() {
-        dnyss.setImage(img: UIImage(named: "bg7.jpg")!)
-        zzjhzs.setImage(img: UIImage(named: "bg7.jpg")!)
-        zxed.setImage(img: UIImage(named: "bg7.jpg")!)
-        zxl.setImage(img: UIImage(named: "bg7.jpg")!)
+        //dnyss.setImage(img: UIImage(named: "bg7.jpg")!)
+        //zzjhzs.setImage(img: UIImage(named: "bg7.jpg")!)
+        //zxed.setImage(img: UIImage(named: "bg7.jpg")!)
+        //zxl.setImage(img: UIImage(named: "bg7.jpg")!)
+        
+        
+        
+        dnyss.setColorImage(color: Colors.blue)
+        zzjhzs.setColorImage(color: Colors.blue)
+        zxed.setColorImage(color: Colors.blue)
+        zxl.setColorImage(color: Colors.blue)
     }
     
     func initIcons() {

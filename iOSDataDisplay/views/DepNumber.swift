@@ -1,30 +1,41 @@
 //
-//  Index.swift
+//  DepNumber.swift
 //  iOSDataDisplay
 //
-//  Created by Flora on 2020/3/27.
+//  Created by Flora on 2020/4/3.
 //  Copyright © 2020年 yinmeng. All rights reserved.
 //
 
 import UIKit
 
-class Index: UIView {
-    
+class DepNumber: UIView {
+
     var contentView: UIView!
     
-    func setBackgrond(color: UIColor) {
-        contentView.backgroundColor = color
+    @IBOutlet var view1: UIView!
+    @IBOutlet var view2: UIView!
+    @IBOutlet var view3: UIView!
+    
+    @IBOutlet var lable1: UILabel!
+    @IBOutlet var lable2: UILabel!
+    @IBOutlet var lable3: UILabel!
+    
+    func setColors(color: UIColor) {
+        view1.backgroundColor = color
+        view2.backgroundColor = color
+        view3.backgroundColor = color
     }
     
-    func initial() {
-        setBackgrond(color: UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5))
+    func setNumbers(num1: Float, num2: Int, num3: Int) {
+        lable1.text = num1.cleanZero
+        lable2.text = String(num2)
+        lable3.text = String(num3)
     }
     
     //初始化时将xib中的view添加进来
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView = loadViewFromNib()
-        initial()
         addSubview(contentView)
     }
     
@@ -32,7 +43,6 @@ class Index: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         contentView = loadViewFromNib()
-        initial()
         addSubview(contentView)
     }
     
@@ -45,4 +55,5 @@ class Index: UIView {
         let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
         return view
     }
+
 }

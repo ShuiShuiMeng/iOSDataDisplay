@@ -38,6 +38,10 @@ import UIKit
         imageBG.image = img
     }
     
+    func setColorImage(color: UIColor) {
+        imageBG.setBackgroundColor(color: color)
+    }
+    
     func setIcon(img: UIImage) {
         icon.image = img
     }
@@ -73,11 +77,5 @@ import UIKit
         let nib = UINib(nibName: name!, bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
         return view
-    }
-}
-
-extension Float {
-    var cleanZero : String {
-        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(format: "%.2f", self)
     }
 }

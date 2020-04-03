@@ -51,7 +51,7 @@ class IndexViewController: UIViewController {
         topButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
         topButton.setTitle("2020年度科学基金资助计划\n（国科金发〔2020〕X号）", for: .normal)
         topButton.addTarget(self, action: #selector(tapTop), for: .touchUpInside)
-        refresh.setImage(Icons.refreshIcon.iconFontImage(fontSize: 40, color: .black), for: .normal)
+        refresh.setImage(Icons.refreshIcon.iconFontImage(fontSize: 30, color: .black), for: .normal)
         
         topView.addSubview(drawGrayLineView(x: 0, y: 49, height: 1))
     }
@@ -74,7 +74,7 @@ class IndexViewController: UIViewController {
             let tmpBtn = DepButton(frame: CGRect(x: (mainSize.width-375)/2+item.x, y: 255+item.y, width: 74, height: 74.5))
             tmpBtn.setTitle(item.name, for: .normal)
             tmpBtn.setTitleColor(.black, for: .normal)
-            tmpBtn.setImage(item.icon.iconFontImage(fontSize: 30, color: .black), for: .normal)
+            tmpBtn.setImage(item.icon.iconFontImage(fontSize: 30, color: .orange), for: .normal)
             tmpBtn.setImage(item.icon.iconFontImage(fontSize: 30, color: .blue), for: .highlighted)
             tmpBtn.addTarget(self, action: #selector(tapToDetails), for: .touchUpInside)
             tmpBtn.backgroundColor = UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5)
