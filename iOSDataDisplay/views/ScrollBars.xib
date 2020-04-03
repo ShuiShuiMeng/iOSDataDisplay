@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollBars" customModule="iOSDataDisplay" customModuleProvider="target">
+            <connections>
+                <outlet property="gjjc" destination="31i-fZ-BBK" id="W5E-hK-xhY"/>
+                <outlet property="gjyj" destination="dIP-h1-oE4" id="kWH-kn-WYB"/>
+                <outlet property="msxm" destination="Zlm-TK-jnt" id="CDW-Yg-OGL"/>
+                <outlet property="qnkx" destination="wuL-NP-h2P" id="0E3-27-qUf"/>
+                <outlet property="yxqn" destination="Jdd-Ie-tf6" id="5EL-mZ-2Yv"/>
+                <outlet property="zdaxm" destination="BnN-bL-qQG" id="Ojh-mi-5JH"/>
+                <outlet property="zdxm" destination="aJJ-Gw-nw1" id="6ar-JC-fSS"/>
+                <outlet property="zdyj" destination="ueM-Zu-hDE" id="XvK-bi-fBB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="1020"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="Zlm-TK-jnt" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="aJJ-Gw-nw1" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="60" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="BnN-bL-qQG" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="120" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="ueM-Zu-hDE" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="180" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="dIP-h1-oE4" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="240" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="wuL-NP-h2P" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="300" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="Jdd-Ie-tf6" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="360" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="31i-fZ-BBK" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="420" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="PeU-42-lIi" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="480" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="I56-gK-5JZ" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="540" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="Ksu-2I-f35" customClass="FinishedBar" customModule="iOSDataDisplay" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="600" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="102" y="-203"/>
+        </view>
+    </objects>
+</document>
