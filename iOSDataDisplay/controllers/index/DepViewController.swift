@@ -12,6 +12,7 @@ class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
     
     var titleTxt: String = ""
     
+    @IBOutlet var bar: UINavigationBar!
     @IBOutlet var barTxt: UINavigationItem!
     @IBOutlet var back: UIBarButtonItem!
     @IBOutlet var scroll: UIScrollView!
@@ -28,12 +29,9 @@ class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
     }
     
     func initial() {
-        // 绑定返回键
-        back.action = #selector(backToIndex)
-        // barTxt
-        barTxt.title = titleTxt
         drawNumbers()
         drawGrid()
+        drawBar()
     }
     
     func drawNumbers() {
@@ -42,9 +40,9 @@ class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
         label1.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         scroll.addSubview(label1)
         
-        numbers = DepNumber(frame: CGRect(x: (mainSize.width-375)/2, y: 50, width: 375, height: 80))
+        numbers = DepNumber(frame: CGRect(x: (mainSize.width-375)/2+5, y: 50, width: 365, height: 80))
         numbers.setNumbers(num1: 123456789, num2: 123, num3: 100)
-        numbers.setColors(color: Colors.blue)
+        numbers.setColors(color: UIColor.orange)
         scroll.addSubview(numbers)
         
         label2 = UILabel(frame: CGRect(x: (mainSize.width-375)/2+10, y: 150, width: 150, height: 20))
@@ -54,7 +52,7 @@ class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
     }
     
     func drawGrid() {
-        gridView = UIView(frame: CGRect(x: (mainSize.width-375)/2, y: 175, width: 375, height: 400))
+        gridView = UIView(frame: CGRect(x: 0, y: 175, width: 375, height: 400))
         gridViewController = UICollectionGridViewController()
         gridViewController.setColumns(columns: ["项目", "批准数", "资助金额"])
         gridViewController.addRow(row: ["hanggesfsfsffsfs", "100", "8000000000"])
@@ -67,6 +65,17 @@ class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
         gridView.addSubview(gridViewController.view)
         scroll.addSubview(gridView)
         scroll.contentSize = CGSize(width: 375, height: 180+gridViewController.view.frame.height)
+    }
+    
+    func drawBar() {
+        // 导航条颜色
+        // bar.backgroundColor = UIColor.blue
+        // 绑定返回键
+        back.action = #selector(backToIndex)
+        // barTxt
+        barTxt.title = titleTxt
+        // 返回样式
+        back.image = Icons.left.iconFontImage(fontSize: 30, color: .white)
     }
     
     @objc func backToIndex() {

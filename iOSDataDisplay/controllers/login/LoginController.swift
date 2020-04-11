@@ -7,7 +7,7 @@
 //
 
 import UIKit
-// import Alamofire
+import Alamofire
 
 class LoginController: UIViewController, UITextFieldDelegate {
     // 顶部栏
@@ -32,23 +32,24 @@ class LoginController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // 免证书Alamofire
-        // let manager = SessionManager.default
-        // manager.delegate.sessionDidReceiveChallenge = {
-        //    session, challenge in
-        //    return (URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-        // }
-
+        let manager = SessionManager.default
+        manager.delegate.sessionDidReceiveChallenge = {
+            session, challenge in
+            return (URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+        }
         // 异步获取 判断登录状态
-        // Alamofire.request(getAccountUrl, method: .post).responseJSON { respose in
+        Alamofire.request(getAccountUrl, method: .post).responseJSON { respose in
+            print("response")
+            print(respose)
             // 未登录
-        //    if (respose.response?.statusCode != 200) {
+            if (respose.response?.statusCode != 200) {
                 self.initial()
-        //    }
+            }
             // 已登录
-        //    else {
-        //        self.jumpToIndex()
-        //    }
-        //}
+            else {
+                self.jumpToIndex()
+            }
+        }
         
     }
     
@@ -177,7 +178,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @objc func tapToIndex(sender: UIButton) {
         if (userTextField.text!.isEmpty && pwdTextField.text!.isEmpty) {
-            // showMsgbox(_message: "账号和密码不能为空")
+            //showMsgbox(_message: "账号和密码不能为空")
             jumpToIndex()
         }
         else if (userTextField.text!.isEmpty) {
@@ -187,8 +188,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
             showMsgbox(_message: "密码不能为空")
         }
         else if userTextField.text!.isPhoneNumber() || userTextField.text!.isEmail() {
-            /*let authHeader = getAuthHeader(username: userTextField.text!, password: pwdTextField.text!)
-            print(authHeader)
+            let authHeader = getAuthHeader(username: userTextField.text!, password: pwdTextField.text!)
+            // print(authHeader)
             // 跳转到登录页面说明一定需要header，且header中不需要带session
             let header: HTTPHeaders = [
                 "Authorization": authHeader
@@ -201,22 +202,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 else {
                     self?.jumpToIndex()
                 }
-            }*/
-            jumpToIndex()
+            }
         }
         else {
             showMsgbox(_message: "账号不符合格式，请输入手机号或邮箱")
         }
-        //Alamofire.request(getAccountUrl, method: .post).responseJSON { respose in
-            // 未登录
-          //  if (respose.response?.statusCode != 200) {
-          //      self.initial()
-          //  }
-                // 已登录
-          //  else {
-          //      self.jumpToIndex()
-          //  }
-        //}
     }
     
     func jumpToIndex() {

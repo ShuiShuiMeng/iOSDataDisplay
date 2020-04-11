@@ -19,6 +19,12 @@
 		D4B2B3752437D42800A24C88 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4B2B3742437D3F000A24C88 /* FontAwesome.ttf */; };
 		D4B2B3772437DAAB00A24C88 /* ExImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3762437DAAB00A24C88 /* ExImageView.swift */; };
 		D4B2B3792437DE3700A24C88 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3782437DE3700A24C88 /* Colors.swift */; };
+		D4B2B37B2440C58700A24C88 /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B37A2440C58700A24C88 /* MsgViewController.swift */; };
+		D4B2B383244228B000A24C88 /* PhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B382244228B000A24C88 /* PhoneViewController.swift */; };
+		D4B2B386244228C700A24C88 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B385244228C700A24C88 /* MailViewController.swift */; };
+		D4B2B388244228D700A24C88 /* PwdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B387244228D700A24C88 /* PwdViewController.swift */; };
+		D4B2B38A244228F700A24C88 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B389244228F700A24C88 /* SettingViewController.swift */; };
+		D4B2B38D24422BF100A24C88 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B38C24422BF100A24C88 /* BackButton.swift */; };
 		D4E9A3D92434D74100EC6884 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3D82434D74100EC6884 /* AppDelegate.swift */; };
 		D4E9A3DB2434D74100EC6884 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */; };
 		D4E9A3DD2434D74100EC6884 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3DC2434D74100EC6884 /* HistoryViewController.swift */; };
@@ -161,6 +167,12 @@
 		D4B2B3742437D3F000A24C88 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		D4B2B3762437DAAB00A24C88 /* ExImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExImageView.swift; sourceTree = "<group>"; };
 		D4B2B3782437DE3700A24C88 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D4B2B37A2440C58700A24C88 /* MsgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgViewController.swift; sourceTree = "<group>"; };
+		D4B2B382244228B000A24C88 /* PhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewController.swift; sourceTree = "<group>"; };
+		D4B2B385244228C700A24C88 /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		D4B2B387244228D700A24C88 /* PwdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdViewController.swift; sourceTree = "<group>"; };
+		D4B2B389244228F700A24C88 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		D4B2B38C24422BF100A24C88 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		D4E9A3D52434D74100EC6884 /* iOSDataDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDataDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E9A3D82434D74100EC6884 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
@@ -245,6 +257,54 @@
 			path = grid;
 			sourceTree = "<group>";
 		};
+		D4B2B37E2442284500A24C88 /* mine */ = {
+			isa = PBXGroup;
+			children = (
+				D4E9A91F2434DCBA00EC6884 /* MineViewController.swift */,
+				D4B2B37A2440C58700A24C88 /* MsgViewController.swift */,
+				D4B2B382244228B000A24C88 /* PhoneViewController.swift */,
+				D4B2B385244228C700A24C88 /* MailViewController.swift */,
+				D4B2B387244228D700A24C88 /* PwdViewController.swift */,
+				D4B2B389244228F700A24C88 /* SettingViewController.swift */,
+			);
+			path = mine;
+			sourceTree = "<group>";
+		};
+		D4B2B37F2442285A00A24C88 /* index */ = {
+			isa = PBXGroup;
+			children = (
+				D4E9A95B2434EF5300EC6884 /* DepViewController.swift */,
+				D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */,
+			);
+			path = index;
+			sourceTree = "<group>";
+		};
+		D4B2B3802442287400A24C88 /* history */ = {
+			isa = PBXGroup;
+			children = (
+				D4E9A3DC2434D74100EC6884 /* HistoryViewController.swift */,
+			);
+			path = history;
+			sourceTree = "<group>";
+		};
+		D4B2B3812442287A00A24C88 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				D4E9A9212434DE0300EC6884 /* LoginController.swift */,
+				D4E9A91D2434DA7200EC6884 /* ViewController.swift */,
+			);
+			path = login;
+			sourceTree = "<group>";
+		};
+		D4B2B38B24422B8F00A24C88 /* buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D4E9A8FE2434D91A00EC6884 /* DepButton.swift */,
+				D4B2B38C24422BF100A24C88 /* BackButton.swift */,
+			);
+			path = buttons;
+			sourceTree = "<group>";
+		};
 		D4E9A3CC2434D74100EC6884 = {
 			isa = PBXGroup;
 			children = (
@@ -305,12 +365,10 @@
 		D4E9A4082434D7B100EC6884 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D4E9A9212434DE0300EC6884 /* LoginController.swift */,
-				D4E9A91D2434DA7200EC6884 /* ViewController.swift */,
-				D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */,
-				D4E9A3DC2434D74100EC6884 /* HistoryViewController.swift */,
-				D4E9A91F2434DCBA00EC6884 /* MineViewController.swift */,
-				D4E9A95B2434EF5300EC6884 /* DepViewController.swift */,
+				D4B2B3812442287A00A24C88 /* login */,
+				D4B2B3802442287400A24C88 /* history */,
+				D4B2B37F2442285A00A24C88 /* index */,
+				D4B2B37E2442284500A24C88 /* mine */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -318,6 +376,7 @@
 		D4E9A4092434D8C200EC6884 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				D4B2B38B24422B8F00A24C88 /* buttons */,
 				D4B2B3692437C9B200A24C88 /* grid */,
 				D4E9A8F32434D91A00EC6884 /* ScrollBars.swift */,
 				D4E9A8F42434D91A00EC6884 /* DataNumbers.xib */,
@@ -328,7 +387,6 @@
 				D4E9A8FA2434D91A00EC6884 /* DataPercent.xib */,
 				D4E9A8FC2434D91A00EC6884 /* DataNumber.swift */,
 				D4E9A8FD2434D91A00EC6884 /* DataPercent.swift */,
-				D4E9A8FE2434D91A00EC6884 /* DepButton.swift */,
 				D4E9A8FF2434D91A00EC6884 /* DataNumbers.swift */,
 				D4E9A9012434D91A00EC6884 /* Index.swift */,
 				D4E9A9022434D91A00EC6884 /* Index.xib */,
@@ -352,7 +410,6 @@
 			children = (
 				D4B2B3702437D0DF00A24C88 /* FAIcon.swift */,
 				D4B2B3742437D3F000A24C88 /* FontAwesome.ttf */,
-				D4E9A9172434D97300EC6884 /* Icons.swift */,
 				D4E9A9162434D97300EC6884 /* LFIconFont.swift */,
 				D4E9A9182434D97300EC6884 /* iconfont.ttf */,
 			);
@@ -371,6 +428,7 @@
 		D4E9A9262434DEA000EC6884 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				D4E9A9172434D97300EC6884 /* Icons.swift */,
 				D4E9A9272434DEA000EC6884 /* Constants.swift */,
 				D4E9A9282434DEA000EC6884 /* Connection.swift */,
 				D4E9A92D2434DEA000EC6884 /* Draw.swift */,
@@ -630,14 +688,18 @@
 				D4B2B35C243782F800A24C88 /* DepNumber.swift in Sources */,
 				D4E9A91A2434D97300EC6884 /* Icons.swift in Sources */,
 				D4E9A92F2434DEA000EC6884 /* Connection.swift in Sources */,
+				D4B2B386244228C700A24C88 /* MailViewController.swift in Sources */,
 				D4E9A92E2434DEA000EC6884 /* Constants.swift in Sources */,
+				D4B2B383244228B000A24C88 /* PhoneViewController.swift in Sources */,
 				D4E9A9332434DEA000EC6884 /* Draw.swift in Sources */,
 				D4E9A3DD2434D74100EC6884 /* HistoryViewController.swift in Sources */,
 				D4B2B3772437DAAB00A24C88 /* ExImageView.swift in Sources */,
+				D4B2B38D24422BF100A24C88 /* BackButton.swift in Sources */,
 				D4E9A90F2434D91B00EC6884 /* DepButton.swift in Sources */,
 				D4B2B3712437D0DF00A24C88 /* FAIcon.swift in Sources */,
 				D4E9A95E2434F4B500EC6884 /* DepData.swift in Sources */,
 				D4E9A9122434D91B00EC6884 /* Index.swift in Sources */,
+				D4B2B388244228D700A24C88 /* PwdViewController.swift in Sources */,
 				D4E9A9322434DEA000EC6884 /* ExVC.swift in Sources */,
 				D4B2B36D2437CBDF00A24C88 /* UICollectionGridViewCell.swift in Sources */,
 				D4E9A91E2434DA7200EC6884 /* ViewController.swift in Sources */,
@@ -655,7 +717,9 @@
 				D4E9A90E2434D91B00EC6884 /* DataPercent.swift in Sources */,
 				D4B2B36B2437CA0300A24C88 /* UICollectionGridViewLayout.swift in Sources */,
 				D4E9A9582434E33B00EC6884 /* BarData.swift in Sources */,
+				D4B2B37B2440C58700A24C88 /* MsgViewController.swift in Sources */,
 				D4B2B36F2437CD7E00A24C88 /* testgrid.swift in Sources */,
+				D4B2B38A244228F700A24C88 /* SettingViewController.swift in Sources */,
 				D4E9A9302434DEA000EC6884 /* ExString.swift in Sources */,
 				D4E9A9202434DCBA00EC6884 /* MineViewController.swift in Sources */,
 			);

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     // base64编码
@@ -37,5 +38,14 @@ extension String {
         let emailPattern = "^[A-Z,a-z,\\d]+([-_.][A-Z,a-z,\\d]+)*@([A-Z,a-z,\\d]+[-.])+[A-Z,a-z,\\d]{2,4}"
         let predicate = NSPredicate(format: "SELF MATCHES %@", emailPattern)
         return predicate.evaluate(with: self)
+    }
+    
+    func toViewClass() -> UIViewController.Type{
+        // 获取命名空间也就是项目名称
+        let clsName = Bundle.main.infoDictionary!["CFBundleExecutable"] as? String
+        // 拼接
+        let className=clsName! + "." + self
+        //字符串转Class 需要注意的是这里的`UIViewController`强转必须带上`.Type`,否则转换不成功
+        return NSClassFromString(className)! as! UIViewController.Type
     }
 }

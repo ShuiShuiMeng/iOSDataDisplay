@@ -106,8 +106,8 @@ class UICollectionGridViewController: UICollectionViewController {
         
         //表头单元格背景色
         if indexPath.section == 0 {
-            cell.backgroundColor = UIColor(red: 0x91/255, green: 0xDA/255,
-                                           blue: 0x51/255, alpha: 1)
+            //cell.backgroundColor = UIColor(red: 0x91/255, green: 0xDA/255, blue: 0x51/255, alpha: 1)
+            cell.backgroundColor = UIColor.blue
             //排序列列头显示升序降序图标
             if indexPath.row == selectedColIdx {
                 let iconType = asc ? FAType.FALongArrowUp : FAType.FALongArrowDown

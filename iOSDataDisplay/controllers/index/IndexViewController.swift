@@ -29,12 +29,12 @@ class IndexViewController: UIViewController {
     }
     
     func initial() {
+        scrollView.backgroundColor = Colors.background
         loadIcons()
         drawTopView()
         loadIndex()
         drawDeps()
         drawBars()
-        setBackground()
     }
     
     func loadIcons() {
@@ -163,10 +163,6 @@ class IndexViewController: UIViewController {
         }
         
         scrollView.contentSize = CGSize(width: 375, height: 500+60*barDatas.count)
-    }
-    
-    func setBackground() {
-        scrollView.backgroundColor = UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5)
     }
     
     @objc func tapTop() {

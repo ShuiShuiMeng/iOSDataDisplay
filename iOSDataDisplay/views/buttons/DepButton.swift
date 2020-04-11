@@ -9,6 +9,7 @@
 import UIKit
 
 class DepButton: UIButton {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -24,7 +25,7 @@ class DepButton: UIButton {
         if imageView == nil {
             return
         }
-        imageView?.frame = CGRect(x: self.frame.width*0.5 - imageView!.frame.width*0.5, y: imageView!.frame.height*0.15, width: imageView!.frame.width, height: imageView!.frame.height)
+        imageView?.frame = CGRect(x: frame.width*0.5 - imageView!.frame.width*0.5, y: imageView!.frame.height*0.15, width: imageView!.frame.width, height: imageView!.frame.height)
         titleLabel?.frame = CGRect(x: 0, y: imageView!.frame.size.height, width: frame.width, height: frame.height - imageView!.frame.height)
     }
     

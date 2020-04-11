@@ -35,4 +35,12 @@ struct Icons {
     static let eyeCloseIcon = LFIconFont(code: "\u{e637}", name: "密码不可见")
     static let refreshIcon = LFIconFont(code: "\u{e7d1}", name: "刷新")
     static let settingIcon = LFIconFont(code: "\u{e63f}", name: "设置")
+    static let right = LFIconFont(code: "\u{e658}", name: "前进")
+    static let left = LFIconFont(code: "\u{e659}", name: "后退")
+    static let project = LFIconFont(code: "\u{e63a}", name: "项目")
+    static let phone = LFIconFont(code: "\u{e611}", name: "电话")
+    static let mail = LFIconFont(code: "\u{e639}", name: "邮箱")
+    static let pwdIcon2 = LFIconFont(code: "\u{e62b}", name: "密码")
+    static let userIcon2 = LFIconFont(code: "\u{e616}", name: "个人信息")
+    static let settingIcon2 = LFIconFont(code: "\u{e627}", name: "设置")
 }
