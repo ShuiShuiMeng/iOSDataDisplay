@@ -152,10 +152,10 @@
             </objects>
             <point key="canvasLocation" x="-3546" y="361"/>
         </scene>
-        <!--Mail View Controller-->
+        <!--Email View Controller-->
         <scene sceneID="CUc-hk-JlM">
             <objects>
-                <viewController storyboardIdentifier="MailViewController" id="Zub-aj-wvm" customClass="MailViewController" customModule="iOSDataDisplay" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmailViewController" id="Zub-aj-wvm" customClass="EmailViewController" customModule="iOSDataDisplay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vgu-wV-OxS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -352,7 +352,7 @@
         <!--Login Controller-->
         <scene sceneID="rBp-3v-ccu">
             <objects>
-                <viewController id="lWc-c8-HKK" customClass="LoginController" customModule="iOSDataDisplay" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginController" id="lWc-c8-HKK" customClass="LoginController" customModule="iOSDataDisplay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="504-UQ-5gG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

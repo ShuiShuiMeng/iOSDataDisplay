@@ -18,14 +18,17 @@ class DataNumbers: UIView {
     @IBOutlet var zxl: DataPercent!
     
     func initNumbers() {
-        dnyss.setTitle(t: "当年预算数")
-        dnyss.setData(d: 951109)
-        zzjhzs.setTitle(t: "资助计划总数")
-        zzjhzs.setData(d: 961026)
-        zxed.setTitle(t: "执行额度")
-        zxed.setData(d: 777777)
-        zxl.setTitle(t: "执行率")
-        zxl.setData(d: 0.8093)
+        dnyss.setData(d: 0)
+        zzjhzs.setData(d: 0)
+        zxed.setData(d: 0)
+        zxl.setData(d: 0)
+    }
+    
+    func setNumbers(budget:Float, total:Float, exeQuota:Float, exeRate:Float) {
+        dnyss.setData(d: budget)
+        zzjhzs.setData(d: total)
+        zxed.setData(d: exeQuota)
+        zxl.setData(d: exeRate)
     }
     
     func setBackgrond(color: UIColor) {
@@ -33,30 +36,26 @@ class DataNumbers: UIView {
     }
     
     func initBackgrounds() {
-        //dnyss.setImage(img: UIImage(named: "bg7.jpg")!)
-        //zzjhzs.setImage(img: UIImage(named: "bg7.jpg")!)
-        //zxed.setImage(img: UIImage(named: "bg7.jpg")!)
-        //zxl.setImage(img: UIImage(named: "bg7.jpg")!)
-        
-        
-        
         dnyss.setColorImage(color: Colors.blue)
         zzjhzs.setColorImage(color: Colors.blue)
         zxed.setColorImage(color: Colors.blue)
         zxl.setColorImage(color: Colors.blue)
     }
     
-    func initIcons() {
+    func initTitles() {
         dnyss.setIcon(img: Icons.ysIcon.iconFontImage(fontSize: 25, color: .white))
+        dnyss.setTitle(t: "当年预算数")
         zzjhzs.setIcon(img: Icons.jhIcon.iconFontImage(fontSize: 25, color: .white))
+        zzjhzs.setTitle(t: "资助计划总数")
         zxed.setIcon(img: Icons.zxIcon.iconFontImage(fontSize: 25, color: .white))
+        zxed.setTitle(t: "执行额度")
         zxl.setIcon(img: Icons.blIcon.iconFontImage(fontSize: 25, color: .white))
+        zxl.setTitle(t: "执行率")
     }
     
     func initial() {
-        initNumbers()
         initBackgrounds()
-        initIcons()
+        initTitles()
         setBackgrond(color: UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5))
     }
     

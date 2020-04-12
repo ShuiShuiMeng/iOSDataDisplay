@@ -32,7 +32,7 @@ class MineViewController: UIViewController {
     func initial() {
         mineItem.selectedImage = Icons.mineIconB.iconFontImage(fontSize: 35, color: .gray)
         self.view?.backgroundColor = Colors.background
-        drawHeader(name: "沈耀", dep: "办公室")
+        drawHeader(name: getNameFromCookie()!, dep: getDepartmentFromCookie()!)
         drawBoxes()
     }
     
@@ -67,7 +67,7 @@ class MineViewController: UIViewController {
         
         // 绑定邮箱
         mailButton = UIButton(frame: CGRect(x: 0, y: 220, width: mainSize.width, height: 50))
-        addElem(button: mailButton, titleStr: "修改绑定邮箱", lficon: Icons.mail, tag: 2)
+        addElem(button: mailButton, titleStr: "修改绑定邮箱", lficon: Icons.email, tag: 2)
         wapper.addSubview(mailButton)
         
         // 修改密码
@@ -115,7 +115,7 @@ class MineViewController: UIViewController {
             self.present(VC, animated: true, completion: nil)
             break;
         case 2:
-            let VC = self.storyboard?.instantiateViewController(withIdentifier: "MailViewController") as! MailViewController
+            let VC = self.storyboard?.instantiateViewController(withIdentifier: "EmailViewController") as! EmailViewController
             self.present(VC, animated: true, completion: nil)
             break;
         case 3:

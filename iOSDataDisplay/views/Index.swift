@@ -11,6 +11,7 @@ import UIKit
 class Index: UIView {
     
     var contentView: UIView!
+    @IBOutlet var numbers: DataNumbers!
     
     func setBackgrond(color: UIColor) {
         contentView.backgroundColor = color
@@ -18,6 +19,10 @@ class Index: UIView {
     
     func initial() {
         setBackgrond(color: UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5))
+    }
+    
+    func setNumbers(budget: Float, total: Float, exeQuota: Float, exeRate: Float) {
+        numbers.setNumbers(budget: budget, total: total, exeQuota: exeQuota, exeRate: exeRate)
     }
     
     //初始化时将xib中的view添加进来

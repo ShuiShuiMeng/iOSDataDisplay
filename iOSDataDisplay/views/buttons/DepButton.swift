@@ -32,7 +32,7 @@ class DepButton: UIButton {
 }
 
 // 可以在这里设置一些需要的属性
-extension DepButton{
+extension DepButton {
     fileprivate func setupUI() {
         titleLabel?.textAlignment = .center
         titleLabel?.font = UIFont.systemFont(ofSize: 13)

@@ -1,5 +1,5 @@
 //
-//  PhoneViewController.swift
+//  EmailViewController.swift
 //  iOSDataDisplay
 //
 //  Created by Flora on 2020/4/12.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhoneViewController: UIViewController, UITextFieldDelegate {
+class EmailViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var wapper: UIView!
     
@@ -18,7 +18,7 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
     var modifyBox: UIView!
     var userTextField: UITextField!
     var pwdTextField: UITextField!
-    var phoneTextField: UITextField!
+    var emailTextField: UITextField!
     var modifyButton: UIButton!
     
     override func viewDidLoad() {
@@ -61,7 +61,7 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
         // 密码输入框
         drawPwdTextField()
         // 新手机号输入框
-        drawPhoneTextField()
+        drawEmailTextField()
         // 确认修改
         drawModifyButton()
     }
@@ -75,7 +75,7 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
         userTextField.layer.borderWidth = 0.5
         userTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         userTextField.leftViewMode = UITextField.ViewMode.always
-        userTextField.placeholder = UserDefaults.standard.string(forKey: "userPhone")
+        userTextField.placeholder = UserDefaults.standard.string(forKey: "userEmail")
         userTextField.isUserInteractionEnabled = false
         
         // 用户名输入框左侧图标
@@ -113,25 +113,25 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
         modifyBox.addSubview(pwdTextField)
     }
     
-    func drawPhoneTextField() {
+    func drawEmailTextField() {
         //新手机输入
-        phoneTextField = UITextField(frame: CGRect(x:10, y:128, width:modifyBox.frame.size.width-20, height:44))
-        phoneTextField.delegate = self
-        phoneTextField.layer.cornerRadius = 5
-        phoneTextField.layer.borderColor = UIColor.lightGray.cgColor
-        phoneTextField.layer.borderWidth = 0.5
-        phoneTextField.isSecureTextEntry = PwdStatus.INVISIBLE
-        phoneTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        phoneTextField.leftViewMode = UITextField.ViewMode.always
-        phoneTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        phoneTextField.rightViewMode = UITextField.ViewMode.always
-        phoneTextField.placeholder = "请输入新手机号"
+        emailTextField = UITextField(frame: CGRect(x:10, y:128, width:modifyBox.frame.size.width-20, height:44))
+        emailTextField.delegate = self
+        emailTextField.layer.cornerRadius = 5
+        emailTextField.layer.borderColor = UIColor.lightGray.cgColor
+        emailTextField.layer.borderWidth = 0.5
+        emailTextField.isSecureTextEntry = PwdStatus.INVISIBLE
+        emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        emailTextField.leftViewMode = UITextField.ViewMode.always
+        emailTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        emailTextField.rightViewMode = UITextField.ViewMode.always
+        emailTextField.placeholder = "请输入新邮箱"
         // 密码输入框左侧图标
         let imgLeftPwd = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        imgLeftPwd.image = Icons.phone.iconFontImage(fontSize: 20, color: .gray)
-        phoneTextField.leftView!.addSubview(imgLeftPwd)
-        phoneTextField.addSubview(imgLeftPwd)
-        modifyBox.addSubview(phoneTextField)
+        imgLeftPwd.image = Icons.email.iconFontImage(fontSize: 20, color: .gray)
+        emailTextField.leftView!.addSubview(imgLeftPwd)
+        emailTextField.addSubview(imgLeftPwd)
+        modifyBox.addSubview(emailTextField)
     }
     
     func drawModifyButton() {
@@ -166,7 +166,7 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func modify(sender: UIButton) {
-        if userTextField.text!.isEmpty && pwdTextField.text!.isEmpty && phoneTextField.text!.isEmpty {
+        if userTextField.text!.isEmpty && pwdTextField.text!.isEmpty && emailTextField.text!.isEmpty {
             showMsgbox(_message: "输入为空")
         }
         else if userTextField.text!.isEmpty {
@@ -175,13 +175,13 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
         else if pwdTextField.text!.isEmpty {
             showMsgbox(_message: "密码不能为空")
         }
-        else if phoneTextField.text!.isEmpty {
+        else if emailTextField.text!.isEmpty {
             showMsgbox(_message: "新手机号不能为空")
         }
         else if !userTextField.text!.isPhoneNumber() && !userTextField.text!.isEmail() {
             showMsgbox(_message: "用户名不符合格式")
         }
-        else if !phoneTextField.text!.isPhoneNumber() {
+        else if !emailTextField.text!.isEmail() {
             showMsgbox(_message: "新手机号不符合格式")
         }
         else {

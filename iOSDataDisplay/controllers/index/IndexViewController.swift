@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class IndexViewController: UIViewController {
     
@@ -51,8 +52,8 @@ class IndexViewController: UIViewController {
         topButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
         topButton.setTitle("2020年度科学基金资助计划\n（国科金发〔2020〕X号）", for: .normal)
         topButton.addTarget(self, action: #selector(tapTop), for: .touchUpInside)
-        refresh.setImage(Icons.refreshIcon.iconFontImage(fontSize: 30, color: .black), for: .normal)
-        
+        refresh.setImage(Icons.refreshIcon.iconFontImage(fontSize: 20, color: .black), for: .normal)
+        refresh.addTarget(self, action: #selector(refreshNumbers(sender:)), for: .touchUpInside)
         topView.addSubview(drawGrayLineView(x: 0, y: 49, height: 1))
     }
     
@@ -167,6 +168,36 @@ class IndexViewController: UIViewController {
     
     @objc func tapTop() {
         
+    }
+    
+    func httpGetNumbers() {
+        let header: HTTPHeaders = [
+            "Cookie": UserDefaults.standard.string(forKey: "__session")!
+        ]
+        Alamofire.request(getNumbersUrl, method: .post, headers: header).responseJSON { response in
+            // 未登录
+            if (response.response?.statusCode != 200) {
+                self.jumpToLogin()
+            }
+            // 已登录
+            else {
+                if response.result.isSuccess {
+                    //把得到的JSON数据转为数组
+                    // print(response.result.value)
+                    let items = response.result.value as? Dictionary<String, Any>
+                    // Dictionary
+                }
+            }
+        }
+    }
+    
+    @objc func refreshNumbers(sender: UIButton) {
+        httpGetNumbers()
+    }
+    
+    func jumpToLogin() {
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
+        self.present(loginVC, animated: true, completion: nil)
     }
 }
 

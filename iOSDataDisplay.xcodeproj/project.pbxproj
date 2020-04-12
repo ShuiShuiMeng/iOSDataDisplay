@@ -15,16 +15,18 @@
 		D4B2B36D2437CBDF00A24C88 /* UICollectionGridViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B36C2437CBDF00A24C88 /* UICollectionGridViewCell.swift */; };
 		D4B2B36F2437CD7E00A24C88 /* testgrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B36E2437CD7E00A24C88 /* testgrid.swift */; };
 		D4B2B3712437D0DF00A24C88 /* FAIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3702437D0DF00A24C88 /* FAIcon.swift */; };
-		D4B2B3732437D10500A24C88 /* bg7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D4B2B3722437D10500A24C88 /* bg7.jpg */; };
 		D4B2B3752437D42800A24C88 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4B2B3742437D3F000A24C88 /* FontAwesome.ttf */; };
 		D4B2B3772437DAAB00A24C88 /* ExImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3762437DAAB00A24C88 /* ExImageView.swift */; };
 		D4B2B3792437DE3700A24C88 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3782437DE3700A24C88 /* Colors.swift */; };
 		D4B2B37B2440C58700A24C88 /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B37A2440C58700A24C88 /* MsgViewController.swift */; };
 		D4B2B383244228B000A24C88 /* PhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B382244228B000A24C88 /* PhoneViewController.swift */; };
-		D4B2B386244228C700A24C88 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B385244228C700A24C88 /* MailViewController.swift */; };
+		D4B2B386244228C700A24C88 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B385244228C700A24C88 /* EmailViewController.swift */; };
 		D4B2B388244228D700A24C88 /* PwdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B387244228D700A24C88 /* PwdViewController.swift */; };
 		D4B2B38A244228F700A24C88 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B389244228F700A24C88 /* SettingViewController.swift */; };
 		D4B2B38D24422BF100A24C88 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B38C24422BF100A24C88 /* BackButton.swift */; };
+		D4B2B39524438D4C00A24C88 /* GetAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B39424438D4C00A24C88 /* GetAccountModel.swift */; };
+		D4B2B3992443922F00A24C88 /* GetAccountDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3982443922F00A24C88 /* GetAccountDecoder.swift */; };
+		D4B2B39B24439D3D00A24C88 /* Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B39A24439D3D00A24C88 /* Cookies.swift */; };
 		D4E9A3D92434D74100EC6884 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3D82434D74100EC6884 /* AppDelegate.swift */; };
 		D4E9A3DB2434D74100EC6884 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */; };
 		D4E9A3DD2434D74100EC6884 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3DC2434D74100EC6884 /* HistoryViewController.swift */; };
@@ -163,16 +165,18 @@
 		D4B2B36C2437CBDF00A24C88 /* UICollectionGridViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionGridViewCell.swift; sourceTree = "<group>"; };
 		D4B2B36E2437CD7E00A24C88 /* testgrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testgrid.swift; sourceTree = "<group>"; };
 		D4B2B3702437D0DF00A24C88 /* FAIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAIcon.swift; sourceTree = "<group>"; };
-		D4B2B3722437D10500A24C88 /* bg7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg7.jpg; sourceTree = "<group>"; };
 		D4B2B3742437D3F000A24C88 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		D4B2B3762437DAAB00A24C88 /* ExImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExImageView.swift; sourceTree = "<group>"; };
 		D4B2B3782437DE3700A24C88 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D4B2B37A2440C58700A24C88 /* MsgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgViewController.swift; sourceTree = "<group>"; };
 		D4B2B382244228B000A24C88 /* PhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewController.swift; sourceTree = "<group>"; };
-		D4B2B385244228C700A24C88 /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		D4B2B385244228C700A24C88 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		D4B2B387244228D700A24C88 /* PwdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdViewController.swift; sourceTree = "<group>"; };
 		D4B2B389244228F700A24C88 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D4B2B38C24422BF100A24C88 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		D4B2B39424438D4C00A24C88 /* GetAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountModel.swift; sourceTree = "<group>"; };
+		D4B2B3982443922F00A24C88 /* GetAccountDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountDecoder.swift; sourceTree = "<group>"; };
+		D4B2B39A24439D3D00A24C88 /* Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cookies.swift; sourceTree = "<group>"; };
 		D4E9A3D52434D74100EC6884 /* iOSDataDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDataDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E9A3D82434D74100EC6884 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
@@ -263,7 +267,7 @@
 				D4E9A91F2434DCBA00EC6884 /* MineViewController.swift */,
 				D4B2B37A2440C58700A24C88 /* MsgViewController.swift */,
 				D4B2B382244228B000A24C88 /* PhoneViewController.swift */,
-				D4B2B385244228C700A24C88 /* MailViewController.swift */,
+				D4B2B385244228C700A24C88 /* EmailViewController.swift */,
 				D4B2B387244228D700A24C88 /* PwdViewController.swift */,
 				D4B2B389244228F700A24C88 /* SettingViewController.swift */,
 			);
@@ -303,6 +307,22 @@
 				D4B2B38C24422BF100A24C88 /* BackButton.swift */,
 			);
 			path = buttons;
+			sourceTree = "<group>";
+		};
+		D4B2B3962443911000A24C88 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				D4B2B39424438D4C00A24C88 /* GetAccountModel.swift */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		D4B2B397244391EE00A24C88 /* decoders */ = {
+			isa = PBXGroup;
+			children = (
+				D4B2B3982443922F00A24C88 /* GetAccountDecoder.swift */,
+			);
+			path = decoders;
 			sourceTree = "<group>";
 		};
 		D4E9A3CC2434D74100EC6884 = {
@@ -419,7 +439,6 @@
 		D4E9A9232434DE5200EC6884 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				D4B2B3722437D10500A24C88 /* bg7.jpg */,
 				D4E9A9242434DE6900EC6884 /* NSFC.jpeg */,
 			);
 			path = images;
@@ -428,12 +447,14 @@
 		D4E9A9262434DEA000EC6884 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				D4B2B397244391EE00A24C88 /* decoders */,
 				D4E9A9172434D97300EC6884 /* Icons.swift */,
 				D4E9A9272434DEA000EC6884 /* Constants.swift */,
 				D4E9A9282434DEA000EC6884 /* Connection.swift */,
 				D4E9A92D2434DEA000EC6884 /* Draw.swift */,
 				D4E9A9292434DEA000EC6884 /* extension */,
 				D4B2B3782437DE3700A24C88 /* Colors.swift */,
+				D4B2B39A24439D3D00A24C88 /* Cookies.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -474,6 +495,7 @@
 		D4E9A9562434E33B00EC6884 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				D4B2B3962443911000A24C88 /* json */,
 				D4E9A9572434E33B00EC6884 /* BarData.swift */,
 				D4E9A95D2434F4B500EC6884 /* DepData.swift */,
 			);
@@ -658,7 +680,6 @@
 				D4E9A3E02434D74100EC6884 /* Main.storyboard in Resources */,
 				D4B2B35324377B4F00A24C88 /* DepNumber.xib in Resources */,
 				D4E9A9252434DE6900EC6884 /* NSFC.jpeg in Resources */,
-				D4B2B3732437D10500A24C88 /* bg7.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +709,7 @@
 				D4B2B35C243782F800A24C88 /* DepNumber.swift in Sources */,
 				D4E9A91A2434D97300EC6884 /* Icons.swift in Sources */,
 				D4E9A92F2434DEA000EC6884 /* Connection.swift in Sources */,
-				D4B2B386244228C700A24C88 /* MailViewController.swift in Sources */,
+				D4B2B386244228C700A24C88 /* EmailViewController.swift in Sources */,
 				D4E9A92E2434DEA000EC6884 /* Constants.swift in Sources */,
 				D4B2B383244228B000A24C88 /* PhoneViewController.swift in Sources */,
 				D4E9A9332434DEA000EC6884 /* Draw.swift in Sources */,
@@ -697,6 +718,7 @@
 				D4B2B38D24422BF100A24C88 /* BackButton.swift in Sources */,
 				D4E9A90F2434D91B00EC6884 /* DepButton.swift in Sources */,
 				D4B2B3712437D0DF00A24C88 /* FAIcon.swift in Sources */,
+				D4B2B3992443922F00A24C88 /* GetAccountDecoder.swift in Sources */,
 				D4E9A95E2434F4B500EC6884 /* DepData.swift in Sources */,
 				D4E9A9122434D91B00EC6884 /* Index.swift in Sources */,
 				D4B2B388244228D700A24C88 /* PwdViewController.swift in Sources */,
@@ -707,6 +729,7 @@
 				D4E9A95C2434EF5300EC6884 /* DepViewController.swift in Sources */,
 				D4E9A3D92434D74100EC6884 /* AppDelegate.swift in Sources */,
 				D4E9A90D2434D91B00EC6884 /* DataNumber.swift in Sources */,
+				D4B2B39B24439D3D00A24C88 /* Cookies.swift in Sources */,
 				D4E9A9312434DEA000EC6884 /* ExButton.swift in Sources */,
 				D4E9A9042434D91B00EC6884 /* ScrollBars.swift in Sources */,
 				D4E9A90A2434D91B00EC6884 /* FinishedBar.swift in Sources */,
@@ -714,6 +737,7 @@
 				D4B2B35F2437BD9800A24C88 /* ExFloat.swift in Sources */,
 				D4E9A3DB2434D74100EC6884 /* IndexViewController.swift in Sources */,
 				D4E9A9222434DE0400EC6884 /* LoginController.swift in Sources */,
+				D4B2B39524438D4C00A24C88 /* GetAccountModel.swift in Sources */,
 				D4E9A90E2434D91B00EC6884 /* DataPercent.swift in Sources */,
 				D4B2B36B2437CA0300A24C88 /* UICollectionGridViewLayout.swift in Sources */,
 				D4E9A9582434E33B00EC6884 /* BarData.swift in Sources */,

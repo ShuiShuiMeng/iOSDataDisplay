@@ -30,7 +30,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // 免证书Alamofire
         let manager = SessionManager.default
         manager.delegate.sessionDidReceiveChallenge = {
@@ -38,19 +37,30 @@ class LoginController: UIViewController, UITextFieldDelegate {
             return (URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
         }
         // 异步获取 判断登录状态
-        Alamofire.request(getAccountUrl, method: .post).responseJSON { respose in
-            print("response")
-            print(respose)
-            // 未登录
-            if (respose.response?.statusCode != 200) {
-                self.initial()
-            }
-            // 已登录
-            else {
-                self.jumpToIndex()
+        //self.showMsgbox(_message: UserDefaults.standard.string(forKey: "__session")!)
+        //print(UserDefaults.standard.string(forKey: "__session")!)
+        // 检查是否有session, 如果没有cookie直接开始登录页面
+        if UserDefaults.standard.string(forKey: "__session") == nil {
+            initial()
+        }
+        // 有cookie的时候，发送验证
+        else {
+            let header: HTTPHeaders = [
+                "Cookie": UserDefaults.standard.string(forKey: "__session")!
+            ]
+            Alamofire.request(getAccountUrl, method: .post, headers: header).responseJSON {
+                response in
+                // cookie 无效
+                if (response.response?.statusCode != 200) {
+                    self.initial()
+                }
+                // cookie 有效，登录成功
+                else {
+                    refreshUser(resData: response.data!)
+                    self.jumpToIndex()
+                }
             }
         }
-        
     }
     
     func initial() {
@@ -76,7 +86,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     func drawLoginButton() {
         // 登陆按钮
-        loginButton = UIButton(frame: CGRect(x: 45, y: 400, width: mainSize.width-90, height: 40))
+        loginButton = UIButton(frame: CGRect(x: 45, y: 370, width: mainSize.width-90, height: 40))
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.setTitle("登录", for: .normal)
         loginButton.setTitleFontSize(size: 16)
@@ -105,6 +115,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
         userTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         userTextField.leftViewMode = UITextField.ViewMode.always
         userTextField.placeholder = "手机号或邮箱"
+        if (getLoginName() != nil) {
+            userTextField.text = getLoginName()!
+        }
         
         // 用户名输入框左侧图标
         let imgUser = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
@@ -178,8 +191,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @objc func tapToIndex(sender: UIButton) {
         if (userTextField.text!.isEmpty && pwdTextField.text!.isEmpty) {
-            //showMsgbox(_message: "账号和密码不能为空")
-            jumpToIndex()
+            showMsgbox(_message: "账号和密码不能为空")
+            //jumpToIndex()
+            //UserDefaults.standard.set(testUser, forKey: "username")
         }
         else if (userTextField.text!.isEmpty) {
             showMsgbox(_message: "账号不能为空")
@@ -187,19 +201,30 @@ class LoginController: UIViewController, UITextFieldDelegate {
         else if (pwdTextField.text!.isEmpty) {
             showMsgbox(_message: "密码不能为空")
         }
+        // 符合格式，开始登录
         else if userTextField.text!.isPhoneNumber() || userTextField.text!.isEmail() {
             let authHeader = getAuthHeader(username: userTextField.text!, password: pwdTextField.text!)
-            // print(authHeader)
             // 跳转到登录页面说明一定需要header，且header中不需要带session
             let header: HTTPHeaders = [
                 "Authorization": authHeader
             ]
             Alamofire.request(getAccountUrl, method: .post, headers: header).responseJSON  {
                 [weak self] response in // weakSelf防止self混乱
-                if (response.response?.statusCode != 200) {
+                // 返回null admin用户
+                if (response.result.value! is NSNull) {
+                    self?.showMsgbox(_message: "您的用户是电脑端账户，不能用于登录App。请使用拥有权限的账户登录App。")
+                }
+                // 401 用户名密码错误
+                else if (response.response?.statusCode != 200) {
                     self?.showMsgbox(_message: "用户名密码错误，请重新输入")
                 }
+                // 200 用户名密码正确
                 else {
+                    // 存取session到cookie中
+                    let headerFields = response.response?.allHeaderFields as! [String: String]
+                    refreshSession(session: headerFields["Set-Cookie"])
+                    refreshUser(resData: response.data!)
+                    refreshLoginName(name: (self?.userTextField.text)!)
                     self?.jumpToIndex()
                 }
             }
@@ -228,4 +253,5 @@ struct PwdStatus {
     static let VISIBLE:Bool = false
     static let INVISIBLE:Bool = true
 }
+
 

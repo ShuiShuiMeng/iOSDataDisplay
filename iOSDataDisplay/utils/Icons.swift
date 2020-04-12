@@ -39,7 +39,7 @@ struct Icons {
     static let left = LFIconFont(code: "\u{e659}", name: "后退")
     static let project = LFIconFont(code: "\u{e63a}", name: "项目")
     static let phone = LFIconFont(code: "\u{e611}", name: "电话")
-    static let mail = LFIconFont(code: "\u{e639}", name: "邮箱")
+    static let email = LFIconFont(code: "\u{e639}", name: "邮箱")
     static let pwdIcon2 = LFIconFont(code: "\u{e62b}", name: "密码")
     static let userIcon2 = LFIconFont(code: "\u{e616}", name: "个人信息")
     static let settingIcon2 = LFIconFont(code: "\u{e627}", name: "设置")

@@ -15,4 +15,6 @@ let baseUrl: String = "https://192.168.0.102:8088"
 let getAccountUrl: String = baseUrl + "/api/getAccount"
 let setAccountUrl: String = baseUrl + "/api/setAccount"
 let logoutUrl: String = baseUrl + "/api/logout"
+let getNumbersUrl: String = baseUrl+"/api/getOverallInfo"
 
+let testUser = "12345678999"
