@@ -18,12 +18,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
     var vLogin: UIView!
     var userTextField: UITextField!
     var pwdTextField: UITextField!
-
+    // x取消输入
+    var cancel: UIButton!
     // 登陆按钮
     var loginButton: UIButton!
     
-    // 屏幕size
-    // var mainSize: CGSize!
     
     // 登录框状态
     var showType: LoginShowType = LoginShowType.NONE
@@ -46,18 +45,23 @@ class LoginController: UIViewController, UITextFieldDelegate {
         // 有cookie的时候，发送验证
         else {
             let header: HTTPHeaders = [
-                "Cookie": UserDefaults.standard.string(forKey: "__session")!
+                "Cookie": getSession()!
             ]
             Alamofire.request(getAccountUrl, method: .post, headers: header).responseJSON {
                 response in
-                // cookie 无效
-                if (response.response?.statusCode != 200) {
-                    self.initial()
+                if (response.result.isSuccess) {
+                    // cookie 无效
+                    if (response.response?.statusCode != 200) {
+                        self.initial()
+                    }
+                        // cookie 有效，登录成功
+                    else {
+                        refreshUser(resData: response.data!)
+                        self.jumpToIndex()
+                    }
                 }
-                // cookie 有效，登录成功
                 else {
-                    refreshUser(resData: response.data!)
-                    self.jumpToIndex()
+                    self.initial()
                 }
             }
         }
@@ -94,7 +98,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         loginButton.layer.cornerRadius = 5
         // 设置corner无效，因为设置了背景色（corner对subview无效）
         loginButton.layer.masksToBounds = true
-        loginButton.addTarget(self, action: #selector(tapToIndex), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         self.view.addSubview(loginButton)
     }
     
@@ -114,6 +118,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
         userTextField.layer.borderWidth = 0.5
         userTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         userTextField.leftViewMode = UITextField.ViewMode.always
+        userTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        userTextField.rightViewMode = UITextField.ViewMode.always
         userTextField.placeholder = "手机号或邮箱"
         if (getLoginName() != nil) {
             userTextField.text = getLoginName()!
@@ -123,6 +129,16 @@ class LoginController: UIViewController, UITextFieldDelegate {
         let imgUser = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
         imgUser.image = Icons.userIcon.iconFontImage(fontSize: 20, color: .gray)
         userTextField.leftView!.addSubview(imgUser)
+        
+        // 右侧
+        cancel = UIButton(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
+        cancel.setImage(Icons.cancel.iconFontImage(fontSize: 20, color: .gray), for: .normal)
+        cancel.addTarget(self, action: #selector(cancelText(sender:)), for: .touchUpInside)
+        userTextField.rightView!.addSubview(cancel)
+        // 检测变化
+        userTextField.addTarget(self, action: #selector(openCancel), for: .editingChanged)
+        // 取消标志
+        cancel.isHidden = userTextField.text!.count == 0
         vLogin.addSubview(userTextField)
     }
     
@@ -189,7 +205,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @objc func tapToIndex(sender: UIButton) {
+    @objc func login(sender: UIButton) {
         if (userTextField.text!.isEmpty && pwdTextField.text!.isEmpty) {
             showMsgbox(_message: "账号和密码不能为空")
             //jumpToIndex()
@@ -211,27 +227,42 @@ class LoginController: UIViewController, UITextFieldDelegate {
             Alamofire.request(getAccountUrl, method: .post, headers: header).responseJSON  {
                 [weak self] response in // weakSelf防止self混乱
                 // 返回null admin用户
-                if (response.result.value! is NSNull) {
-                    self?.showMsgbox(_message: "您的用户是电脑端账户，不能用于登录App。请使用拥有权限的账户登录App。")
+                // print(response.result)
+                if (response.result.isSuccess) {
+                    if (response.result.value! is NSNull) {
+                        self?.showMsgbox(_message: "您的用户是电脑端账户，不能用于登录App。请使用拥有权限的账户登录App。")
+                    }
+                        // 401 用户名密码错误
+                    else if (response.response?.statusCode != 200) {
+                        self?.showMsgbox(_message: "用户名密码错误，请重新输入")
+                    }
+                        // 200 用户名密码正确
+                    else {
+                        // 存取session到cookie中
+                        let headerFields = response.response?.allHeaderFields as! [String: String]
+                        refreshSession(session: headerFields["Set-Cookie"])
+                        refreshUser(resData: response.data!)
+                        refreshLoginName(name: (self?.userTextField.text)!)
+                        self?.jumpToIndex()
+                    }
                 }
-                // 401 用户名密码错误
-                else if (response.response?.statusCode != 200) {
-                    self?.showMsgbox(_message: "用户名密码错误，请重新输入")
-                }
-                // 200 用户名密码正确
                 else {
-                    // 存取session到cookie中
-                    let headerFields = response.response?.allHeaderFields as! [String: String]
-                    refreshSession(session: headerFields["Set-Cookie"])
-                    refreshUser(resData: response.data!)
-                    refreshLoginName(name: (self?.userTextField.text)!)
-                    self?.jumpToIndex()
+                    self?.showMsgbox(_message: "网络错误，连接不到服务器")
                 }
             }
         }
         else {
             showMsgbox(_message: "账号不符合格式，请输入手机号或邮箱")
         }
+    }
+    
+    @objc func cancelText(sender: UIButton) {
+        userTextField.text = ""
+        cancel.isHidden = true
+    }
+    
+    @objc func openCancel() {
+        cancel.isHidden = userTextField.text!.count == 0
     }
     
     func jumpToIndex() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class EmailViewController: UIViewController, UITextFieldDelegate {
 
@@ -44,7 +45,7 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
         let title = UILabel(frame: CGRect(x: mainSize.width*0.5-75, y: 10, width: 150, height: 30))
         header.addSubview(backButton)
         title.textColor = .white
-        title.text = "修改绑定手机"
+        title.text = "修改绑定邮箱"
         title.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         title.textAlignment = .center
         header.addSubview(title)
@@ -114,19 +115,19 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     func drawEmailTextField() {
-        //新手机输入
+        // 新邮箱输入
         emailTextField = UITextField(frame: CGRect(x:10, y:128, width:modifyBox.frame.size.width-20, height:44))
         emailTextField.delegate = self
         emailTextField.layer.cornerRadius = 5
         emailTextField.layer.borderColor = UIColor.lightGray.cgColor
         emailTextField.layer.borderWidth = 0.5
-        emailTextField.isSecureTextEntry = PwdStatus.INVISIBLE
+        emailTextField.isSecureTextEntry = PwdStatus.VISIBLE
         emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         emailTextField.leftViewMode = UITextField.ViewMode.always
         emailTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         emailTextField.rightViewMode = UITextField.ViewMode.always
         emailTextField.placeholder = "请输入新邮箱"
-        // 密码输入框左侧图标
+        // 新邮箱输入框左侧图标
         let imgLeftPwd = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
         imgLeftPwd.image = Icons.email.iconFontImage(fontSize: 20, color: .gray)
         emailTextField.leftView!.addSubview(imgLeftPwd)
@@ -166,27 +167,73 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func modify(sender: UIButton) {
-        if userTextField.text!.isEmpty && pwdTextField.text!.isEmpty && emailTextField.text!.isEmpty {
-            showMsgbox(_message: "输入为空")
-        }
-        else if userTextField.text!.isEmpty {
-            showMsgbox(_message: "账号不能为空")
-        }
-        else if pwdTextField.text!.isEmpty {
+        if pwdTextField.text!.isEmpty {
             showMsgbox(_message: "密码不能为空")
         }
         else if emailTextField.text!.isEmpty {
-            showMsgbox(_message: "新手机号不能为空")
-        }
-        else if !userTextField.text!.isPhoneNumber() && !userTextField.text!.isEmail() {
-            showMsgbox(_message: "用户名不符合格式")
+            showMsgbox(_message: "新邮箱不能为空")
         }
         else if !emailTextField.text!.isEmail() {
-            showMsgbox(_message: "新手机号不符合格式")
+            showMsgbox(_message: "新邮箱不符合格式")
         }
         else {
-            
+            let header: HTTPHeaders = [
+                "Cookie": getSession()!,
+                "Content-Type": "application/x-www-form-urlencoded"
+            ]
+            let parameters = [
+                "email": getEmailFromCookie()!,
+                "passwd": pwdTextField.text!,
+                "new_email": emailTextField.text!
+            ]
+            Alamofire.request(setAccountUrl, method: .post, parameters: parameters, headers: header).responseJSON {
+                response in
+                if response.result.isSuccess {
+                    // cookie 无效
+                    if (response.response?.statusCode != 200) {
+                        self.showMsgbox(_message: "修改失败，登录权限过期，请重新登录")
+                        self.jumpToLogin()
+                    }
+                        // cookie 有效，登录成功
+                    else {
+                        print(response)
+                        let res = SetAccountDecoder.decode(jsonData: response.data!)
+                        if res.Code == 0 {
+                            self.pwdTextField.isUserInteractionEnabled = false
+                            self.emailTextField.isUserInteractionEnabled = false
+                            setEmailToCookie(email: self.emailTextField.text!)
+                            let alert = UIAlertController(title: "提示", message: "修改成功！", preferredStyle: UIAlertController.Style.alert)
+                            let btnOK = UIAlertAction(title: "好的", style: .default, handler: {
+                                action in
+                                self.jumpToMine()
+                            })
+                            alert.addAction(btnOK)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else if res.ObjT == "Cannot match a user" {
+                            self.showMsgbox(_message: "修改失败，密码错误")
+                        }
+                        else {
+                            self.showMsgbox(_message: "修改失败，新邮箱重复")
+                        }
+                    }
+                }
+                else {
+                    self.showMsgbox(_message: "修改失败，网络错误，无法连接到服务器")
+                }
+            }
         }
     }
 
+    func jumpToLogin() {
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
+        self.present(loginVC, animated: true, completion: nil)
+    }
+    
+    
+    func jumpToMine() {
+        let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+        tbVC.selectedIndex = 2
+        self.present(tbVC, animated: true, completion: nil)
+    }
 }

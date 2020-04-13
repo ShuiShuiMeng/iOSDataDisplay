@@ -25,8 +25,9 @@
 		D4B2B38A244228F700A24C88 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B389244228F700A24C88 /* SettingViewController.swift */; };
 		D4B2B38D24422BF100A24C88 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B38C24422BF100A24C88 /* BackButton.swift */; };
 		D4B2B39524438D4C00A24C88 /* GetAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B39424438D4C00A24C88 /* GetAccountModel.swift */; };
-		D4B2B3992443922F00A24C88 /* GetAccountDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3982443922F00A24C88 /* GetAccountDecoder.swift */; };
+		D4B2B3992443922F00A24C88 /* Decoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3982443922F00A24C88 /* Decoders.swift */; };
 		D4B2B39B24439D3D00A24C88 /* Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B39A24439D3D00A24C88 /* Cookies.swift */; };
+		D4B2B39E2444BFD900A24C88 /* GetDeptInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B39D2444BFD900A24C88 /* GetDeptInfoModel.swift */; };
 		D4E9A3D92434D74100EC6884 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3D82434D74100EC6884 /* AppDelegate.swift */; };
 		D4E9A3DB2434D74100EC6884 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */; };
 		D4E9A3DD2434D74100EC6884 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3DC2434D74100EC6884 /* HistoryViewController.swift */; };
@@ -67,6 +68,7 @@
 		D4E9A9582434E33B00EC6884 /* BarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A9572434E33B00EC6884 /* BarData.swift */; };
 		D4E9A95C2434EF5300EC6884 /* DepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A95B2434EF5300EC6884 /* DepViewController.swift */; };
 		D4E9A95E2434F4B500EC6884 /* DepData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A95D2434F4B500EC6884 /* DepData.swift */; };
+		D4F5F6B92444F5420077CC8D /* SetAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F5F6B82444F5420077CC8D /* SetAccountModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,8 +177,9 @@
 		D4B2B389244228F700A24C88 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D4B2B38C24422BF100A24C88 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		D4B2B39424438D4C00A24C88 /* GetAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountModel.swift; sourceTree = "<group>"; };
-		D4B2B3982443922F00A24C88 /* GetAccountDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountDecoder.swift; sourceTree = "<group>"; };
+		D4B2B3982443922F00A24C88 /* Decoders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoders.swift; sourceTree = "<group>"; };
 		D4B2B39A24439D3D00A24C88 /* Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cookies.swift; sourceTree = "<group>"; };
+		D4B2B39D2444BFD900A24C88 /* GetDeptInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeptInfoModel.swift; sourceTree = "<group>"; };
 		D4E9A3D52434D74100EC6884 /* iOSDataDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDataDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E9A3D82434D74100EC6884 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +224,7 @@
 		D4E9A9572434E33B00EC6884 /* BarData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarData.swift; sourceTree = "<group>"; };
 		D4E9A95B2434EF5300EC6884 /* DepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepViewController.swift; sourceTree = "<group>"; };
 		D4E9A95D2434F4B500EC6884 /* DepData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepData.swift; sourceTree = "<group>"; };
+		D4F5F6B82444F5420077CC8D /* SetAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAccountModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,16 +317,10 @@
 			isa = PBXGroup;
 			children = (
 				D4B2B39424438D4C00A24C88 /* GetAccountModel.swift */,
+				D4B2B39D2444BFD900A24C88 /* GetDeptInfoModel.swift */,
+				D4F5F6B82444F5420077CC8D /* SetAccountModel.swift */,
 			);
 			path = json;
-			sourceTree = "<group>";
-		};
-		D4B2B397244391EE00A24C88 /* decoders */ = {
-			isa = PBXGroup;
-			children = (
-				D4B2B3982443922F00A24C88 /* GetAccountDecoder.swift */,
-			);
-			path = decoders;
 			sourceTree = "<group>";
 		};
 		D4E9A3CC2434D74100EC6884 = {
@@ -447,7 +445,7 @@
 		D4E9A9262434DEA000EC6884 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				D4B2B397244391EE00A24C88 /* decoders */,
+				D4B2B3982443922F00A24C88 /* Decoders.swift */,
 				D4E9A9172434D97300EC6884 /* Icons.swift */,
 				D4E9A9272434DEA000EC6884 /* Constants.swift */,
 				D4E9A9282434DEA000EC6884 /* Connection.swift */,
@@ -718,7 +716,8 @@
 				D4B2B38D24422BF100A24C88 /* BackButton.swift in Sources */,
 				D4E9A90F2434D91B00EC6884 /* DepButton.swift in Sources */,
 				D4B2B3712437D0DF00A24C88 /* FAIcon.swift in Sources */,
-				D4B2B3992443922F00A24C88 /* GetAccountDecoder.swift in Sources */,
+				D4F5F6B92444F5420077CC8D /* SetAccountModel.swift in Sources */,
+				D4B2B3992443922F00A24C88 /* Decoders.swift in Sources */,
 				D4E9A95E2434F4B500EC6884 /* DepData.swift in Sources */,
 				D4E9A9122434D91B00EC6884 /* Index.swift in Sources */,
 				D4B2B388244228D700A24C88 /* PwdViewController.swift in Sources */,
@@ -727,6 +726,7 @@
 				D4E9A91E2434DA7200EC6884 /* ViewController.swift in Sources */,
 				D4E9A9102434D91B00EC6884 /* DataNumbers.swift in Sources */,
 				D4E9A95C2434EF5300EC6884 /* DepViewController.swift in Sources */,
+				D4B2B39E2444BFD900A24C88 /* GetDeptInfoModel.swift in Sources */,
 				D4E9A3D92434D74100EC6884 /* AppDelegate.swift in Sources */,
 				D4E9A90D2434D91B00EC6884 /* DataNumber.swift in Sources */,
 				D4B2B39B24439D3D00A24C88 /* Cookies.swift in Sources */,

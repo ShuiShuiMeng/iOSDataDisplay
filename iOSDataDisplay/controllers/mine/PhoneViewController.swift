@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class PhoneViewController: UIViewController, UITextFieldDelegate {
 
@@ -120,7 +121,7 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
         phoneTextField.layer.cornerRadius = 5
         phoneTextField.layer.borderColor = UIColor.lightGray.cgColor
         phoneTextField.layer.borderWidth = 0.5
-        phoneTextField.isSecureTextEntry = PwdStatus.INVISIBLE
+        phoneTextField.isSecureTextEntry = PwdStatus.VISIBLE
         phoneTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         phoneTextField.leftViewMode = UITextField.ViewMode.always
         phoneTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
@@ -166,27 +167,73 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func modify(sender: UIButton) {
-        if userTextField.text!.isEmpty && pwdTextField.text!.isEmpty && phoneTextField.text!.isEmpty {
-            showMsgbox(_message: "输入为空")
-        }
-        else if userTextField.text!.isEmpty {
-            showMsgbox(_message: "账号不能为空")
-        }
-        else if pwdTextField.text!.isEmpty {
+        if pwdTextField.text!.isEmpty {
             showMsgbox(_message: "密码不能为空")
         }
         else if phoneTextField.text!.isEmpty {
             showMsgbox(_message: "新手机号不能为空")
         }
-        else if !userTextField.text!.isPhoneNumber() && !userTextField.text!.isEmail() {
-            showMsgbox(_message: "用户名不符合格式")
-        }
         else if !phoneTextField.text!.isPhoneNumber() {
             showMsgbox(_message: "新手机号不符合格式")
         }
         else {
-            
+            let header: HTTPHeaders = [
+                "Cookie": getSession()!,
+                "Content-Type": "application/x-www-form-urlencoded"
+            ]
+            let parameters = [
+                "phone": getPhoneFromCookie()!,
+                "passwd": pwdTextField.text!,
+                "new_phone": phoneTextField.text!
+            ]
+            Alamofire.request(setAccountUrl, method: .post, parameters: parameters, headers: header).responseJSON {
+                response in
+                if response.result.isSuccess {
+                    // cookie 无效
+                    if (response.response?.statusCode != 200) {
+                        self.showMsgbox(_message: "修改失败，登录权限过期，请重新登录")
+                        self.jumpToLogin()
+                    }
+                    // cookie 有效，登录成功
+                    else {
+                        print(response)
+                        let res = SetAccountDecoder.decode(jsonData: response.data!)
+                        if res.Code == 0 {
+                            self.pwdTextField.isUserInteractionEnabled = false
+                            self.phoneTextField.isUserInteractionEnabled = false
+                            setPhoneToCookie(phone: self.phoneTextField.text!)
+                            let alert = UIAlertController(title: "提示", message: "修改成功！", preferredStyle: UIAlertController.Style.alert)
+                            let btnOK = UIAlertAction(title: "好的", style: .default, handler: {
+                                action in
+                                self.jumpToMine()
+                            })
+                            alert.addAction(btnOK)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else if res.ObjT == "Cannot match a user" {
+                            self.showMsgbox(_message: "修改失败，密码错误")
+                        }
+                        else {
+                            self.showMsgbox(_message: "修改失败，新手机号重复")
+                        }
+                    }
+                }
+                else {
+                    self.showMsgbox(_message: "修改失败，网络错误，无法连接到服务器")
+                }
+            }
         }
     }
-
+    
+    func jumpToLogin() {
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
+        self.present(loginVC, animated: true, completion: nil)
+    }
+    
+    
+    func jumpToMine() {
+        let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+        tbVC.selectedIndex = 2
+        self.present(tbVC, animated: true, completion: nil)
+    }
 }

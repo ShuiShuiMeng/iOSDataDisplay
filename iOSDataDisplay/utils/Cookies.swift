@@ -37,8 +37,16 @@ public func getRoleFromCookie() -> String? {
     return UserDefaults.standard.string(forKey: "userRole")
 }
 
+public func setPhoneToCookie(phone: String) {
+    UserDefaults.standard.set(phone, forKey: "userPhone")
+}
+
 public func getPhoneFromCookie() -> String? {
     return UserDefaults.standard.string(forKey: "userPhone")
+}
+
+public func setEmailToCookie(email: String) {
+    UserDefaults.standard.set(email, forKey: "userEmail")
 }
 
 public func getEmailFromCookie() -> String? {

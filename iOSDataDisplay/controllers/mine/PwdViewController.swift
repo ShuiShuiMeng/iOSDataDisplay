@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class PwdViewController: UIViewController, UITextFieldDelegate {
 
@@ -222,7 +223,68 @@ class PwdViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func modify(sender: UIButton) {
-        
+        if (newPwdTextField1.text! != newPwdTextField2.text!) {
+            showMsgbox(_message: "两次输入的新密码不同，请检查后再试")
+        }
+        else if (newPwdTextField1.text!.count < 6) {
+            showMsgbox(_message: "密码长度大于六位")
+        }
+        else {
+            let header: HTTPHeaders = [
+                "Cookie": getSession()!,
+                "Content-Type": "application/x-www-form-urlencoded"
+            ]
+            let parameters = [
+                "phone": getPhoneFromCookie()!,
+                "passwd": pwdTextField.text!,
+                "new_passwd": newPwdTextField1.text!
+            ]
+            Alamofire.request(setAccountUrl, method: .post, parameters: parameters, headers: header).responseJSON {
+                response in
+                if response.result.isSuccess {
+                    // cookie 无效
+                    if (response.response?.statusCode != 200) {
+                        self.showMsgbox(_message: "修改失败，登录权限过期，请重新登录")
+                        self.jumpToLogin()
+                    }
+                        // cookie 有效，登录成功
+                    else {
+                        print(response)
+                        let res = SetAccountDecoder.decode(jsonData: response.data!)
+                        if res.Code == 0 {
+                            self.pwdTextField.isUserInteractionEnabled = false
+                            self.newPwdTextField1.isUserInteractionEnabled = false
+                            self.newPwdTextField2.isUserInteractionEnabled = false
+                            let alert = UIAlertController(title: "提示", message: "修改成功！", preferredStyle: UIAlertController.Style.alert)
+                            let btnOK = UIAlertAction(title: "好的", style: .default, handler: {
+                                action in
+                                self.jumpToMine()
+                            })
+                            alert.addAction(btnOK)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else {
+                            self.showMsgbox(_message: "修改失败，请重试")
+                        }
+                    }
+                }
+                else {
+                    self.showMsgbox(_message: "修改失败，网络错误，无法连接到服务器")
+                }
+            }
+        }
+    }
+    
+    func jumpToLogin() {
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
+        self.present(loginVC, animated: true, completion: nil)
+    }
+    
+    
+    func jumpToMine() {
+        let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+        tbVC.selectedIndex = 2
+        self.present(tbVC, animated: true, completion: nil)
     }
     
     @objc func back(sender: UIButton) {

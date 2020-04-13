@@ -22,14 +22,51 @@ class IndexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initial()
+        let user: String = getRoleFromCookie()!
+        if user == "Supervisor" {
+            initialIndex()
+        }
+        else if user == "Normal" {
+            let header: HTTPHeaders = [
+                "Cookie": getSession()!
+            ]
+            Alamofire.request(getDeptInfoUrl, method: .post, headers: header).responseJSON {
+                response in
+                if response.result.isSuccess {
+                    if (response.result.value! is NSNull) {
+                        self.showMsgbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                        self.jumpToLogin()
+                    }
+                    else if (response.response?.statusCode != 200) {
+                        self.showMsgbox(_message: "登录权限过期，请重新登录")
+                        self.jumpToLogin()
+                    }
+                    else {
+                        let result = GetDeptInfo.decode(jsonData: response.data!)
+                        // 判断返回结果
+                        if (result.Code == 0) {
+                            self.initialDep(res: result)
+                        }
+                        else {
+                            self.showMsgbox(_message: "获取数据失败，请重新登录")
+                            self.jumpToLogin()
+                        }
+                    }
+                }
+                else {
+                    self.showMsgbox(_message: "网络出错，连接不到服务器")
+                    self.jumpToLogin()
+                }
+                
+            }
+        }
     }
     
     func getLoginStatus() -> LoginStatus {
         return LoginStatus.LOGIN
     }
     
-    func initial() {
+    func initialIndex() {
         scrollView.backgroundColor = Colors.background
         loadIcons()
         drawTopView()
@@ -177,6 +214,7 @@ class IndexViewController: UIViewController {
         Alamofire.request(getNumbersUrl, method: .post, headers: header).responseJSON { response in
             // 未登录
             if (response.response?.statusCode != 200) {
+                self.showMsgbox(_message: "登录状态失效，请重新登录")
                 self.jumpToLogin()
             }
             // 已登录
@@ -184,7 +222,7 @@ class IndexViewController: UIViewController {
                 if response.result.isSuccess {
                     //把得到的JSON数据转为数组
                     // print(response.result.value)
-                    let items = response.result.value as? Dictionary<String, Any>
+                    // let items = response.result.value as? Dictionary<String, Any>
                     // Dictionary
                 }
             }
@@ -199,5 +237,75 @@ class IndexViewController: UIViewController {
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
         self.present(loginVC, animated: true, completion: nil)
     }
+    
+    /*
+     * normal
+     * 渲染部门页面
+     */
+    var numbers: DepNumber!
+    var label1: UILabel!
+    var label2: UILabel!
+    var gridView: UIView!
+    var gridViewController: UICollectionGridViewController!
+
+    func initialDep(res: GetDeptInfoModel) {
+        scrollView.backgroundColor = Colors.background
+        loadIcons()
+        drawBar(titleTxt: "首页")
+        drawNumbers()
+        drawGrid()
+        for info in res.ObjT.DeptProjectInfoList {
+            addRow(name: info.Name, item: info.ApprovedItems, fund: info.Fundding, limit: info.Limit)
+        }
+    }
+    
+    func drawNumbers() {
+        label1 = UILabel(frame: CGRect(x: (mainSize.width-375)/2+10, y: 25, width: 150, height: 20))
+        label1.text = "部门总体数据"
+        label1.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        scrollView.addSubview(label1)
+        
+        numbers = DepNumber(frame: CGRect(x: (mainSize.width-375)/2+5, y: 50, width: 365, height: 80))
+        numbers.setNumbers(num1: 123456789, num2: 123, num3: 100)
+        numbers.setColors(color: UIColor.orange)
+        scrollView.addSubview(numbers)
+        
+        label2 = UILabel(frame: CGRect(x: (mainSize.width-375)/2+10, y: 150, width: 150, height: 20))
+        label2.text = "部门项目情况"
+        label2.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        scrollView.addSubview(label2)
+    }
+    
+    func drawGrid() {
+        gridView = UIView(frame: CGRect(x: 0, y: 175, width: 375, height: 400))
+        gridViewController = UICollectionGridViewController()
+        gridViewController.setColumns(columns: ["项目", "批准数", "资助金额", "资助上限"])
+        gridView.addSubview(gridViewController.view)
+        scrollView.addSubview(gridView)
+        scrollView.contentSize = CGSize(width: 375, height: 180+gridViewController.view.frame.height)
+    }
+    
+    func addRow(name: String, item: Int, fund:Int, limit:Int) {
+        gridViewController.addRow(row: [name, item, fund, limit])
+    }
+    
+    func drawBar(titleTxt: String) {
+        // 导航条颜色
+        // bar.backgroundColor = UIColor.blue
+        // barTxt
+        topView.backgroundColor = Colors.blue
+        let titleLabel = UILabel(frame: CGRect(x: mainSize.width*0.5-100, y: 5, width: 200, height: 40))
+        titleLabel.text = titleTxt
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.systemFont(ofSize: 18)
+        topView.addSubview(titleLabel)
+    }
+    
+    
+    @objc func backToIndex() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
