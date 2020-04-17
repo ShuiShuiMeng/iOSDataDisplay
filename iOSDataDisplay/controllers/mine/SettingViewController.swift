@@ -8,12 +8,15 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+class SettingViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var wapper: UIView!
     
     var header: UIView!
     var backButton: BackButton!
+    
+    var ipTextField: UITextField!
+    var portTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()

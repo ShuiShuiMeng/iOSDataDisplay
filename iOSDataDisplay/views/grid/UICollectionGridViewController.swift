@@ -59,6 +59,13 @@ class UICollectionGridViewController: UICollectionViewController {
         collectionView!.reloadData()
     }
     
+    //清空
+    func clearRows() {
+        rows.removeAll()
+        collectionView!.collectionViewLayout.invalidateLayout()
+        collectionView!.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

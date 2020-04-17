@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import Alamofire
 
-class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
+class DepViewController: UIViewController {
     
-    var titleTxt: String = ""
+    var depId: Int = 0
     
-    @IBOutlet var bar: UINavigationBar!
-    @IBOutlet var barTxt: UINavigationItem!
-    @IBOutlet var back: UIBarButtonItem!
+    @IBOutlet var header: UIView!
     @IBOutlet var scroll: UIScrollView!
+    var back: BackButton!
+    var refresh: UIButton!
     
     var numbers: DepNumber!
     var label1: UILabel!
@@ -29,9 +30,66 @@ class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
     }
     
     func initial() {
+        drawTopBar()
         drawNumbers()
-        drawGrid()
-        drawBar()
+        getNumbers(flag: false)
+    }
+    
+    func getNumbers(flag: Bool) {
+        let header: HTTPHeaders = [
+            "Cookie": getSession()!,
+            "Content-Type": "application/x-www-form-urlencoded"
+        ]
+        let parameters = [
+            "deptId": depId
+        ]
+        Alamofire.request(getDeptInfoUrl, method: .post, parameters: parameters, headers: header).responseJSON {
+            response in
+            if (response.response?.statusCode != 200) {
+                self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+            }
+                
+            else if response.result.isSuccess {
+                if (response.result.value! is NSNull) {
+                    self.jumpIndexbox(_message: "网络错误")
+                }
+                else if response.response?.statusCode == 200 {
+                    let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
+                    // 判断返回结果
+                    if (result.Code == 0) {
+                        if (flag) {
+                           self.clearRows()
+                        }
+                        else {
+                            self.drawGrid(rows: result.ObjT.TotalProjects)
+                        }
+                        var planNum: Float = 0
+                        var proNum: Int = 0
+                        var excuted: Float = 0
+                        for info in result.ObjT.DeptProjectInfoList {
+                            self.addRow(name: info.Name, item: info.ApprovedItems, fund: info.Fundding, limit: info.Limit)
+                            planNum = planNum + Float(info.Limit)
+                            proNum = proNum + info.ApprovedItems
+                            excuted = excuted + info.Fundding
+                        }
+                        self.numbers.setNumbers(num1: planNum, num2: proNum, num3: excuted)
+                        if (flag) {
+                            self.showMsgbox(_message: "数据已更新至最新")
+                        }
+                    }
+                    else {
+                        self.jumpIndexbox(_message: "获取数据失败")
+                    }
+                }
+                else {
+                    self.jumpLoginbox(_message: "未知错误")
+                }
+            }
+            else {
+                self.jumpIndexbox(_message: "网络出错，连接不到服务器")
+            }
+            
+        }
     }
     
     func drawNumbers() {
@@ -51,64 +109,56 @@ class DepViewController: UIViewController, UICollectionGridViewSortDelegate {
         scroll.addSubview(label2)
     }
     
-    func drawGrid() {
-        gridView = UIView(frame: CGRect(x: 0, y: 175, width: 375, height: 400))
+    func drawGrid(rows: Int) {
+        print("draw grid")
+        gridView = UIView(frame: CGRect(x: 0, y: 175, width: 375, height: CGFloat(rows+1) * 40))
         gridViewController = UICollectionGridViewController()
-        gridViewController.setColumns(columns: ["项目", "批准数", "资助金额"])
-        gridViewController.addRow(row: ["hanggesfsfsffsfs", "100", "8000000000"])
-        gridViewController.addRow(row: ["张三", "223", "16"])
-        gridViewController.addRow(row: ["李四", "143", "25"])
-        gridViewController.addRow(row: ["王五", "75", "2"])
-        gridViewController.addRow(row: ["韩梅梅", "43", "12"])
-        gridViewController.addRow(row: ["李雷", "33", "27"])
-        gridViewController.sortDelegate = self
+        gridViewController.view.frame = CGRect(x: 5, y: 0, width: 365, height: CGFloat(rows+1) * 38)
+        gridViewController.setColumns(columns: ["项目", "批准数", "资助金额", "资助上限"])
         gridView.addSubview(gridViewController.view)
         scroll.addSubview(gridView)
-        scroll.contentSize = CGSize(width: 375, height: 180+gridViewController.view.frame.height)
+        // print(gridViewController.collectionView!.frame.height)
+        scroll.contentSize = CGSize(width: 375, height: CGFloat(180) + CGFloat(rows+1) * 37.9)
     }
     
-    func drawBar() {
+    func addRow(name: String, item: Int, fund:Float, limit:Float) {
+        gridViewController.addRow(row: [name, item, fund.cleanZero, limit.cleanZero])
+    }
+    
+    func clearRows() {
+        gridViewController.clearRows()
+    }
+    
+    func drawTopBar() {
         // 导航条颜色
         // bar.backgroundColor = UIColor.blue
-        // 绑定返回键
-        back.action = #selector(backToIndex)
         // barTxt
-        barTxt.title = titleTxt
-        // 返回样式
-        back.image = Icons.left.iconFontImage(fontSize: 30, color: .white)
+        header.backgroundColor = Colors.blue
+        let titleLabel = UILabel(frame: CGRect(x: mainSize.width*0.5-100, y: 5, width: 200, height: 40))
+        titleLabel.text = DeptID[depId]!
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.systemFont(ofSize: 18)
+        header.addSubview(titleLabel)
+        
+        back = BackButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        back.setImage(Icons.left.iconFontImage(fontSize: 30, color: .white), for: .normal)
+        back.addTarget(self, action: #selector(backToIndex), for: .touchUpInside)
+        header.addSubview(back)
+        
+        refresh = UIButton(frame: CGRect(x: mainSize.width-40, y: 0, width: 40, height: 50))
+        refresh.setImage(Icons.refreshIcon.iconFontImage(fontSize: 22, color: .white), for: .normal)
+        refresh.addTarget(self, action: #selector(refreshData(sender:)), for: .touchUpInside)
+        header.addSubview(refresh)
     }
     
     @objc func backToIndex() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    //表格排序函数
-    func sort(colIndex: Int, asc: Bool, rows: [[Any]]) -> [[Any]] {
-        let sortedRows = rows.sorted { (firstRow: [Any], secondRow: [Any])
-            -> Bool in
-            let firstRowValue = firstRow[colIndex] as! String
-            let secondRowValue = secondRow[colIndex] as! String
-            if colIndex == 0 || colIndex == 1 {
-                //首例、姓名使用字典排序法
-                if asc {
-                    return firstRowValue < secondRowValue
-                }
-                return firstRowValue > secondRowValue
-            } else if colIndex == 2 || colIndex == 3 {
-                //中间两列使用数字排序
-                if asc {
-                    return Int(firstRowValue)! < Int(secondRowValue)!
-                }
-                return Int(firstRowValue)! > Int(secondRowValue)!
-            }
-            //最后一列数据先去掉百分号，再转成数字比较
-            let firstRowValuePercent = Int(String(firstRowValue[..<firstRowValue.index(before: firstRowValue.endIndex)]))!
-            let secondRowValuePercent = Int(String(secondRowValue[..<secondRowValue.index(before: secondRowValue.endIndex)]))!
-            if asc {
-                return firstRowValuePercent < secondRowValuePercent
-            }
-            return firstRowValuePercent > secondRowValuePercent
-        }
-        return sortedRows
+    @objc func refreshData(sender: UIButton) {
+        getNumbers(flag: true)
+        //var popTip = PopTip()
+        //popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: view, from: someView.frame)
     }
 }

@@ -227,17 +227,16 @@ class LoginController: UIViewController, UITextFieldDelegate {
             Alamofire.request(getAccountUrl, method: .post, headers: header).responseJSON  {
                 [weak self] response in // weakSelf防止self混乱
                 // 返回null admin用户
-                // print(response.result)
-                if (response.result.isSuccess) {
+                // print(response)
+                if (response.response?.statusCode != 200) {
+                    self?.showMsgbox(_message: "用户名密码错误，请重新输入")
+                }
+                else if (response.result.isSuccess) {
                     if (response.result.value! is NSNull) {
                         self?.showMsgbox(_message: "您的用户是电脑端账户，不能用于登录App。请使用拥有权限的账户登录App。")
                     }
-                        // 401 用户名密码错误
-                    else if (response.response?.statusCode != 200) {
-                        self?.showMsgbox(_message: "用户名密码错误，请重新输入")
-                    }
-                        // 200 用户名密码正确
-                    else {
+                    // 200 用户名密码正确
+                    else if response.response?.statusCode == 200 {
                         // 存取session到cookie中
                         let headerFields = response.response?.allHeaderFields as! [String: String]
                         refreshSession(session: headerFields["Set-Cookie"])

@@ -191,24 +191,20 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
                 if response.result.isSuccess {
                     // cookie 无效
                     if (response.response?.statusCode != 200) {
-                        self.showMsgbox(_message: "修改失败，登录权限过期，请重新登录")
-                        self.jumpToLogin()
+                        self.jumpLoginbox(_message: "修改失败，登录权限过期，请重新登录")
                     }
                         // cookie 有效，登录成功
                     else {
-                        print(response)
+                        // print(response)
                         let res = SetAccountDecoder.decode(jsonData: response.data!)
                         if res.Code == 0 {
                             self.pwdTextField.isUserInteractionEnabled = false
                             self.emailTextField.isUserInteractionEnabled = false
+                            if (getEmailFromCookie() == getLoginName()) {
+                                refreshLoginName(name: self.emailTextField.text!)
+                            }
                             setEmailToCookie(email: self.emailTextField.text!)
-                            let alert = UIAlertController(title: "提示", message: "修改成功！", preferredStyle: UIAlertController.Style.alert)
-                            let btnOK = UIAlertAction(title: "好的", style: .default, handler: {
-                                action in
-                                self.jumpToMine()
-                            })
-                            alert.addAction(btnOK)
-                            self.present(alert, animated: true, completion: nil)
+                            self.jumpMinebox(_message: "修改成功！")
                         }
                         else if res.ObjT == "Cannot match a user" {
                             self.showMsgbox(_message: "修改失败，密码错误")
@@ -223,17 +219,5 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
-    }
-
-    func jumpToLogin() {
-        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
-        self.present(loginVC, animated: true, completion: nil)
-    }
-    
-    
-    func jumpToMine() {
-        let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
-        tbVC.selectedIndex = 2
-        self.present(tbVC, animated: true, completion: nil)
     }
 }

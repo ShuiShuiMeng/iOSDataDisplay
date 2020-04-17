@@ -261,39 +261,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZON-yK-zbN">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-KL-zqO">
+                                <rect key="frame" x="0.0" y="44" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="6u7-10-DcW"/>
+                                    <constraint firstAttribute="height" constant="50" id="quD-nH-yyA"/>
                                 </constraints>
-                                <items>
-                                    <navigationItem title="Title" id="d0H-kg-PhA">
-                                        <barButtonItem key="leftBarButtonItem" id="4Lc-ol-xJA">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAg-Ak-eW8">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="684"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="TPG-KL-zqO" firstAttribute="top" secondItem="ILG-T3-ttq" secondAttribute="top" id="2sk-KY-tnf"/>
                             <constraint firstItem="ILG-T3-ttq" firstAttribute="bottom" secondItem="KAg-Ak-eW8" secondAttribute="bottom" id="5fx-Cy-RQN"/>
-                            <constraint firstItem="ZON-yK-zbN" firstAttribute="leading" secondItem="ILG-T3-ttq" secondAttribute="leading" id="LbK-30-Q2D"/>
-                            <constraint firstItem="KAg-Ak-eW8" firstAttribute="top" secondItem="ZON-yK-zbN" secondAttribute="bottom" id="McX-id-KCM"/>
-                            <constraint firstItem="ZON-yK-zbN" firstAttribute="top" secondItem="ILG-T3-ttq" secondAttribute="top" id="Qan-ey-dMU"/>
+                            <constraint firstItem="TPG-KL-zqO" firstAttribute="leading" secondItem="ILG-T3-ttq" secondAttribute="leading" id="QuP-SG-eHz"/>
+                            <constraint firstItem="ILG-T3-ttq" firstAttribute="trailing" secondItem="TPG-KL-zqO" secondAttribute="trailing" id="Slo-aw-mZo"/>
                             <constraint firstItem="ILG-T3-ttq" firstAttribute="trailing" secondItem="KAg-Ak-eW8" secondAttribute="trailing" id="WC9-xi-htj"/>
-                            <constraint firstItem="ZON-yK-zbN" firstAttribute="trailing" secondItem="ILG-T3-ttq" secondAttribute="trailing" id="WFQ-jB-kUE"/>
                             <constraint firstItem="KAg-Ak-eW8" firstAttribute="leading" secondItem="ILG-T3-ttq" secondAttribute="leading" id="cI2-ze-cOX"/>
+                            <constraint firstItem="KAg-Ak-eW8" firstAttribute="top" secondItem="TPG-KL-zqO" secondAttribute="bottom" id="djH-LY-S4V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ILG-T3-ttq"/>
                     </view>
                     <connections>
-                        <outlet property="back" destination="4Lc-ol-xJA" id="O65-bL-5h9"/>
-                        <outlet property="bar" destination="ZON-yK-zbN" id="GWb-Nv-XpK"/>
-                        <outlet property="barTxt" destination="d0H-kg-PhA" id="WiY-Tx-obD"/>
+                        <outlet property="header" destination="TPG-KL-zqO" id="bYP-yD-RTq"/>
                         <outlet property="scroll" destination="KAg-Ak-eW8" id="Re0-v6-NEf"/>
                     </connections>
                 </viewController>

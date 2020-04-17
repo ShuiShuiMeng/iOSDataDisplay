@@ -69,7 +69,7 @@ class UICollectionGridViewLayout: UICollectionViewLayout {
                 if index == 0 {
                     var frame = attributes.frame
                     frame.origin.x = self.collectionView!.contentOffset.x
-                        + collectionView!.contentInset.left
+                        + collectionView!.contentInset.left//+5 //11111111
                     attributes.frame = frame
                 }
                 
@@ -139,21 +139,25 @@ class UICollectionGridViewLayout: UICollectionViewLayout {
     func calculateItemsSize() {
         var remainingWidth = collectionView!.frame.width -
             collectionView!.contentInset.left - collectionView!.contentInset.right
+        // print(remainingWidth)
         
         var index = viewController.cols.count-1
+        // 后面几列
         while index >= 0 {
             let newItemSize = sizeForItemWithColumnIndex(columnIndex: index,
-                                                         remainingWidth: remainingWidth)
+                                                         remainingWidth: remainingWidth, minSize: 180)
             remainingWidth -= newItemSize.width
             let newItemSizeValue = NSValue(cgSize: newItemSize)
             //由于遍历列的时候是从尾部开始遍历了，因此将结果插入数组的时候都是放人第一个位置
             itemsSize.insert(newItemSizeValue, at: 0)
             index -= 1
         }
+        // 首列
+        // let newItemSize = sizeForItemWithColumnIndex(columnIndex: 0, remainingWidth: remainingWidth)
     }
     
     //计算某一列的单元格尺寸
-    func sizeForItemWithColumnIndex(columnIndex: Int, remainingWidth: CGFloat) -> CGSize {
+    func sizeForItemWithColumnIndex(columnIndex: Int, remainingWidth: CGFloat, minSize: CGFloat) -> CGSize {
         let columnString = viewController.cols[columnIndex]
         //根据列头标题文件，估算各列的宽度
         let size = NSString(string: columnString).size(withAttributes: [
@@ -162,8 +166,10 @@ class UICollectionGridViewLayout: UICollectionViewLayout {
             ])
         
         //修改成所有列都平均分配（但宽度不能小于90）
-        let width = max(remainingWidth/CGFloat(columnIndex+1), 90)
+        let width = max(remainingWidth/CGFloat(columnIndex+1), minSize)
         //计算好的宽度还要取整，避免偏移
-        return CGSize(width: ceil(width), height:size.height + 10)
+        //print(size.height)
+        //print(ceil(width))
+        return CGSize(width: ceil(width), height:size.height + 20)
     }
 }

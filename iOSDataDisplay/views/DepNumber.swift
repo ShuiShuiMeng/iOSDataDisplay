@@ -26,10 +26,10 @@ class DepNumber: UIView {
         view3.backgroundColor = color
     }
     
-    func setNumbers(num1: Float, num2: Int, num3: Int) {
+    func setNumbers(num1: Float, num2: Int, num3: Float) {
         lable1.text = num1.cleanZero
         lable2.text = String(num2)
-        lable3.text = String(num3)
+        lable3.text = num3.cleanZero
     }
     
     //初始化时将xib中的view添加进来

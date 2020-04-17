@@ -78,7 +78,8 @@ class MineViewController: UIViewController {
         // 设置
         settingButton = UIButton(frame: CGRect(x: 0, y: 320, width: mainSize.width, height: 50))
         addElem(button: settingButton, titleStr: "设置", lficon: Icons.settingIcon2, tag: 4)
-        wapper.addSubview(settingButton)
+        // 暂无设置
+        // wapper.addSubview(settingButton)
     }
     
     func addElem(button: UIButton, titleStr:String, lficon: LFIconFont, tag: Int) {

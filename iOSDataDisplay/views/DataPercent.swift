@@ -25,7 +25,7 @@ class DataPercent: UIView {
     
     @IBInspectable var dataFloat: Float = 0 {
         didSet {
-            data.text = String(dataFloat*100) + "%"
+            data.text = (dataFloat*100).cleanZero + "%"
         }
     }
     

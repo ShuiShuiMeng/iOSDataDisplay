@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4287F242448548F00995FB8 /* ExUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4287F232448548F00995FB8 /* ExUIView.swift */; };
+		D4287F362448902E00995FB8 /* GetProjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4287F352448902E00995FB8 /* GetProjectsModel.swift */; };
 		D4B2B35324377B4F00A24C88 /* DepNumber.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4B2B35224377B4F00A24C88 /* DepNumber.xib */; };
 		D4B2B35C243782F800A24C88 /* DepNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B35B243782F800A24C88 /* DepNumber.swift */; };
 		D4B2B35F2437BD9800A24C88 /* ExFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B35E2437BD9800A24C88 /* ExFloat.swift */; };
@@ -36,11 +38,9 @@
 		D4E9A3E52434D74500EC6884 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4E9A3E32434D74500EC6884 /* LaunchScreen.storyboard */; };
 		D4E9A3F02434D74500EC6884 /* iOSDataDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3EF2434D74500EC6884 /* iOSDataDisplayTests.swift */; };
 		D4E9A3FB2434D74500EC6884 /* iOSDataDisplayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A3FA2434D74500EC6884 /* iOSDataDisplayUITests.swift */; };
-		D4E9A9042434D91B00EC6884 /* ScrollBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A8F32434D91A00EC6884 /* ScrollBars.swift */; };
 		D4E9A9052434D91B00EC6884 /* DataNumbers.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4E9A8F42434D91A00EC6884 /* DataNumbers.xib */; };
 		D4E9A9072434D91B00EC6884 /* DataNumber.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4E9A8F62434D91A00EC6884 /* DataNumber.xib */; };
 		D4E9A9082434D91B00EC6884 /* FinishedBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4E9A8F72434D91A00EC6884 /* FinishedBar.xib */; };
-		D4E9A9092434D91B00EC6884 /* ScrollBars.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4E9A8F82434D91A00EC6884 /* ScrollBars.xib */; };
 		D4E9A90A2434D91B00EC6884 /* FinishedBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A8F92434D91A00EC6884 /* FinishedBar.swift */; };
 		D4E9A90B2434D91B00EC6884 /* DataPercent.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4E9A8FA2434D91A00EC6884 /* DataPercent.xib */; };
 		D4E9A90D2434D91B00EC6884 /* DataNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A8FC2434D91A00EC6884 /* DataNumber.swift */; };
@@ -69,6 +69,7 @@
 		D4E9A95C2434EF5300EC6884 /* DepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A95B2434EF5300EC6884 /* DepViewController.swift */; };
 		D4E9A95E2434F4B500EC6884 /* DepData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E9A95D2434F4B500EC6884 /* DepData.swift */; };
 		D4F5F6B92444F5420077CC8D /* SetAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F5F6B82444F5420077CC8D /* SetAccountModel.swift */; };
+		D4F5F6C22447EF8F0077CC8D /* GetAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F5F6C12447EF8F0077CC8D /* GetAllModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +160,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4287F232448548F00995FB8 /* ExUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExUIView.swift; sourceTree = "<group>"; };
+		D4287F3024485F1C00995FB8 /* iOSDataDisplay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSDataDisplay-Bridging-Header.h"; sourceTree = "<group>"; };
+		D4287F352448902E00995FB8 /* GetProjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProjectsModel.swift; sourceTree = "<group>"; };
 		D4B2B35224377B4F00A24C88 /* DepNumber.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DepNumber.xib; sourceTree = "<group>"; };
 		D4B2B35B243782F800A24C88 /* DepNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepNumber.swift; sourceTree = "<group>"; };
 		D4B2B35E2437BD9800A24C88 /* ExFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExFloat.swift; sourceTree = "<group>"; };
@@ -194,11 +198,9 @@
 		D4E9A3F62434D74500EC6884 /* iOSDataDisplayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSDataDisplayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E9A3FA2434D74500EC6884 /* iOSDataDisplayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSDataDisplayUITests.swift; sourceTree = "<group>"; };
 		D4E9A3FC2434D74500EC6884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D4E9A8F32434D91A00EC6884 /* ScrollBars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollBars.swift; sourceTree = "<group>"; };
 		D4E9A8F42434D91A00EC6884 /* DataNumbers.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataNumbers.xib; sourceTree = "<group>"; };
 		D4E9A8F62434D91A00EC6884 /* DataNumber.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataNumber.xib; sourceTree = "<group>"; };
 		D4E9A8F72434D91A00EC6884 /* FinishedBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinishedBar.xib; sourceTree = "<group>"; };
-		D4E9A8F82434D91A00EC6884 /* ScrollBars.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollBars.xib; sourceTree = "<group>"; };
 		D4E9A8F92434D91A00EC6884 /* FinishedBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishedBar.swift; sourceTree = "<group>"; };
 		D4E9A8FA2434D91A00EC6884 /* DataPercent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataPercent.xib; sourceTree = "<group>"; };
 		D4E9A8FC2434D91A00EC6884 /* DataNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataNumber.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 		D4E9A95B2434EF5300EC6884 /* DepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepViewController.swift; sourceTree = "<group>"; };
 		D4E9A95D2434F4B500EC6884 /* DepData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepData.swift; sourceTree = "<group>"; };
 		D4F5F6B82444F5420077CC8D /* SetAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAccountModel.swift; sourceTree = "<group>"; };
+		D4F5F6C12447EF8F0077CC8D /* GetAllModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,8 +284,9 @@
 		D4B2B37F2442285A00A24C88 /* index */ = {
 			isa = PBXGroup;
 			children = (
-				D4E9A95B2434EF5300EC6884 /* DepViewController.swift */,
 				D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */,
+				D4E9A95B2434EF5300EC6884 /* DepViewController.swift */,
+				D4287F3024485F1C00995FB8 /* iOSDataDisplay-Bridging-Header.h */,
 			);
 			path = index;
 			sourceTree = "<group>";
@@ -319,6 +323,8 @@
 				D4B2B39424438D4C00A24C88 /* GetAccountModel.swift */,
 				D4B2B39D2444BFD900A24C88 /* GetDeptInfoModel.swift */,
 				D4F5F6B82444F5420077CC8D /* SetAccountModel.swift */,
+				D4F5F6C12447EF8F0077CC8D /* GetAllModel.swift */,
+				D4287F352448902E00995FB8 /* GetProjectsModel.swift */,
 			);
 			path = json;
 			sourceTree = "<group>";
@@ -396,11 +402,9 @@
 			children = (
 				D4B2B38B24422B8F00A24C88 /* buttons */,
 				D4B2B3692437C9B200A24C88 /* grid */,
-				D4E9A8F32434D91A00EC6884 /* ScrollBars.swift */,
 				D4E9A8F42434D91A00EC6884 /* DataNumbers.xib */,
 				D4E9A8F62434D91A00EC6884 /* DataNumber.xib */,
 				D4E9A8F72434D91A00EC6884 /* FinishedBar.xib */,
-				D4E9A8F82434D91A00EC6884 /* ScrollBars.xib */,
 				D4E9A8F92434D91A00EC6884 /* FinishedBar.swift */,
 				D4E9A8FA2434D91A00EC6884 /* DataPercent.xib */,
 				D4E9A8FC2434D91A00EC6884 /* DataNumber.swift */,
@@ -465,6 +469,7 @@
 				D4E9A92B2434DEA000EC6884 /* ExButton.swift */,
 				D4E9A92C2434DEA000EC6884 /* ExVC.swift */,
 				D4B2B3762437DAAB00A24C88 /* ExImageView.swift */,
+				D4287F232448548F00995FB8 /* ExUIView.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -571,6 +576,7 @@
 				TargetAttributes = {
 					D4E9A3D42434D74100EC6884 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					D4E9A3EA2434D74500EC6884 = {
 						CreatedOnToolsVersion = 10.1;
@@ -667,7 +673,6 @@
 			files = (
 				D4B2B3752437D42800A24C88 /* FontAwesome.ttf in Resources */,
 				D4E9A3E52434D74500EC6884 /* LaunchScreen.storyboard in Resources */,
-				D4E9A9092434D91B00EC6884 /* ScrollBars.xib in Resources */,
 				D4E9A3E22434D74500EC6884 /* Assets.xcassets in Resources */,
 				D4E9A90B2434D91B00EC6884 /* DataPercent.xib in Resources */,
 				D4E9A9132434D91B00EC6884 /* Index.xib in Resources */,
@@ -724,6 +729,7 @@
 				D4E9A9322434DEA000EC6884 /* ExVC.swift in Sources */,
 				D4B2B36D2437CBDF00A24C88 /* UICollectionGridViewCell.swift in Sources */,
 				D4E9A91E2434DA7200EC6884 /* ViewController.swift in Sources */,
+				D4287F362448902E00995FB8 /* GetProjectsModel.swift in Sources */,
 				D4E9A9102434D91B00EC6884 /* DataNumbers.swift in Sources */,
 				D4E9A95C2434EF5300EC6884 /* DepViewController.swift in Sources */,
 				D4B2B39E2444BFD900A24C88 /* GetDeptInfoModel.swift in Sources */,
@@ -731,13 +737,14 @@
 				D4E9A90D2434D91B00EC6884 /* DataNumber.swift in Sources */,
 				D4B2B39B24439D3D00A24C88 /* Cookies.swift in Sources */,
 				D4E9A9312434DEA000EC6884 /* ExButton.swift in Sources */,
-				D4E9A9042434D91B00EC6884 /* ScrollBars.swift in Sources */,
 				D4E9A90A2434D91B00EC6884 /* FinishedBar.swift in Sources */,
 				D4E9A9192434D97300EC6884 /* LFIconFont.swift in Sources */,
+				D4F5F6C22447EF8F0077CC8D /* GetAllModel.swift in Sources */,
 				D4B2B35F2437BD9800A24C88 /* ExFloat.swift in Sources */,
 				D4E9A3DB2434D74100EC6884 /* IndexViewController.swift in Sources */,
 				D4E9A9222434DE0400EC6884 /* LoginController.swift in Sources */,
 				D4B2B39524438D4C00A24C88 /* GetAccountModel.swift in Sources */,
+				D4287F242448548F00995FB8 /* ExUIView.swift in Sources */,
 				D4E9A90E2434D91B00EC6884 /* DataPercent.swift in Sources */,
 				D4B2B36B2437CA0300A24C88 /* UICollectionGridViewLayout.swift in Sources */,
 				D4E9A9582434E33B00EC6884 /* BarData.swift in Sources */,
@@ -926,8 +933,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WF8F2CQW7A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iOSDataDisplay/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = iOSDataDisplay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -935,6 +947,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yinmeng.iOSDataDisplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iOSDataDisplay/controllers/index/iOSDataDisplay-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -945,8 +959,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WF8F2CQW7A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iOSDataDisplay/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = iOSDataDisplay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -954,6 +973,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yinmeng.iOSDataDisplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iOSDataDisplay/controllers/index/iOSDataDisplay-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

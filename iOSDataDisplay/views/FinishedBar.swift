@@ -15,10 +15,14 @@ import UIKit
     @IBOutlet var titleLabel: UILabel!
     // 百分比数字
     @IBOutlet var percentLabel: UILabel!
+    // 项目三数据
+    @IBOutlet var planLabel: UILabel!
+    @IBOutlet var excLabel: UILabel!
+    @IBOutlet var numsLabel: UILabel!
     // 进度条
-    @IBOutlet var processView: UIProgressView!
+    @IBOutlet var progressView: UIProgressView!
     // 项目分类字符串
-    @IBInspectable var titleStr:String = "项目分类" {
+    @IBInspectable var titleStr:String = "项目名称" {
         didSet {
             titleLabel.text = titleStr
         }
@@ -26,20 +30,43 @@ import UIKit
     // 百分比数字
     @IBInspectable var percentNum:Float = 0 {
         didSet {
-            percentLabel.text = String(format: "%.2f", percentNum*100) + "%"
-            processView.progress = percentNum
+            percentLabel.text = "执行率：" + (percentNum*100).cleanZero + "%"
+            progressView.progress = percentNum
         }
     }
+    // 项目总数
+    @IBInspectable var proNum: Int = 0 {
+        didSet {
+            numsLabel.text = "项目数：" + String(proNum)
+        }
+    }
+    // 计划总数
+    @IBInspectable var planNum: Float = 0 {
+        didSet {
+            planLabel.text = "计划额度：" + planNum.cleanZero
+        }
+    }
+    // 执行总数
+    @IBInspectable var excNum: Float = 0 {
+        didSet {
+            excLabel.text = "执行资金：" + excNum.cleanZero
+        }
+    }
+    
     
     func initial() {
         titleStr = "项目"
         percentNum = 0.5
-        setBackgrond(color: UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5))
+        progressView.transform = CGAffineTransform(scaleX: 1.0, y: 2.0)
+        setBackgrond(color: .white)
     }
     
-    func setData(title:String, percent:Float) {
+    func setData(title:String, percent:Float, total: Int, plan: Float, exc: Float) {
         titleStr = title
         percentNum = percent
+        proNum = total
+        planNum = plan
+        excNum = exc
     }
     
     func setBackgrond(color: UIColor) {

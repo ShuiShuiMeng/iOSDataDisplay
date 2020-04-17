@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 
 public func drawGrayLineView(x: CGFloat, y: CGFloat, height: CGFloat) -> UIView {
-    let view = UIView(frame: CGRect(x: x, y: y, width: mainSize.width, height: height))
-    view.backgroundColor = UIColor(red: 222/255, green: 221/255, blue: 221/255, alpha: 0.81)
+    return drawLine(x: x, y: y, width:mainSize.width, height: height, color: Colors.lineGray)
+}
+
+public func drawLine(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) -> UIView {
+    let view = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
+    view.backgroundColor = color
     return view
 }

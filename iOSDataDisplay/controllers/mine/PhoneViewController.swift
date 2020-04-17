@@ -188,34 +188,34 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
             ]
             Alamofire.request(setAccountUrl, method: .post, parameters: parameters, headers: header).responseJSON {
                 response in
-                if response.result.isSuccess {
-                    // cookie 无效
-                    if (response.response?.statusCode != 200) {
-                        self.showMsgbox(_message: "修改失败，登录权限过期，请重新登录")
-                        self.jumpToLogin()
-                    }
+                // print(response)
+                // cookie 无效
+                if (response.response?.statusCode != 200) {
+                    self.jumpLoginbox(_message: "修改失败，登录权限过期，请重新登录")
+                }
+                
+                else if response.result.isSuccess {
+                    
                     // cookie 有效，登录成功
+                    let res = SetAccountDecoder.decode(jsonData: response.data!)
+                    if res.Code == 0 {
+                        self.pwdTextField.isUserInteractionEnabled = false
+                        self.phoneTextField.isUserInteractionEnabled = false
+                        // 更新登录名
+                        if (getPhoneFromCookie() == getLoginName()) {
+                            refreshLoginName(name: self.phoneTextField.text!)
+                        }
+                        setPhoneToCookie(phone: self.phoneTextField.text!)
+                        self.jumpMinebox(_message: "修改成功！")
+                    }
+                    else if res.ObjT == "Cannot match a user." {
+                        self.showMsgbox(_message: "修改失败，密码错误")
+                    }
+                    else if res.ObjT == "duplicated phone!" {
+                        self.showMsgbox(_message: "修改失败，手机号已被绑定，请尝试更换其他新手机号")
+                    }
                     else {
-                        print(response)
-                        let res = SetAccountDecoder.decode(jsonData: response.data!)
-                        if res.Code == 0 {
-                            self.pwdTextField.isUserInteractionEnabled = false
-                            self.phoneTextField.isUserInteractionEnabled = false
-                            setPhoneToCookie(phone: self.phoneTextField.text!)
-                            let alert = UIAlertController(title: "提示", message: "修改成功！", preferredStyle: UIAlertController.Style.alert)
-                            let btnOK = UIAlertAction(title: "好的", style: .default, handler: {
-                                action in
-                                self.jumpToMine()
-                            })
-                            alert.addAction(btnOK)
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                        else if res.ObjT == "Cannot match a user" {
-                            self.showMsgbox(_message: "修改失败，密码错误")
-                        }
-                        else {
-                            self.showMsgbox(_message: "修改失败，新手机号重复")
-                        }
+                        self.showMsgbox(_message: "修改失败，发生了未知错误，请联系服务器管理员")
                     }
                 }
                 else {
@@ -223,17 +223,5 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
-    }
-    
-    func jumpToLogin() {
-        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
-        self.present(loginVC, animated: true, completion: nil)
-    }
-    
-    
-    func jumpToMine() {
-        let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
-        tbVC.selectedIndex = 2
-        self.present(tbVC, animated: true, completion: nil)
     }
 }

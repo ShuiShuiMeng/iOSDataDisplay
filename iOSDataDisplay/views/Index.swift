@@ -15,10 +15,11 @@ class Index: UIView {
     
     func setBackgrond(color: UIColor) {
         contentView.backgroundColor = color
+        numbers.setBackgrond(color: color)
     }
     
     func initial() {
-        setBackgrond(color: UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5))
+        setBackgrond(color: Colors.background)
     }
     
     func setNumbers(budget: Float, total: Float, exeQuota: Float, exeRate: Float) {
