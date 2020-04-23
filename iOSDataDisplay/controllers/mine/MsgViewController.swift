@@ -30,7 +30,7 @@ class MsgViewController: UIViewController {
     }
     
     func initial() {
-        wapper.backgroundColor = Colors.background
+        wapper.backgroundColor = Colors.graybackground
         drawHeader()
         drawBoxes()
         drawLogout()

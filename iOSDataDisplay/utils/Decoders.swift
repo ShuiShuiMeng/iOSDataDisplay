@@ -45,7 +45,8 @@ class GetDeptInfoDecoder {
                 name: tmp["Name"] as! String,
                 approvedItems: (tmp["ApprovedItems"] as! NSNumber).intValue,
                 fundding: (tmp["Funding"] as! NSNumber).floatValue,
-                limit: (tmp["Limit"] as! NSNumber).floatValue
+                limit: (tmp["Limit"] as! NSNumber).floatValue,
+                totalLimit: (tmp["TotalLimit"] as! NSNumber).floatValue
             ))
         }
         

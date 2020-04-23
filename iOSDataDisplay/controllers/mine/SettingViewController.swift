@@ -24,7 +24,7 @@ class SettingViewController: UIViewController, UITextFieldDelegate {
     }
     
     func initial() {
-        wapper.backgroundColor = Colors.background
+        wapper.backgroundColor = Colors.graybackground
         drawHeader()
         
     }

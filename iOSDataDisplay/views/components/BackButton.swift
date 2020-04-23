@@ -28,7 +28,7 @@ class BackButton: UIButton {
         // 通过高度控制图标大小
         imageView?.frame = CGRect(x: 0, y: (frame.height-imageView!.frame.height)*0.5, width: imageView!.frame.width, height: imageView!.frame.height)
         // 其余部分给text
-        titleLabel?.frame = CGRect(x: imageView!.frame.width, y: (frame.height-imageView!.frame.height)*0.5, width: frame.width-(frame.height+imageView!.frame.height)*0.5, height: imageView!.frame.height)
+        titleLabel?.frame = CGRect(x: imageView!.frame.width*0.75, y: (frame.height-imageView!.frame.height)*0.5, width: frame.width-(frame.height+imageView!.frame.height)*0.5, height: imageView!.frame.height)
     }
 
 }

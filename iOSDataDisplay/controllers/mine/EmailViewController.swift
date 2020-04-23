@@ -28,7 +28,7 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     func initial() {
-        wapper.backgroundColor = Colors.background
+        wapper.backgroundColor = Colors.graybackground
         drawHeader()
         drawBox()
     }
@@ -55,7 +55,7 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
     func drawBox() {
         // 框背景
         modifyBox = UIView(frame: CGRect(x:15, y:80, width:mainSize.width-30, height:172))
-        modifyBox.backgroundColor = Colors.background
+        modifyBox.backgroundColor = Colors.graybackground
         wapper.addSubview(modifyBox)
         // 账号输入框
         drawUserTextField()

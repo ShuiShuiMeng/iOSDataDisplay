@@ -18,34 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cq4-Ht-BZo">
+                                <rect key="frame" x="0.0" y="44" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="9AE-OU-IYy"/>
+                                </constraints>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m3z-py-dty">
                                 <rect key="frame" x="0.0" y="94" width="375" height="635"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cq4-Ht-BZo">
-                                <rect key="frame" x="0.0" y="44" width="375" height="50"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-0Z-NHh">
-                                        <rect key="frame" x="50" y="0.0" width="275" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="Xp3-xz-RUl"/>
-                                        </constraints>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jks-qJ-g62">
-                                        <rect key="frame" x="330" y="5" width="40" height="40"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="HNS-0Z-NHh" firstAttribute="top" secondItem="Cq4-Ht-BZo" secondAttribute="top" id="5Ei-dH-uGc"/>
-                                    <constraint firstAttribute="height" constant="50" id="9AE-OU-IYy"/>
-                                    <constraint firstAttribute="trailing" secondItem="jks-qJ-g62" secondAttribute="trailing" constant="5" id="FLM-ax-1Ic"/>
-                                    <constraint firstItem="jks-qJ-g62" firstAttribute="leading" secondItem="HNS-0Z-NHh" secondAttribute="trailing" constant="5" id="Ilv-PX-6f4"/>
-                                    <constraint firstAttribute="bottom" secondItem="jks-qJ-g62" secondAttribute="bottom" constant="5" id="SOp-ED-9ZW"/>
-                                    <constraint firstItem="HNS-0Z-NHh" firstAttribute="leading" secondItem="Cq4-Ht-BZo" secondAttribute="leading" constant="50" id="SxV-Ac-gFA"/>
-                                    <constraint firstItem="jks-qJ-g62" firstAttribute="top" secondItem="Cq4-Ht-BZo" secondAttribute="top" constant="5" id="fMN-Wj-H6e"/>
-                                    <constraint firstAttribute="trailing" secondItem="HNS-0Z-NHh" secondAttribute="trailing" constant="50" id="rn7-vS-Q2k"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -61,11 +43,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="主页" image="first" id="acW-dT-cKf"/>
                     <connections>
+                        <outlet property="header" destination="Cq4-Ht-BZo" id="KSm-yB-Nr9"/>
                         <outlet property="indexItem" destination="acW-dT-cKf" id="HgY-cC-M44"/>
-                        <outlet property="refresh" destination="jks-qJ-g62" id="8oy-wp-kIC"/>
-                        <outlet property="scrollView" destination="m3z-py-dty" id="jrY-zz-NhS"/>
-                        <outlet property="topButton" destination="HNS-0Z-NHh" id="5Fe-WZ-OCt"/>
-                        <outlet property="topView" destination="Cq4-Ht-BZo" id="e7Z-uy-OcJ"/>
+                        <outlet property="wapper" destination="m3z-py-dty" id="5Zl-tn-YeT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -253,10 +233,10 @@
             </objects>
             <point key="canvasLocation" x="-1503" y="360"/>
         </scene>
-        <!--Dep View Controller-->
+        <!--Dept View Controller-->
         <scene sceneID="9xl-VK-X9S">
             <objects>
-                <viewController storyboardIdentifier="DepViewController" id="Rsd-Nd-ppg" customClass="DepViewController" customModule="iOSDataDisplay" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DeptViewController" id="Rsd-Nd-ppg" customClass="DeptViewController" customModule="iOSDataDisplay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="udu-HT-EVB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -285,13 +265,13 @@
                         <viewLayoutGuide key="safeArea" id="ILG-T3-ttq"/>
                     </view>
                     <connections>
-                        <outlet property="header" destination="TPG-KL-zqO" id="bYP-yD-RTq"/>
-                        <outlet property="scroll" destination="KAg-Ak-eW8" id="Re0-v6-NEf"/>
+                        <outlet property="header" destination="TPG-KL-zqO" id="6aY-QQ-uuP"/>
+                        <outlet property="wapper" destination="KAg-Ak-eW8" id="oJq-8M-LpQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nx2-px-Scg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1479" y="-321"/>
+            <point key="canvasLocation" x="1477.5999999999999" y="-321.42857142857144"/>
         </scene>
         <!--我的-->
         <scene sceneID="b2K-Js-iAY">

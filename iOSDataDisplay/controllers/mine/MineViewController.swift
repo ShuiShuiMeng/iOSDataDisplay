@@ -31,7 +31,7 @@ class MineViewController: UIViewController {
 
     func initial() {
         mineItem.selectedImage = Icons.mineIconB.iconFontImage(fontSize: 35, color: .gray)
-        self.view?.backgroundColor = Colors.background
+        self.view?.backgroundColor = Colors.graybackground
         drawHeader(name: getNameFromCookie()!, dep: getDepartmentFromCookie()!)
         drawBoxes()
     }

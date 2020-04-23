@@ -44,4 +44,6 @@ struct Icons {
     static let userIcon2 = LFIconFont(code: "\u{e616}", name: "个人信息")
     static let settingIcon2 = LFIconFont(code: "\u{e627}", name: "设置")
     static let cancel = LFIconFont(code: "\u{e61f}", name: "取消")
+    static let down_solid = LFIconFont(code: "\u{e716}", name: "向下")
+    static let right_solid = LFIconFont(code: "\u{e717}", name: "向右")
 }
