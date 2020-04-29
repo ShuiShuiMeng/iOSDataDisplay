@@ -23,8 +23,7 @@ class OProgressView: UIView {
     let trackLayer = CAShapeLayer()
     // 进度条
     let progressLayer = CAShapeLayer()
-    // 进度条路径
-    let path = UIBezierPath()
+    
     // 头部圆点
     var sdot: UIView!
     // 尾部圆点（尾部指出发点）
@@ -48,7 +47,7 @@ class OProgressView: UIView {
     @IBInspectable var progress: CGFloat = 0 {
         didSet {
             if progress > 1 {
-                progress = 1
+                // progress = 1
             }
             else if progress < 0 {
                 progress = 0
@@ -73,6 +72,8 @@ class OProgressView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        // 进度条路径
+        let path = UIBezierPath()
         // 获取整个进度条圆圈路径
         path.addArc(withCenter: progressCenter, radius: radius, startAngle: angleToRadian(-90), endAngle: angleToRadian(270), clockwise: true)
         
@@ -88,8 +89,8 @@ class OProgressView: UIView {
         layer.addSublayer(trackLayer)
         
         // 绘制进度条尾部端点
-        edot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.8, height: lineWidth*0.8))
-        let edotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.8, height: lineWidth*0.8)).cgPath
+        edot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7))
+        let edotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7)).cgPath
         let earc = CAShapeLayer()
         earc.lineWidth = 0
         earc.path = edotPath
@@ -102,8 +103,8 @@ class OProgressView: UIView {
         self.addSubview(edot)
         
         // 绘制进度条头部原点
-        sdot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.8, height: lineWidth*0.8))
-        let sdotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.8, height: lineWidth*0.8)).cgPath
+        sdot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7))
+        let sdotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7)).cgPath
         let sarc = CAShapeLayer()
         sarc.lineWidth = 0
         sarc.path = sdotPath
@@ -119,7 +120,7 @@ class OProgressView: UIView {
         progressLayer.frame = bounds
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.strokeColor = progressColor.cgColor
-        progressLayer.lineWidth = lineWidth*0.8
+        progressLayer.lineWidth = lineWidth*0.7
         progressLayer.path = path.cgPath
         progressLayer.strokeStart = 0
         progressLayer.strokeEnd = progress

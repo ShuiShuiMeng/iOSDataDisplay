@@ -33,8 +33,11 @@ class COProgressView: OProgressView {
         self.idotColor = idotColor
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+    }
+    
     func initial() {
-        // print((frame.height/2-lineWidth)) 200x200
         label1 = UILabel(frame: CGRect(x: bounds.midX-20, y: 45, width: 40, height: 15))
         label1.textColor = .white
         label1.textAlignment = .center
@@ -44,7 +47,6 @@ class COProgressView: OProgressView {
         
         // 百分比
         label2 = UILabel(frame: CGRect(x: bounds.midX-70, y: 65, width: 140, height: 60))
-        // print(progress)
         label2.textColor = .white
         label2.textAlignment = .center
         let progressStr = Float(progress*100).cleanZero

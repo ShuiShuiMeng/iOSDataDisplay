@@ -7,13 +7,12 @@
 //
 
 import UIKit
+import Alamofire
 
 class DeptViewController: UIViewController {
 
     var deptID: Int = 0
     var height: CGFloat = 0
-    
-    
     
     @IBOutlet var header: UIView!
     var backButton: BackButton!
@@ -31,13 +30,13 @@ class DeptViewController: UIViewController {
     
     var deptTable: DeptTableViewController!
     
-    @IBInspectable var projects: Int = 100 {
+    var projects: Int = 100 {
         didSet {
             projectsLabel.text = String(projects)
         }
     }
     
-    @IBInspectable var fundding: Float = 3700 {
+    var fundding: Float = 3700 {
         didSet {
             funddingLabel.text = fundding.cleanZero
         }
@@ -58,13 +57,51 @@ class DeptViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let headers: HTTPHeaders = [
+            "Cookie": getSession()!,
+            "Content-Type": "application/x-www-form-urlencoded"
+        ]
+        let parameters = [
+            "deptId": deptID
+        ]
+        Alamofire.request(getDeptInfoUrl, method: .post, parameters: parameters, headers: headers).responseJSON {
+            response in
+            if response.result.isSuccess {
+                if (response.result.value! is NSNull) {
+                    self.jumpLoginbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                }
+                else if (response.response?.statusCode != 200) {
+                    self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+                }
+                else {
+                    let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
+                    // 判断返回结果
+                    if (result.Code == 0) {
+                        self.initialDept(res: result)
+                    }
+                    else {
+                        self.jumpLoginbox(_message: "获取数据失败，点击返回重新登录")
+                    }
+                }
+            }
+            else {
+                self.jumpLoginbox(_message: "网络出错，连接不到服务器")
+            }
+            
+        }
+    }
+    
+    func initialDept(res: GetDeptInfoModel) {
         setBackgroundColor(color: Colors.blueBackground)
-        drawHeader()
-        drawTotal(limit: 1, fundding: 1)
-        drawDepts()
+        drawDeptHeader()
+        drawTotal(limit: res.getTotalLimit(), fundding: res.getTotalFundding(), projects: res.getTotalProjects())
+        drawDeptProjects(ProjectsList: res.ObjT.DeptProjectInfoList)
+        // 初始化wapper
         wapper.contentSize = CGSize(width: mainSize.width, height: height)
         wapper.refreshControl = UIRefreshControl()
         wapper.refreshControl?.addTarget(self, action: #selector(onPullToFresh), for: UIControl.Event.valueChanged)
+        //wapper.refreshControl = UIRefreshControl()
+        //wapper.refreshControl?.addTarget(self, action: #selector(onPullToFresh), for: UIControl.Event.valueChanged)
     }
     
     @objc func onPullToFresh() {
@@ -72,7 +109,7 @@ class DeptViewController: UIViewController {
         sleep(1)
         refreshing = false
     }
-    
+
     // 设置背景颜色
     func setBackgroundColor(color: UIColor) {
         self.view.backgroundColor = color
@@ -81,7 +118,7 @@ class DeptViewController: UIViewController {
     }
     
     // 头部高度 50
-    func drawHeader() {
+    func drawDeptHeader() {
         // 返回按钮
         backButton = BackButton(frame: CGRect(x: 0, y: 0, width: 80, height: 50))
         backButton.setImage(Icons.left.iconFontImage(fontSize: 33, color: .white), for: .normal)
@@ -101,7 +138,7 @@ class DeptViewController: UIViewController {
     }
     
     // 上半部
-    func drawTotal(limit: Float, fundding: Float) {
+    func drawTotal(limit: Float, fundding: Float, projects pros: Int) {
         // 次级标题
         let titleLabel = UILabel(frame: CGRect(x: 25, y: 10, width: 150, height:20))
         titleLabel.textColor = .white
@@ -128,8 +165,9 @@ class DeptViewController: UIViewController {
         projectsLabel.textColor = .white
         projectsLabel.textAlignment = .center
         projectsLabel.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 17), size: 17)
-        projectsLabel.text = String(projects)
+        projectsLabel.text = String(pros)
         wapper.addSubview(projectsLabel)
+        
         // 说明
         let proLabel = UILabel(frame: CGRect(x: mainSize.width/2-150, y: height+35, width: 150, height: 25))
         proLabel.textColor = Colors.ligthgray
@@ -143,7 +181,7 @@ class DeptViewController: UIViewController {
         funddingLabel.textColor = .white
         funddingLabel.textAlignment = .center
         funddingLabel.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 17), size: 17)
-        funddingLabel.text = fundding.cleanZero
+        funddingLabel.text = (fundding/10000).cleanZero4
         wapper.addSubview(funddingLabel)
         // 说明
         let fundLabel = UILabel(frame: CGRect(x: mainSize.width/2+1, y: height+35, width: 150, height: 25))
@@ -155,7 +193,7 @@ class DeptViewController: UIViewController {
         height = fundLabel.frame.maxY
     }
     
-    func drawDepts() {
+    func drawDeptProjects(ProjectsList: [GetDeptInfoModel.resObj.Projects]) {
         // 白色view
         deptView = UIView(frame: CGRect(x: mainSize.width/2-170, y: height+10, width: 340, height: 580))
         deptView.backgroundColor = .white
@@ -197,6 +235,9 @@ class DeptViewController: UIViewController {
         // 初始化表格
         deptTable = DeptTableViewController()
         deptTable.view.frame = CGRect(x: 0, y: 70, width: 340, height: 500)
+        for item in ProjectsList {
+            deptTable.addRow(row: item)
+        }
         deptView.addSubview(deptTable.view)
         
         // 为了美观, 添加一个底部

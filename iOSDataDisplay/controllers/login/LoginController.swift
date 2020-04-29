@@ -90,12 +90,12 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     func drawLoginButton() {
         // 登陆按钮
-        loginButton = UIButton(frame: CGRect(x: 45, y: 370, width: mainSize.width-90, height: 40))
+        loginButton = UIButton(frame: CGRect(x: 45, y: 380, width: mainSize.width-90, height: 40))
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.setTitle("登录", for: .normal)
         loginButton.setTitleFontSize(size: 16)
-        loginButton.setBackgroundColor(color: .blue, forState: .normal)
-        loginButton.layer.cornerRadius = 5
+        loginButton.setBackgroundColor(color: Colors.loginblue, forState: .normal)
+        loginButton.layer.cornerRadius = 20
         // 设置corner无效，因为设置了背景色（corner对subview无效）
         loginButton.layer.masksToBounds = true
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
@@ -111,24 +111,14 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     func drawUserTextField() {
         // 用户名输入
-        userTextField = UITextField(frame: CGRect(x:30, y:30, width:vLogin.frame.size.width-60, height:44))
+        userTextField = UITextField(frame: CGRect(x:30, y:40, width:vLogin.frame.size.width-60, height:44))
         userTextField.delegate = self
-        userTextField.layer.cornerRadius = 5
-        userTextField.layer.borderColor = UIColor.lightGray.cgColor
-        userTextField.layer.borderWidth = 0.5
-        userTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        userTextField.leftViewMode = UITextField.ViewMode.always
         userTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         userTextField.rightViewMode = UITextField.ViewMode.always
         userTextField.placeholder = "手机号或邮箱"
         if (getLoginName() != nil) {
             userTextField.text = getLoginName()!
         }
-        
-        // 用户名输入框左侧图标
-        let imgUser = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        imgUser.image = Icons.userIcon.iconFontImage(fontSize: 20, color: .gray)
-        userTextField.leftView!.addSubview(imgUser)
         
         // 右侧
         cancel = UIButton(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
@@ -140,34 +130,25 @@ class LoginController: UIViewController, UITextFieldDelegate {
         // 取消标志
         cancel.isHidden = userTextField.text!.count == 0
         vLogin.addSubview(userTextField)
+        vLogin.addSubview(drawLineView(x: 30, y: 83.5, width: vLogin.frame.size.width-60, height: 0.5, color: Colors.lineGray))
     }
     
     func drawPwdTextField() {
         // 密码输入框
-        pwdTextField = UITextField(frame: CGRect(x:30, y:90, width:vLogin.frame.size.width-60, height:44))
+        pwdTextField = UITextField(frame: CGRect(x:30, y:95, width:vLogin.frame.size.width-60, height:44))
         pwdTextField.delegate = self
-        pwdTextField.layer.cornerRadius = 5
-        pwdTextField.layer.borderColor = UIColor.lightGray.cgColor
-        pwdTextField.layer.borderWidth = 0.5
         pwdTextField.isSecureTextEntry = PwdStatus.INVISIBLE
-        pwdTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        pwdTextField.leftViewMode = UITextField.ViewMode.always
         pwdTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         pwdTextField.rightViewMode = UITextField.ViewMode.always
-        pwdTextField.placeholder = "密码"
-        // 密码输入框左侧图标
-        let imgLeftPwd = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        imgLeftPwd.image = Icons.pwdIcon.iconFontImage(fontSize: 20, color: .gray)
-        pwdTextField.leftView!.addSubview(imgLeftPwd)
+        pwdTextField.placeholder = "请输入登录密码"
         
         // 密码输入框右侧图标
-        // let imgRightPwd = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
         let imgRightPwd = UIButton(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
         imgRightPwd.setImage(Icons.eyeCloseIcon.iconFontImage(fontSize: 20, color: .gray), for: .normal)
         imgRightPwd.addTarget(self, action: #selector(changeEye(sender:)), for: .touchUpInside)
-        // imgRightPwd.image = Icons.eyeCloseIcon.iconFontImage(fontSize: 20, color: .gray)
         pwdTextField.rightView!.addSubview(imgRightPwd)
         vLogin.addSubview(pwdTextField)
+        vLogin.addSubview(drawLineView(x: 30, y: 137.5, width: vLogin.frame.size.width-60, height: 0.5, color: Colors.lineGray))
     }
     
     // 输入框获取焦点开始编辑

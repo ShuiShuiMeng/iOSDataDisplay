@@ -25,8 +25,9 @@ class DepButton: UIButton {
         if imageView == nil {
             return
         }
-        imageView?.frame = CGRect(x: frame.width*0.5 - imageView!.frame.width*0.5, y: imageView!.frame.height*0.15, width: imageView!.frame.width, height: imageView!.frame.height)
-        titleLabel?.frame = CGRect(x: 0, y: imageView!.frame.size.height, width: frame.width, height: frame.height - imageView!.frame.height)
+        // 60 x 60
+        imageView?.frame = CGRect(x: 10, y: 0, width: 30, height: 30)
+        titleLabel?.frame = CGRect(x: 0, y: 30, width: 50, height: 20)
     }
     
 }
@@ -35,7 +36,7 @@ class DepButton: UIButton {
 extension DepButton {
     fileprivate func setupUI() {
         titleLabel?.textAlignment = .center
-        titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        titleLabel?.font = UIFont.systemFont(ofSize: 12)
     }
 }
 

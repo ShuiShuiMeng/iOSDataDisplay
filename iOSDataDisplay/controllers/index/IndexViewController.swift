@@ -21,10 +21,10 @@ class IndexViewController: UIViewController {
     var barsView: UIView!
     
     var deptView: UIView!
+    var chopView: CHOProgressView!
     
     var barDatas: Array<BarData> = []
     var depDatas: Array<DepData> = []
-    
     
     var height: CGFloat = 0
     
@@ -80,9 +80,9 @@ class IndexViewController: UIViewController {
         loadIcons()
         drawIndexHeader()
         drawTotal()
-        // httpGetNumbers(flag: false)
+        httpGetNumbers(flag: false)
         drawDepts()
-        
+        // drawBars(flag: false)
     }
     
     func loadIcons() {
@@ -91,7 +91,7 @@ class IndexViewController: UIViewController {
     
     func drawIndexHeader() {
         header.backgroundColor = Colors.blueBackground
-        topButton = UIButton(frame: CGRect(x: 10, y: 10, width: mainSize.width-20, height: 40))
+        topButton = UIButton(frame: CGRect(x: 10, y: 5, width: mainSize.width-20, height: 40))
         topButton.titleLabel?.numberOfLines = 2
         topButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
         topButton.titleLabel?.textAlignment = .center
@@ -103,38 +103,38 @@ class IndexViewController: UIViewController {
     }
     
     func drawTotal() {
-        totalView = UIView(frame: CGRect(x: 0, y: 0, width: mainSize.width, height: 250))
+        totalView = UIView(frame: CGRect(x: 0, y: 0, width: mainSize.width, height: 240))
         totalView.backgroundColor = Colors.blueBackground
         // 进度条
-        let pro = CHOProgressView2(frame: CGRect(x: mainSize.width*0.5-120, y: 15, width: 240, height: 160), lineWidth: 16, trackColor: Colors.trackblue, progressColor: Colors.lightblue, idotColor: Colors.idotblue)
-        pro.setProgress(0.6667, animated: true)
-        totalView.addSubview(pro)
+        chopView = CHOProgressView(frame: CGRect(x: mainSize.width*0.5-120, y: 15, width: 240, height: 160), lineWidth: 16, trackColor: Colors.trackblue, progressColor: Colors.lightblue, idotColor: Colors.idotblue)
+        // chopView.setProgress(0.6667, animated: true)
+        totalView.addSubview(chopView)
         
         wapper.addSubview(totalView)
     }
     
     func drawDepts() {
-        deptView = UIView(frame: CGRect(x: (mainSize.width-340)/2, y: 210, width: 340, height: 150))
+        deptView = UIView(frame: CGRect(x: (mainSize.width-340)/2, y: 200, width: 340, height: 150))
         deptView.backgroundColor = .white
         deptView.layer.cornerRadius = 5
         
         depDatas = [
-            DepData(name: "数理", x: 20, y: 10, icon: Icons.slIcon),
-            DepData(name: "化学", x: 100, y: 10, icon: Icons.hxIcon),
-            DepData(name: "生命", x: 180, y: 10, icon: Icons.smIcon),
-            DepData(name: "地球", x: 260, y: 10, icon: Icons.dqIcon),
-            DepData(name: "工材", x: 20, y: 80, icon: Icons.gcIcon),
-            DepData(name: "信息", x: 100, y: 80, icon: Icons.xxIcon),
-            DepData(name: "管理", x: 180, y: 80, icon: Icons.glIcon),
-            DepData(name: "医学", x: 260, y: 80, icon: Icons.yxIcon)
+            DepData(name: "数理", x: 34, y: 20),
+            DepData(name: "化学", x: 108, y: 20),
+            DepData(name: "生命", x: 182, y: 20),
+            DepData(name: "地球", x: 256, y: 20),
+            DepData(name: "工材", x: 34, y: 80),
+            DepData(name: "信息", x: 108, y: 80),
+            DepData(name: "管理", x: 182, y: 80),
+            DepData(name: "医学", x: 256, y: 80)
         ]
         
         var tag = 10
         for item in depDatas {
-            let tmpBtn = DepButton(frame: CGRect(x: item.x, y: item.y, width: 60, height: 60))
+            let tmpBtn = DepButton(frame: CGRect(x: item.x, y: item.y, width: 50, height: 50))
             tmpBtn.setTitle(item.name, for: .normal)
-            tmpBtn.setTitleColor(Colors.textgray, for: .normal)
-            tmpBtn.setImage(item.icon.iconFontImage(fontSize: 28, color: Colors.blueBackground), for: .normal)
+            tmpBtn.setTitleColor(.black, for: .normal)
+            tmpBtn.setImage(UIImage(named: item.name+".jpg"), for: .normal)
             tmpBtn.setBackgroundColor(color: .white, forState: .normal)
             tmpBtn.addTarget(self, action: #selector(tapToDetails(sender:)), for: .touchUpInside)
             tmpBtn.backgroundColor = UIColor(red: 248/255, green: 247/255, blue: 247/255, alpha: 0.5)
@@ -143,12 +143,13 @@ class IndexViewController: UIViewController {
             deptView.addSubview(tmpBtn)
         }
         wapper.addSubview(deptView)
+        height = deptView.frame.maxY
         
-        let finLabel = UILabel(frame: CGRect(x:(mainSize.width-375)/2+10, y:465, width: 100, height: 20))
+        let finLabel = UILabel(frame: CGRect(x:(mainSize.width-340)/2, y:height+20, width: 100, height: 20))
         finLabel.text = "项目完成度"
-        finLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        finLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         wapper.addSubview(finLabel)
-        wapper.addSubview(drawLine(x: 0, y: 494, width: mainSize.width, height: 1, color: Colors.deepGray))
+        height = finLabel.frame.maxY
     }
     
     @objc func tapToDetails(sender: UIButton) {
@@ -172,7 +173,7 @@ class IndexViewController: UIViewController {
             if (response.response?.statusCode != 200) {
                 self.jumpLoginbox(_message: "登录状态失效，请重新登录")
             }
-                // 已登录
+            // 已登录
             else {
                 if response.result.isSuccess {
                     //把得到的JSON数据转为数组
@@ -194,7 +195,7 @@ class IndexViewController: UIViewController {
                             self.barDatas.append(BarData(name: item.Name, percent: item.ExeRate, total: item.Items, plan: item.TotalOfPlan, exc: item.ExeQuota))
                         }
                         
-                        self.refreshBars()
+                       self.refreshBars()
                     }
                 }
                 else {
@@ -207,19 +208,43 @@ class IndexViewController: UIViewController {
     }
     
     func refreshBars() {
+        var totalPlan: Float = 0
+        for item in barDatas {
+            totalPlan = totalPlan + item.plan
+        }
+        // 总容器
+        barsView = UIView(frame: CGRect(x: 0, y: height+10, width: mainSize.width, height: CGFloat(100*barDatas.count)))
+        barsView.backgroundColor = Colors.graybackground
+        
+        // load bars
+        var i: CGFloat = 0
+        for item in barDatas {
+            let bar = FinishedBar(frame: CGRect(x: 0, y: i*100, width: mainSize.width, height: 90))
+            bar.setData(name: item.name, exeNum: item.exc, plan: item.plan, rate: item.plan/totalPlan)
+            barsView.addSubview(bar)
+            i = i + 1
+        }
+        wapper.addSubview(barsView)
+        height = barsView.frame.maxY
+        
+        wapper.contentSize = CGSize(width: 0, height: height)
+    }
+    
+    /*
+    func refreshBars() {
         barsView = UIView(frame: CGRect(x: (mainSize.width-375)/2, y: 495, width: 375, height: CGFloat(70*barDatas.count)))
         var i:Int = 0
         for item in barDatas {
             let finishedBar = FinishedBar(frame: CGRect(x:0, y:i*70, width:375, height:70))
             finishedBar.setData(title: item.name, percent: item.percent, total: item.total, plan: item.plan, exc: item.exc)
-            finishedBar.addSubview(drawLine(x: 10, y: 69.3, width: mainSize.width-20, height: 0.7, color: Colors.lineGray))
+            finishedBar.addSubview(drawLineView(x: 10, y: 69.3, width: mainSize.width-20, height: 0.7, color: Colors.lineGray))
             barsView.addSubview(finishedBar)
             i += 1
         }
         wapper.addSubview(barsView)
         wapper.contentSize = CGSize(width: 375, height: 495 + barsView.frame.height)
     }
-    
+    */
     @objc func tapTop() {
         print("tap")
     }
@@ -244,7 +269,8 @@ class IndexViewController: UIViewController {
                         self.showMsgbox(_message: "网络错误，只更新了“数据显示”部分")
                     }
                     else {
-                        // let result = GetAllDecoder.decode(jsonData: response.data!)
+                        let result = GetAllDecoder.decode(jsonData: response.data!)
+                        self.chopView.setData(plan: result.ObjT.TotalOfPlan, fund: result.ObjT.ExeQuota, budget:result.ObjT.Budget, rate:result.ObjT.ExeRate, animated: true)
                         // self.content.setNumbers(budget: result.ObjT.Budget, total: result.ObjT.TotalOfPlan, exeQuota: result.ObjT.ExeQuota, exeRate: result.ObjT.ExeRate)
                         self.drawBars(flag: flag)
                         if (flag) {
@@ -276,6 +302,8 @@ class IndexViewController: UIViewController {
     var deptLabel2: UILabel!
     var deptLabel3: UILabel!
     
+    var pro: CGFloat = 0
+    
     var deptTable: DeptTableViewController!
     
     @IBInspectable var projects: Int = 100 {
@@ -304,7 +332,6 @@ class IndexViewController: UIViewController {
     }
     
     func initialDept(res: GetDeptInfoModel) {
-        super.viewDidLoad()
         loadIcons()
         setBackgroundColor(color: Colors.blueBackground)
         drawDeptHeader()
@@ -352,9 +379,9 @@ class IndexViewController: UIViewController {
         
         // 进度环
         progressView = COProgressView(frame: CGRect(x: mainSize.width*0.5-100, y: height, width: 200, height: 200), lineWidth: 18, trackColor: Colors.trackblue, progressColor: Colors.lightblue, idotColor: Colors.idotblue)
-        // progressView.setProgress(CGFloat(rate), animated: true, withDuration: 1.0)
-        progressView.setData(plan: limit, fund: fundding, animated: true, withDuration: 1.0)
+        // progressView.setProgress(CGFloat(0), animated: true, withDuration: 1.0)
         wapper.addSubview(progressView)
+        progressView.setData(plan: limit, fund: fundding, animated: true, withDuration: 1.0)
         height = progressView.frame.maxY
         
         // 竖线
@@ -392,7 +419,20 @@ class IndexViewController: UIViewController {
         fundLabel.text = "已资助金额(万)"
         wapper.addSubview(fundLabel)
         height = fundLabel.frame.maxY
+        
+        /*
+        // test
+        let testBtn = UIButton(frame: CGRect(x:0, y:height-40, width:80, height:40))
+        testBtn.setTitle("测试", for: .normal)
+        testBtn.addTarget(self, action: #selector(testButton), for: .touchUpInside)
+        wapper.addSubview(testBtn)
+         */
     }
+    /*
+    @objc func testButton() {
+        pro = pro + 0.1
+        progressView.setProgress(pro, animated: true)
+    }*/
     
     func drawDeptProjects(ProjectsList: [GetDeptInfoModel.resObj.Projects]) {
         // 白色view
@@ -452,7 +492,7 @@ class IndexViewController: UIViewController {
     func refreshData(limit: Float, fundding: Float, projects pros: Int) {
         self.fundding = fundding
         self.projects = pros
-        progressView.setData(plan: limit, fund: fundding, animated: true)
+        // progressView.setData(plan: limit, fund: fundding, animated: true)
     }
 }
 

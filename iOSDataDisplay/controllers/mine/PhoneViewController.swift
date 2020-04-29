@@ -16,11 +16,12 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
     var header: UIView!
     var backButton: BackButton!
     
-    var modifyBox: UIView!
     var userTextField: UITextField!
     var pwdTextField: UITextField!
     var phoneTextField: UITextField!
     var modifyButton: UIButton!
+    
+    var height: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,119 +31,137 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
     func initial() {
         wapper.backgroundColor = Colors.graybackground
         drawHeader()
-        drawBox()
+        drawBoxs()
     }
     
     func drawHeader() {
         header = UIView(frame: CGRect(x: 0, y: 0, width: mainSize.width, height: 50))
-        header.backgroundColor = Colors.blue
-        //backButton = UIButton(frame: CGRect(x: 0, y: 10, width: 40, height: 40))
+        header.backgroundColor = Colors.blueBackground
+        wapper.addSubview(header)
+        
         // 返回键
         backButton = BackButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
         backButton.setImage(Icons.left.iconFontImage(fontSize: 30, color: .white), for: .normal)
+        backButton.setTitle("返回", for: .normal)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        
         // 标题
         let title = UILabel(frame: CGRect(x: mainSize.width*0.5-75, y: 10, width: 150, height: 30))
         header.addSubview(backButton)
         title.textColor = .white
         title.text = "修改绑定手机"
-        title.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        title.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         title.textAlignment = .center
         header.addSubview(title)
-        wapper.addSubview(header)
+        
+        height = header.frame.maxY
     }
     
-    func drawBox() {
-        // 框背景
-        modifyBox = UIView(frame: CGRect(x:15, y:80, width:mainSize.width-30, height:172))
-        modifyBox.backgroundColor = Colors.graybackground
-        wapper.addSubview(modifyBox)
+    func drawBoxs() {
         // 账号输入框
-        drawUserTextField()
+        drawUserBox()
         // 密码输入框
-        drawPwdTextField()
-        // 新手机号输入框
-        drawPhoneTextField()
-        // 确认修改
+        drawPwdBox()
+        // 新手机输入框
+        drawNewPhoneBox()
+        // 确认修改按钮
         drawModifyButton()
     }
     
-    func drawUserTextField() {
+    func drawUserBox() {
+        // 留白
+        let whiteView = UIView(frame: CGRect(x: 0, y: height, width: mainSize.width, height: 5))
+        wapper.addSubview(whiteView)
+        height = whiteView.frame.maxY
+        
+        // 总容器
+        let userBox = UIView(frame: CGRect(x: 0, y: height, width: mainSize.width, height: 56))
+        wapper.addSubview(userBox)
+        height = userBox.frame.maxY
+        
+        // 账号
+        let label = UILabel(frame: CGRect(x: 15, y: 13, width: 120, height: 30))
+        label.textColor = Colors.minetextgray
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.text = "账号"
+        userBox.addSubview(label)
+        
         // 用户名输入
-        userTextField = UITextField(frame: CGRect(x:10, y:0, width:modifyBox.frame.size.width-20, height:44))
+        userTextField = UITextField(frame: CGRect(x: 120, y: 6, width: 220, height:44))
         userTextField.delegate = self
-        userTextField.layer.cornerRadius = 5
-        userTextField.layer.borderColor = UIColor.lightGray.cgColor
-        userTextField.layer.borderWidth = 0.5
-        userTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        userTextField.leftViewMode = UITextField.ViewMode.always
         userTextField.placeholder = UserDefaults.standard.string(forKey: "userPhone")
         userTextField.isUserInteractionEnabled = false
+        userBox.addSubview(userTextField)
         
-        // 用户名输入框左侧图标
-        let imgUser = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        imgUser.image = Icons.userIcon.iconFontImage(fontSize: 20, color: .gray)
-        userTextField.leftView!.addSubview(imgUser)
-        modifyBox.addSubview(userTextField)
+        wapper.addSubview(drawLineView(x: 15, y:height-0.5, width: mainSize.width-0.5, height: 0.5, color: Colors.minelinegray))
     }
     
-    func drawPwdTextField() {
+    func drawPwdBox() {
+        // 总容器
+        let pwdBox = UIView(frame: CGRect(x: 0, y: height, width: mainSize.width, height: 56))
+        wapper.addSubview(pwdBox)
+        height = pwdBox.frame.maxY
+        
+        // 密码
+        let label = UILabel(frame: CGRect(x: 15, y: 13, width: 120, height: 30))
+        label.textColor = .black
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.text = "密码"
+        pwdBox.addSubview(label)
+        
         // 密码输入框
-        pwdTextField = UITextField(frame: CGRect(x:10, y:64, width:modifyBox.frame.size.width-20, height:44))
+        pwdTextField = UITextField(frame: CGRect(x: 120, y: 6, width: 220, height:44))
         pwdTextField.delegate = self
-        pwdTextField.layer.cornerRadius = 5
-        pwdTextField.layer.borderColor = UIColor.lightGray.cgColor
-        pwdTextField.layer.borderWidth = 0.5
         pwdTextField.isSecureTextEntry = PwdStatus.INVISIBLE
-        pwdTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        pwdTextField.leftViewMode = UITextField.ViewMode.always
         pwdTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         pwdTextField.rightViewMode = UITextField.ViewMode.always
         pwdTextField.placeholder = "请输入密码"
-        // 密码输入框左侧图标
-        let imgLeftPwd = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        imgLeftPwd.image = Icons.pwdIcon.iconFontImage(fontSize: 20, color: .gray)
-        pwdTextField.leftView!.addSubview(imgLeftPwd)
         
         // 密码输入框右侧图标
-        // let imgRightPwd = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        let imgRightPwd = UIButton(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        imgRightPwd.setImage(Icons.eyeCloseIcon.iconFontImage(fontSize: 20, color: .gray), for: .normal)
+        let imgRightPwd = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        imgRightPwd.setImage(Icons.eyeCloseIcon.iconFontImage(fontSize: 22, color: Colors.minetextgray), for: .normal)
         imgRightPwd.addTarget(self, action: #selector(changeEye(sender:)), for: .touchUpInside)
-        // imgRightPwd.image = Icons.eyeCloseIcon.iconFontImage(fontSize: 20, color: .gray)
         pwdTextField.rightView!.addSubview(imgRightPwd)
-        modifyBox.addSubview(pwdTextField)
+        pwdBox.addSubview(pwdTextField)
+        
+        wapper.addSubview(drawLineView(x: 15, y:height-0.5, width: mainSize.width-0.5, height: 0.5, color: Colors.minelinegray))
     }
     
-    func drawPhoneTextField() {
+    func drawNewPhoneBox() {
+        // 总容器
+        let phoneBox = UIView(frame: CGRect(x: 0, y: height, width: mainSize.width, height: 56))
+        wapper.addSubview(phoneBox)
+        height = phoneBox.frame.maxY
+        
+        // 新手机
+        let label = UILabel(frame: CGRect(x: 15, y: 13, width: 120, height: 30))
+        label.textColor = .black
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.text = "新手机"
+        phoneBox.addSubview(label)
+        
         //新手机输入
-        phoneTextField = UITextField(frame: CGRect(x:10, y:128, width:modifyBox.frame.size.width-20, height:44))
+        phoneTextField = UITextField(frame: CGRect(x: 120, y: 6, width: 220, height:44))
         phoneTextField.delegate = self
-        phoneTextField.layer.cornerRadius = 5
-        phoneTextField.layer.borderColor = UIColor.lightGray.cgColor
-        phoneTextField.layer.borderWidth = 0.5
         phoneTextField.isSecureTextEntry = PwdStatus.VISIBLE
-        phoneTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        phoneTextField.leftViewMode = UITextField.ViewMode.always
-        phoneTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        phoneTextField.rightViewMode = UITextField.ViewMode.always
         phoneTextField.placeholder = "请输入新手机号"
-        // 密码输入框左侧图标
-        let imgLeftPwd = UIImageView(frame: CGRect(x: 11, y: 11, width: 22, height: 22))
-        imgLeftPwd.image = Icons.phone.iconFontImage(fontSize: 20, color: .gray)
-        phoneTextField.leftView!.addSubview(imgLeftPwd)
-        phoneTextField.addSubview(imgLeftPwd)
-        modifyBox.addSubview(phoneTextField)
+        phoneBox.addSubview(phoneTextField)
+        
+        wapper.addSubview(drawLineView(x: 15, y:height-0.5, width: mainSize.width-0.5, height: 0.5, color: Colors.minelinegray))
     }
     
     func drawModifyButton() {
         // 登陆按钮
-        modifyButton = UIButton(frame: CGRect(x: 20, y: 300, width: mainSize.width-40, height: 40))
+        modifyButton = UIButton(frame: CGRect(x: 50, y: height+35, width: mainSize.width-100, height: 44))
         modifyButton.setTitleColor(.white, for: .normal)
         modifyButton.setTitle("提交修改", for: .normal)
-        modifyButton.setTitleFontSize(size: 16)
-        modifyButton.setBackgroundColor(color: Colors.blue, forState: .normal)
-        modifyButton.layer.cornerRadius = 5
+        modifyButton.setTitleFontSize(size: 17)
+        modifyButton.setBackgroundColor(color: Colors.blueBackground, forState: .normal)
+        modifyButton.layer.cornerRadius = 22
         // 设置corner无效，因为设置了背景色（corner对subview无效）
         modifyButton.layer.masksToBounds = true
         modifyButton.addTarget(self, action: #selector(modify(sender:)), for: .touchUpInside)
@@ -153,12 +172,12 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
         // 当前可见
         if (pwdTextField.isSecureTextEntry == PwdStatus.VISIBLE) {
             pwdTextField.isSecureTextEntry = PwdStatus.INVISIBLE
-            sender.setImage(Icons.eyeCloseIcon.iconFontImage(fontSize: 20, color: .gray), for: .normal)
+            sender.setImage(Icons.eyeCloseIcon.iconFontImage(fontSize: 22, color: Colors.minetextgray), for: .normal)
         }
             // 当前不可见
         else {
             pwdTextField.isSecureTextEntry = PwdStatus.VISIBLE
-            sender.setImage(Icons.eyeIcon.iconFontImage(fontSize: 20, color: .gray), for: .normal)
+            sender.setImage(Icons.eyeIcon.iconFontImage(fontSize: 22, color: Colors.minetextgray), for: .normal)
         }
     }
     

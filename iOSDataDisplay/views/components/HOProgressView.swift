@@ -23,18 +23,11 @@ class HOProgressView: UIView {
     let trackLayer = CAShapeLayer()
     // 进度条
     let progressLayer = CAShapeLayer()
-    // 进度条路径
-    let path = UIBezierPath()
-    // 进度条头部圆点
+    
     var sdot: UIView!
-    // 进度条尾部圆点（尾部指出发点）
     var edot: UIView!
-    // 进度槽头部圆点
-    var tsdot: UIView!
-    // 进度槽尾部圆点（尾部指出发点）
-    var tedot: UIView!
-    // 头部指示点
     var idot: UIView!
+    
     // 进度条圆环中点
     var progressCenter: CGPoint {
         get {
@@ -62,6 +55,9 @@ class HOProgressView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        idot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.5, height: lineWidth*0.5))
+        edot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7))
+        sdot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,10 +74,12 @@ class HOProgressView: UIView {
     
     override func draw(_ rect: CGRect) {
         // 获取整个进度条圆圈路径
+        // 进度条路径
+        let path = UIBezierPath()
         path.addArc(withCenter: progressCenter, radius: radius, startAngle: angleToRadian(-180), endAngle: angleToRadian(0), clockwise: true)
         
         // 绘制进度槽端点
-        tedot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth, height: lineWidth))
+        let tedot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth, height: lineWidth))
         let tedotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth, height: lineWidth)).cgPath
         let tearc = CAShapeLayer()
         tearc.lineWidth = 0
@@ -95,7 +93,7 @@ class HOProgressView: UIView {
         self.addSubview(tedot)
         
         // 绘制进度槽端点
-        tsdot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth, height: lineWidth))
+        let tsdot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth, height: lineWidth))
         let tsdotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth, height: lineWidth)).cgPath
         let tsarc = CAShapeLayer()
         tsarc.lineWidth = 0
@@ -118,7 +116,6 @@ class HOProgressView: UIView {
         layer.addSublayer(trackLayer)
         
         // 绘制进度条尾部端点
-        edot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7))
         let edotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7)).cgPath
         let earc = CAShapeLayer()
         earc.lineWidth = 0
@@ -132,7 +129,6 @@ class HOProgressView: UIView {
         self.addSubview(edot)
         
         // 绘制进度条头部原点
-        sdot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7))
         let sdotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7)).cgPath
         let sarc = CAShapeLayer()
         sarc.lineWidth = 0
@@ -156,8 +152,7 @@ class HOProgressView: UIView {
         layer.addSublayer(progressLayer)
         
         // 绘制头部指示点
-        idot = UIView(frame: CGRect(x: 0, y: 0, width: lineWidth*0.35, height: lineWidth*0.35))
-        let idotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.35, height: lineWidth*0.35)).cgPath
+        let idotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.5, height: lineWidth*0.5)).cgPath
         let iarc = CAShapeLayer()
         iarc.lineWidth = 0
         iarc.path = idotPath
@@ -178,6 +173,7 @@ class HOProgressView: UIView {
     
     // duration 进度条动画播放时间，默认0.55s
     func setProgress(_ pro: CGFloat, animated anim: Bool, withDuration duration: Double) {
+        let oldProgress = progress
         progress = pro
         // 进度条动画
         CATransaction.begin()
@@ -186,6 +182,22 @@ class HOProgressView: UIView {
         CATransaction.setAnimationDuration(duration)
         progressLayer.strokeEnd = progress
         CATransaction.commit()
+        
+        // 头部圆点动画
+        let startAngle = angleToRadian(180*Double(oldProgress) - 180)
+        let endAngle = angleToRadian(180*Double(progress)-180)
+        let clockWise = progress > oldProgress ? false : true
+        let path2 = CGMutablePath()
+        path2.addArc(center: progressCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockWise, transform: transform)
+        let orbit = CAKeyframeAnimation(keyPath: "position")
+        orbit.duration = duration
+        orbit.path = path2
+        orbit.calculationMode = CAAnimationCalculationMode.paced
+        orbit.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        orbit.isRemovedOnCompletion = false
+        orbit.fillMode = CAMediaTimingFillMode.forwards
+        sdot.layer.add(orbit, forKey: "Move")
+        idot.layer.add(orbit, forKey: "Move")
     }
     
     // 角度转弧度
