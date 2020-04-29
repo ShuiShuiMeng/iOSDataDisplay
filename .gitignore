@@ -89,4 +89,4 @@ fastlane/test_output
 
 iOSInjectionProject/
 Alamofire-4.9.1/
-*.DS_Sotre
+*.DS_Store
