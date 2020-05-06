@@ -58,7 +58,7 @@ class GetDeptInfoDecoder {
         return GetDeptInfoModel(
             code: (dic["Code"] as! NSNumber).intValue,
             action: dic["Action"] as! String,
-            obj: objt
+            objt: objt
         )
     }
 }
@@ -87,7 +87,7 @@ class GetProjectsInfoDecoder {
         return GetProjectsModel(
             code: (dic["Code"] as! NSNumber).intValue,
             action: dic["Action"] as! String,
-            obj: objt
+            objt: objt
         )
     }
 }
