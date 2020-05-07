@@ -71,7 +71,7 @@ class DeptTableViewController: UIViewController, UITableViewDelegate, UITableVie
         cell?.initApproval(approval: Arr[indexPath.row].ApprovedItems)
         cell?.initFundding(fundding: Arr[indexPath.row].Fundding)
         cell?.initPulldown()
-        cell?.initDetails(percent: Arr[indexPath.row].Limit/Arr[indexPath.row].TotalLimit, limit: Arr[indexPath.row].Limit, finishedPercent: Arr[indexPath.row].Fundding/Arr[indexPath.row].Limit)
+        cell?.initDetails(totalLimit: Arr[indexPath.row].TotalLimit, limit: Arr[indexPath.row].Limit, fundding: Arr[indexPath.row].Fundding)
         
         // 点击展开
         if selectedCellIndexPaths.contains(indexPath) {

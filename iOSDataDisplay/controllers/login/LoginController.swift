@@ -83,8 +83,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     func drawNSFC() {
         // 顶部图标 14.11 10.58
-        nsfcImage = UIImageView(frame: CGRect(x: 125, y: 80, width: mainSize.width-250, height: (mainSize.width-250)*0.75))
-        nsfcImage.image = UIImage(named: "NSFC.jpeg")
+        nsfcImage = UIImageView(frame: CGRect(x: 100, y: 80, width: mainSize.width-200, height: (mainSize.width-200)*0.66))
+        nsfcImage.image = UIImage(named: "NSFC.jpg")
         self.view.addSubview(nsfcImage)
     }
     
@@ -249,6 +249,31 @@ class LoginController: UIViewController, UITextFieldDelegate {
         let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
         self.present(tbVC, animated: true, completion: nil)
     }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        /*
+        if userTextField == textField {
+            // 限制只能输入数字
+            let length = string.lengthOfBytes(using: .utf8)
+            for loopIndex in 0..<length {
+                let char = (string as NSString).character(at: loopIndex)
+                if char < 48 || char > 57 {
+                    return false
+                }
+            }
+            // 限制长度
+            let proposeLength = (textField.text?.lengthOfBytes(using: .utf8))! - range.length + string.lengthOfBytes(using: .utf8)
+            if proposeLength > 11 {
+                return false
+            }
+        }*/
+        if pwdTextField == textField {
+            // do
+        }
+        return true
+    }
+ 
 
 }
 

@@ -33,13 +33,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "appicon@2.jpeg",
+      "filename" : "icon(120).jpg",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "appicon@3.jpeg",
+      "filename" : "icon(180).jpg",
       "scale" : "3x"
     },
     {
@@ -75,25 +75,25 @@
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "appicon76.jpeg",
+      "filename" : "icon(76).jpg",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "appicon152.jpeg",
+      "filename" : "icon(152).jpg",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "appicon167.jpeg",
+      "filename" : "icon(167).jpg",
       "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "appicon1024.jpeg",
+      "filename" : "icon(1024).jpg",
       "scale" : "1x"
     }
   ],

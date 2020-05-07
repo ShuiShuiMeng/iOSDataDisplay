@@ -99,6 +99,13 @@ class COProgressView: OProgressView {
     
     func setData(plan: Float, fund: Float, animated anim: Bool, withDuration duration: Double) {
         setProgress(CGFloat(fund/plan), animated: anim, withDuration: duration)
-        label5.text = (plan/10000).cleanZero4
+        if fund >= 10000 {
+            label4.text = "计划额度(亿)"
+            label5.text = (plan/10000).cleanZero
+        }
+        else {
+            label4.text = "计划额度(万)"
+            label5.text = plan.cleanZero
+        }
     }
 }

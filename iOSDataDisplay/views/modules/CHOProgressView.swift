@@ -157,25 +157,18 @@ class CHOProgressView: HOProgressView {
         self.addSubview(botRollView)
     }
     
-    override func setProgress(_ pro: CGFloat, animated anim: Bool) {
+    override internal func setProgress(_ pro: CGFloat, animated anim: Bool) {
         self.setProgress(pro, animated: anim, withDuration: 0.55)
     }
     
-    override func setProgress(_ pro: CGFloat, animated anim: Bool, withDuration duration: Double) {
+    override internal func setProgress(_ pro: CGFloat, animated anim: Bool, withDuration duration: Double) {
         super.setProgress(pro, animated: anim, withDuration: duration)
-        // 更新view1
-        let funddingStr = (funddingNum/10000).cleanZero
-        let attrText = NSMutableAttributedString(string: funddingStr+"万")
-        attrText.addAttribute(.font, value: UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 40), size: 40), range: NSRange(location: 0, length: funddingStr.count))
-        attrText.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .regular), range: NSRange(location: funddingStr.count, length: 1))
-        label2.attributedText = attrText
-        // 更新view2
+        
         let progressStr = Float(progress*100).cleanZero
         let attrText1 = NSMutableAttributedString(string: progressStr+"%")
         attrText1.addAttribute(.font, value: UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 40), size: 40), range: NSRange(location: 0, length: progressStr.count))
         attrText1.addAttribute(.font, value: UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 20), size: 20), range: NSRange(location: progressStr.count, length: 1))
         label22.attributedText = attrText1
-
     }
     
     func setData(plan: Float, fund: Float, budget: Float, rate: Float, animated anim: Bool) {
@@ -188,14 +181,41 @@ class CHOProgressView: HOProgressView {
         budgetNum = budget
         rate = r
         
-        let funddingStr = (fund/10000).cleanZero
-        let attrText = NSMutableAttributedString(string: funddingStr+"万")
+        // 执行额度
+        var funddingStr = fund.cleanZero
+        var woy = "万"
+        if (fund >= 10000) {
+            funddingStr = (fund/10000).cleanZero
+            woy = "亿"
+        }
+        let attrText = NSMutableAttributedString(string: funddingStr+woy)
         attrText.addAttribute(.font, value: UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 40), size: 40), range: NSRange(location: 0, length: funddingStr.count))
         attrText.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .regular), range: NSRange(location: funddingStr.count, length: 1))
         label2.attributedText = attrText
+        
+        
+        // 执行率
         setProgress(CGFloat(r), animated: anim, withDuration: duration)
-        label5.text = (planNum/10000).cleanZero4
-        label55.text = (budgetNum/10000).cleanZero4
+        
+        // 当年计划额度
+        if (planNum >= 10000) {
+            label5.text = (planNum/10000).cleanZero
+            label4.text = "当年计划额度(亿)"
+        }
+        else {
+            label5.text = planNum.cleanZero
+            label4.text = "当年计划额度(万)"
+        }
+        
+        // 当年预算总数
+        if (budgetNum >= 10000) {
+            label55.text = (budgetNum/10000).cleanZero
+            label44.text = "当年预算额度(亿)"
+        }
+        else {
+            label55.text = budgetNum.cleanZero
+            label44.text = "当年预算额度(万)"
+        }
     }
 }
 

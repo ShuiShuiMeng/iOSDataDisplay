@@ -26,13 +26,13 @@ class FinishedBar: UIView {
     
     var planNum: Float = 0 {
         didSet {
-            planLabel.text = (planNum/10000).cleanZero4
+            planLabel.text = planNum.cleanZero
         }
     }
     
     var exeNum: Float = 0 {
         didSet {
-            exeLabel.text = (exeNum/10000).cleanZero4
+            exeLabel.text = exeNum.cleanZero
         }
     }
     

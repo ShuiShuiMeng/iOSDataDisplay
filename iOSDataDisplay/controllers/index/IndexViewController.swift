@@ -409,7 +409,7 @@ class IndexViewController: UIViewController {
         funddingLabel.textColor = .white
         funddingLabel.textAlignment = .center
         funddingLabel.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 17), size: 17)
-        funddingLabel.text = (fundding/10000).cleanZero4
+        funddingLabel.text = fundding.cleanZero
         wapper.addSubview(funddingLabel)
         // 说明
         let fundLabel = UILabel(frame: CGRect(x: mainSize.width/2+1, y: height+35, width: 150, height: 25))

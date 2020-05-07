@@ -66,13 +66,13 @@ class ProjectsCell: UITableViewCell {
     
     func initFundding(fundding num: Float) {
         fundding = UILabel(frame: CGRect(x: 240, y: 15, width: 70 , height: 20))
-        fundding.text = (num/10000).cleanZero4
+        fundding.text = num.cleanZero
         fundding.textAlignment = .right
         fundding.font = UIFont.init(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 15), size: 15)
         self.contentView.addSubview(fundding)
     }
 
-    func initDetails(percent per: Float, limit: Float, finishedPercent fper: Float) {
+    func initDetails(totalLimit: Float, limit: Float, fundding: Float) {
         details = UIView(frame: CGRect(x: 0, y: 50, width: 340, height: 56))
         details.backgroundColor = Colors.pullblue
         // 计划额度
@@ -80,7 +80,7 @@ class ProjectsCell: UITableViewCell {
         n0.textColor = Colors.lineblue
         n0.textAlignment = .left
         n0.font = UIFont.init(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 14), size: 14)
-        n0.text = (limit/10000).cleanZero4
+        n0.text = limit.cleanZero
         details.addSubview(n0)
         // label
         let l0 = UILabel(frame: CGRect(x: 30, y: 29, width: 70, height: 15))
@@ -90,8 +90,13 @@ class ProjectsCell: UITableViewCell {
         l0.text = "计划额度(万)"
         details.addSubview(l0)
         
+        var per: Float = 0
+        
         // 计划额度占比 op = oprogress
         let op1 = OProgressView(frame: CGRect(x: 105, y: 10, width: 36, height: 36), lineWidth: 8, trackColor: Colors.trackgray, progressColor: Colors.lineblue, idotColor: Colors.lineblue)
+        if totalLimit > 0 {
+            per = limit/totalLimit
+        }
         op1.setProgress(CGFloat(per), animated: true)
         details.addSubview(op1)
         // number
@@ -135,7 +140,10 @@ class ProjectsCell: UITableViewCell {
         l2.text = "申请项目数"
         details.addSubview(l2)
         */
-        
+        var fper: Float = 0
+        if limit > 0 {
+            fper = fundding/limit
+        }
         // 已执行
         let lp = LProgressView(frame: CGRect(x: 235, y: 15, width: 70, height: 8), trackColor: Colors.trackgray, progressColor: Colors.lineblue)
         lp.setProgress(CGFloat(fper), animated: true)
