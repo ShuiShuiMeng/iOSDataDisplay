@@ -64,3 +64,11 @@ public func getSession() -> String? {
 public func clearSession() {
     UserDefaults.standard.set(nil, forKey: "__session")
 }
+
+public func setPDFToCookie(url: URL) {
+    UserDefaults.standard.set(url, forKey: "pdfPath")
+}
+
+public func getPDFFromCookie() -> URL? {
+    return UserDefaults.standard.url(forKey: "pdfPath")
+}

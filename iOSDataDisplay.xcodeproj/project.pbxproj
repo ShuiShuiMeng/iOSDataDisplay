@@ -36,6 +36,7 @@
 		D43CDC912464131C00F5E677 /* icon(180).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D43CDC852464131C00F5E677 /* icon(180).jpg */; };
 		D43CDC922464131C00F5E677 /* icon(76).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D43CDC862464131C00F5E677 /* icon(76).jpg */; };
 		D43CDC932464131C00F5E677 /* icon(58).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D43CDC872464131C00F5E677 /* icon(58).jpg */; };
+		D43CDCB82466A41F00F5E677 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43CDCB72466A41F00F5E677 /* PlanViewController.swift */; };
 		D48C568F24534DA9008C6450 /* ScrollBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48C568E24534DA9008C6450 /* ScrollBottomView.swift */; };
 		D4B2B35F2437BD9800A24C88 /* ExFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B35E2437BD9800A24C88 /* ExFloat.swift */; };
 		D4B2B3712437D0DF00A24C88 /* FAIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2B3702437D0DF00A24C88 /* FAIcon.swift */; };
@@ -207,6 +208,7 @@
 		D43CDC852464131C00F5E677 /* icon(180).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icon(180).jpg"; sourceTree = "<group>"; };
 		D43CDC862464131C00F5E677 /* icon(76).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icon(76).jpg"; sourceTree = "<group>"; };
 		D43CDC872464131C00F5E677 /* icon(58).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icon(58).jpg"; sourceTree = "<group>"; };
+		D43CDCB72466A41F00F5E677 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		D48C568E24534DA9008C6450 /* ScrollBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollBottomView.swift; sourceTree = "<group>"; };
 		D4B2B35E2437BD9800A24C88 /* ExFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExFloat.swift; sourceTree = "<group>"; };
 		D4B2B3702437D0DF00A24C88 /* FAIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAIcon.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				D4E9A3DA2434D74100EC6884 /* IndexViewController.swift */,
 				D4287F8B244CF68C00995FB8 /* DeptViewController.swift */,
 				D4287F98244E230600995FB8 /* DeptTableViewController.swift */,
+				D43CDCB72466A41F00F5E677 /* PlanViewController.swift */,
 			);
 			path = index;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				D4198A092451D9F1007124DE /* HOProgressView.swift in Sources */,
 				D48C568F24534DA9008C6450 /* ScrollBottomView.swift in Sources */,
 				D4287F99244E230600995FB8 /* DeptTableViewController.swift in Sources */,
+				D43CDCB82466A41F00F5E677 /* PlanViewController.swift in Sources */,
 				D4B2B38D24422BF100A24C88 /* BackButton.swift in Sources */,
 				D4E9A90F2434D91B00EC6884 /* DepButton.swift in Sources */,
 				D4B2B3712437D0DF00A24C88 /* FAIcon.swift in Sources */,

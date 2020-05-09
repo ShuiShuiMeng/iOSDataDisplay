@@ -79,7 +79,6 @@ class IndexViewController: UIViewController {
                 else {
                     self.jumpLoginbox(_message: "网络出错，连接不到服务器")
                 }
-                
             }
         }
     }
@@ -292,10 +291,10 @@ class IndexViewController: UIViewController {
     }
     
     @objc func tapTop() {
-        print("tap")
+        let planVC = self.storyboard?.instantiateViewController(withIdentifier: "PlanViewController") as! PlanViewController
+        planVC.modalPresentationStyle = .fullScreen
+        self.present(planVC, animated: true, completion: nil)
     }
-    
-    
     
     @objc func onPullToFreshIndex() {
         httpGetNumbers()

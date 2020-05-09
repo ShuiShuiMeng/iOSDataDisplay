@@ -207,7 +207,6 @@ class HOProgressView: UIView {
         idot.layer.add(orbit, forKey: "Move")
         drawSdot()
         drawIdot()
-        // self.draw(<#T##rect: CGRect##CGRect#>)
     }
     
     // 角度转弧度

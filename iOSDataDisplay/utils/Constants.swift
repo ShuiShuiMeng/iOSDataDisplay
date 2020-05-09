@@ -18,6 +18,7 @@ let logoutUrl: String = baseUrl + "/api/logout"
 let getNumbersUrl: String = baseUrl + "/api/getOverallInfo"
 let getDeptInfoUrl: String = baseUrl + "/api/getDeptProjectsInfo"
 let getProjectsUrl: String = baseUrl + "/api/getProjectsInfo"
+let getPlanUrl: String = baseUrl + "/2020plan"
 
 let DeptID: [Int: String] = [
     10: "数理科学部",

@@ -309,6 +309,36 @@
             </objects>
             <point key="canvasLocation" x="-812" y="-351"/>
         </scene>
+        <!--Plan View Controller-->
+        <scene sceneID="aKI-fi-ma1">
+            <objects>
+                <viewController storyboardIdentifier="PlanViewController" id="evz-10-BTE" customClass="PlanViewController" customModule="iOSDataDisplay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r7S-4W-UJs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqx-Na-fJs">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uqx-Na-fJs" firstAttribute="top" secondItem="ndG-oQ-4Lc" secondAttribute="top" id="ANX-Mp-0lb"/>
+                            <constraint firstItem="uqx-Na-fJs" firstAttribute="leading" secondItem="ndG-oQ-4Lc" secondAttribute="leading" id="CjY-JE-42y"/>
+                            <constraint firstItem="ndG-oQ-4Lc" firstAttribute="trailing" secondItem="uqx-Na-fJs" secondAttribute="trailing" id="KW0-qn-XCm"/>
+                            <constraint firstItem="ndG-oQ-4Lc" firstAttribute="bottom" secondItem="uqx-Na-fJs" secondAttribute="bottom" id="vgh-RH-baI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ndG-oQ-4Lc"/>
+                    </view>
+                    <connections>
+                        <outlet property="wapper" destination="uqx-Na-fJs" id="oFs-Mr-IRx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4fZ-x8-dNY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-40" y="-673"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
