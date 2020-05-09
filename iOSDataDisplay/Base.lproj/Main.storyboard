@@ -18,34 +18,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cq4-Ht-BZo">
-                                <rect key="frame" x="0.0" y="44" width="375" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRN-lv-7O7">
+                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="9AE-OU-IYy"/>
-                                </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m3z-py-dty">
-                                <rect key="frame" x="0.0" y="94" width="375" height="635"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="m3z-py-dty" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="5Po-0c-Bzo"/>
-                            <constraint firstItem="m3z-py-dty" firstAttribute="top" secondItem="Cq4-Ht-BZo" secondAttribute="bottom" id="5Y6-YX-sal"/>
-                            <constraint firstItem="Cq4-Ht-BZo" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="6av-Hy-EKn"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="m3z-py-dty" secondAttribute="bottom" id="L8D-eD-sdZ"/>
-                            <constraint firstItem="m3z-py-dty" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="ZGX-eq-Xyd"/>
-                            <constraint firstItem="Cq4-Ht-BZo" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="s9g-x5-Zv0"/>
-                            <constraint firstItem="Cq4-Ht-BZo" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="v7F-j5-Wjf"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="iRN-lv-7O7" secondAttribute="trailing" id="Dlv-Cz-293"/>
+                            <constraint firstItem="iRN-lv-7O7" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="Tt6-nu-WYn"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="iRN-lv-7O7" secondAttribute="bottom" id="ilZ-u3-xkq"/>
+                            <constraint firstItem="iRN-lv-7O7" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="w1b-3a-WpD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="主页" image="first" id="acW-dT-cKf"/>
                     <connections>
-                        <outlet property="header" destination="Cq4-Ht-BZo" id="KSm-yB-Nr9"/>
                         <outlet property="indexItem" destination="acW-dT-cKf" id="HgY-cC-M44"/>
-                        <outlet property="wapper" destination="m3z-py-dty" id="5Zl-tn-YeT"/>
+                        <outlet property="wapper" destination="iRN-lv-7O7" id="Gbl-m7-ixa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

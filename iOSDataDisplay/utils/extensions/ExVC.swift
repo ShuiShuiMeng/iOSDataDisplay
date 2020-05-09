@@ -23,6 +23,7 @@ extension UIViewController {
             action in
             clearSession()
             let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
+            loginVC.modalPresentationStyle = .fullScreen
             self.present(loginVC, animated: true, completion: nil)
         })
         alert.addAction(btnOK)
@@ -35,6 +36,7 @@ extension UIViewController {
             action in
             let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
             tbVC.selectedIndex = 2
+            tbVC.modalPresentationStyle = .fullScreen
             self.present(tbVC, animated: true, completion: nil)
         })
         alert.addAction(btnOK)
@@ -46,6 +48,7 @@ extension UIViewController {
         let btnOK = UIAlertAction(title: "好的", style: .default, handler: {
             action in
             let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+            tbVC.modalPresentationStyle = .fullScreen
             self.present(tbVC, animated: true, completion: nil)
         })
         alert.addAction(btnOK)

@@ -11,8 +11,10 @@ import Alamofire
 
 class IndexViewController: UIViewController {
     
-    @IBOutlet var header: UIView!
-    @IBOutlet var wapper: UIScrollView!
+    var header: UIView!
+    var scrollView: UIScrollView!
+    
+    @IBOutlet var wapper: UIView!
     @IBOutlet var indexItem: UITabBarItem!
     
     
@@ -27,6 +29,17 @@ class IndexViewController: UIViewController {
     var depDatas: Array<DepData> = []
     
     var height: CGFloat = 0
+    
+    var refreshing: Bool = false {
+        didSet {
+            if (self.refreshing) {
+                scrollView.refreshControl?.beginRefreshing()
+            }
+            else {
+                scrollView.refreshControl?.endRefreshing()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,13 +89,28 @@ class IndexViewController: UIViewController {
     }
     
     func initialIndex() {
-        wapper.backgroundColor = Colors.graybackground
         loadIcons()
+        initialViews()
         drawIndexHeader()
         drawTotal()
-        httpGetNumbers(flag: false)
+        httpGetNumbers()
         drawDepts()
-        // drawBars(flag: false)
+        scrollView.refreshControl = UIRefreshControl()
+        scrollView.refreshControl?.addTarget(self, action: #selector(onPullToFreshIndex), for: UIControl.Event.valueChanged)
+    }
+    
+    func initialViews() {
+        // 滚动视图
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: wapper.frame.width, height: wapper.frame.height))
+        
+        scrollView.backgroundColor = Colors.graybackground
+        wapper.addSubview(scrollView)
+        
+        // 头部
+        header = UIView(frame: CGRect(x: 0, y: 0, width: wapper.frame.width, height: 50))
+        header.backgroundColor = Colors.blueBackground
+        scrollView.addSubview(header)
+        height = header.frame.height
     }
     
     func loadIcons() {
@@ -90,7 +118,6 @@ class IndexViewController: UIViewController {
     }
     
     func drawIndexHeader() {
-        header.backgroundColor = Colors.blueBackground
         topButton = UIButton(frame: CGRect(x: 10, y: 5, width: mainSize.width-20, height: 40))
         topButton.titleLabel?.numberOfLines = 2
         topButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
@@ -103,18 +130,17 @@ class IndexViewController: UIViewController {
     }
     
     func drawTotal() {
-        totalView = UIView(frame: CGRect(x: 0, y: 0, width: mainSize.width, height: 240))
+        totalView = UIView(frame: CGRect(x: 0, y: height, width: mainSize.width, height: 240))
         totalView.backgroundColor = Colors.blueBackground
         // 进度条
         chopView = CHOProgressView(frame: CGRect(x: mainSize.width*0.5-120, y: 15, width: 240, height: 160), lineWidth: 16, trackColor: Colors.trackblue, progressColor: Colors.lightblue, idotColor: Colors.idotblue)
-        // chopView.setProgress(0.6667, animated: true)
         totalView.addSubview(chopView)
-        
-        wapper.addSubview(totalView)
+        scrollView.addSubview(totalView)
+        height = totalView.frame.maxY
     }
     
     func drawDepts() {
-        deptView = UIView(frame: CGRect(x: (mainSize.width-340)/2, y: 200, width: 340, height: 150))
+        deptView = UIView(frame: CGRect(x: (mainSize.width-340)/2, y: height-50, width: 340, height: 150))
         deptView.backgroundColor = .white
         deptView.layer.cornerRadius = 5
         
@@ -142,14 +168,15 @@ class IndexViewController: UIViewController {
             tag = tag + 1
             deptView.addSubview(tmpBtn)
         }
-        wapper.addSubview(deptView)
+        scrollView.addSubview(deptView)
         height = deptView.frame.maxY
         
         let finLabel = UILabel(frame: CGRect(x:(mainSize.width-340)/2, y:height+20, width: 100, height: 20))
         finLabel.text = "项目完成度"
         finLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        wapper.addSubview(finLabel)
+        scrollView.addSubview(finLabel)
         height = finLabel.frame.maxY
+        tableH = height
     }
     
     @objc func tapToDetails(sender: UIButton) {
@@ -159,11 +186,48 @@ class IndexViewController: UIViewController {
     func jumpToDetails(deptId: Int) {
         let deptVC = self.storyboard?.instantiateViewController(withIdentifier: "DeptViewController") as! DeptViewController
         deptVC.deptID = deptId
+        deptVC.modalPresentationStyle = .fullScreen
         self.present(deptVC, animated: true, completion: nil)
     }
     
-    // flag=true表示是点击了刷新按钮，而非首次加载
-    func drawBars(flag: Bool) {
+    func httpGetNumbers() {
+        refreshing = true
+        let header: HTTPHeaders = [
+            "Cookie": UserDefaults.standard.string(forKey: "__session")!
+        ]
+        Alamofire.request(getNumbersUrl, method: .post, headers: header).responseJSON { response in
+            // 未登录
+            if (response.response?.statusCode != 200) {
+                self.jumpLoginbox(_message: "登录状态失效，请重新登录")
+                self.refreshing = false
+            }
+                // 已登录
+            else {
+                if response.result.isSuccess {
+                    //把得到的JSON数据转为数组
+                    if response.result.value! is NSNull {
+                        self.showMsgbox(_message: "网络错误，只更新了部分数据")
+                        self.refreshing = false
+                    }
+                    else if response.response?.statusCode != 200 {
+                        self.showMsgbox(_message: "网络错误，只更新了部分数据")
+                        self.refreshing = false
+                    }
+                    else {
+                        let result = GetAllDecoder.decode(jsonData: response.data!)
+                        self.chopView.setData(plan: result.ObjT.TotalOfPlan, fund: result.ObjT.ExeQuota, budget:result.ObjT.Budget, rate:result.ObjT.ExeRate, animated: true)
+                        self.drawBars()
+                    }
+                }
+                else {
+                    self.showMsgbox(_message: "网络错误，只更新了部分数据")
+                    self.refreshing = false
+                }
+            }
+        }
+    }
+    
+    func drawBars() {
         // get datas
         let header: HTTPHeaders = [
             "Cookie": UserDefaults.standard.string(forKey: "__session")!
@@ -184,17 +248,12 @@ class IndexViewController: UIViewController {
                         self.showMsgbox(_message: "网络错误，没有数据被更新")
                     }
                     else {
-                        // print(response)
-                        if (flag) {
-                            self.barDatas.removeAll()
-                            // 去除旧view
-                            self.barsView.removeFromSuperview()
-                        }
+                        self.barDatas.removeAll()
                         let result = GetProjectsInfoDecoder.decode(jsonData: response.data!)
+                        // print(result.ObjT.ProjectInfoList)
                         for item in result.ObjT.ProjectInfoList {
                             self.barDatas.append(BarData(name: item.Name, percent: item.ExeRate, total: item.Items, plan: item.TotalOfPlan, exc: item.ExeQuota))
                         }
-                        
                        self.refreshBars()
                     }
                 }
@@ -202,9 +261,8 @@ class IndexViewController: UIViewController {
                     self.showMsgbox(_message: "网络错误，没有数据被更新")
                 }
             }
+            self.refreshing = false
         }
-        
-        
     }
     
     func refreshBars() {
@@ -212,8 +270,11 @@ class IndexViewController: UIViewController {
         for item in barDatas {
             totalPlan = totalPlan + item.plan
         }
+        if (barsView != nil) {
+            barsView.removeFromSuperview()
+        }
         // 总容器
-        barsView = UIView(frame: CGRect(x: 0, y: height+10, width: mainSize.width, height: CGFloat(100*barDatas.count)))
+        barsView = UIView(frame: CGRect(x: 0, y: tableH+10, width: mainSize.width, height: CGFloat(100*barDatas.count)))
         barsView.backgroundColor = Colors.graybackground
         
         // load bars
@@ -224,70 +285,22 @@ class IndexViewController: UIViewController {
             barsView.addSubview(bar)
             i = i + 1
         }
-        wapper.addSubview(barsView)
+        scrollView.addSubview(barsView)
         height = barsView.frame.maxY
         
-        wapper.contentSize = CGSize(width: 0, height: height)
+        scrollView.contentSize = CGSize(width: 0, height: height+50)
     }
     
-    /*
-    func refreshBars() {
-        barsView = UIView(frame: CGRect(x: (mainSize.width-375)/2, y: 495, width: 375, height: CGFloat(70*barDatas.count)))
-        var i:Int = 0
-        for item in barDatas {
-            let finishedBar = FinishedBar(frame: CGRect(x:0, y:i*70, width:375, height:70))
-            finishedBar.setData(title: item.name, percent: item.percent, total: item.total, plan: item.plan, exc: item.exc)
-            finishedBar.addSubview(drawLineView(x: 10, y: 69.3, width: mainSize.width-20, height: 0.7, color: Colors.lineGray))
-            barsView.addSubview(finishedBar)
-            i += 1
-        }
-        wapper.addSubview(barsView)
-        wapper.contentSize = CGSize(width: 375, height: 495 + barsView.frame.height)
-    }
-    */
     @objc func tapTop() {
         print("tap")
     }
     
-    func httpGetNumbers(flag: Bool) {
-        let header: HTTPHeaders = [
-            "Cookie": UserDefaults.standard.string(forKey: "__session")!
-        ]
-        Alamofire.request(getNumbersUrl, method: .post, headers: header).responseJSON { response in
-            // 未登录
-            if (response.response?.statusCode != 200) {
-                self.jumpLoginbox(_message: "登录状态失效，请重新登录")
-            }
-            // 已登录
-            else {
-                if response.result.isSuccess {
-                    //把得到的JSON数据转为数组
-                    if response.result.value! is NSNull {
-                        self.showMsgbox(_message: "网络错误，只更新了“数据显示”部分")
-                    }
-                    else if response.response?.statusCode != 200 {
-                        self.showMsgbox(_message: "网络错误，只更新了“数据显示”部分")
-                    }
-                    else {
-                        let result = GetAllDecoder.decode(jsonData: response.data!)
-                        self.chopView.setData(plan: result.ObjT.TotalOfPlan, fund: result.ObjT.ExeQuota, budget:result.ObjT.Budget, rate:result.ObjT.ExeRate, animated: true)
-                        // self.content.setNumbers(budget: result.ObjT.Budget, total: result.ObjT.TotalOfPlan, exeQuota: result.ObjT.ExeQuota, exeRate: result.ObjT.ExeRate)
-                        self.drawBars(flag: flag)
-                        if (flag) {
-                            self.showMsgbox(_message: "已更新至所有最新数据")
-                        }
-                    }
-                }
-                else {
-                    self.showMsgbox(_message: "网络错误，只更新了“数据显示”部分")
-                }
-            }
-        }
+    
+    
+    @objc func onPullToFreshIndex() {
+        httpGetNumbers()
     }
     
-    @objc func refreshNumbers(sender: UIButton) {
-        httpGetNumbers(flag: true)
-    }
     
     /*
      * normal
@@ -303,6 +316,7 @@ class IndexViewController: UIViewController {
     var deptLabel3: UILabel!
     
     var pro: CGFloat = 0
+    var tableH: CGFloat = 0
     
     var deptTable: DeptTableViewController!
     
@@ -314,45 +328,27 @@ class IndexViewController: UIViewController {
     
     @IBInspectable var fundding: Float = 37000000 {
         didSet {
-            funddingLabel.text = (fundding/10000).cleanZero4
+            funddingLabel.text = fundding.cleanZero
         }
     }
     
-    var refreshing: Bool = false {
-        didSet {
-            if (self.refreshing) {
-                wapper.refreshControl?.beginRefreshing()
-                // print("Loading")
-            }
-            else {
-                wapper.refreshControl?.endRefreshing()
-                // print("Loaded")
-            }
-        }
-    }
+
     
     func initialDept(res: GetDeptInfoModel) {
         loadIcons()
-        setBackgroundColor(color: Colors.blueBackground)
+        initialViews()
+        scrollView.backgroundColor = Colors.blueBackground
         drawDeptHeader()
         drawTotal(limit: res.getTotalLimit(), fundding: res.getTotalFundding(), projects: res.getTotalProjects())
         drawDeptProjects(ProjectsList: res.ObjT.DeptProjectInfoList)
-        wapper.contentSize = CGSize(width: mainSize.width, height: height)
-        //wapper.refreshControl = UIRefreshControl()
-        //wapper.refreshControl?.addTarget(self, action: #selector(onPullToFresh), for: UIControl.Event.valueChanged)
+        scrollView.refreshControl = UIRefreshControl()
+        scrollView.refreshControl?.addTarget(self, action: #selector(onPullToFreshDept), for: UIControl.Event.valueChanged)
     }
     
     @objc func onPullToFresh() {
         refreshing = true
         sleep(1)
         refreshing = false
-    }
-    
-    // 设置背景颜色
-    func setBackgroundColor(color: UIColor) {
-        // self.view.backgroundColor = color
-        header.backgroundColor = color
-        wapper.backgroundColor = color
     }
     
     // 头部高度 50
@@ -369,25 +365,25 @@ class IndexViewController: UIViewController {
     // 上半部
     func drawTotal(limit: Float, fundding: Float, projects pros: Int) {
         // 次级标题
-        let titleLabel = UILabel(frame: CGRect(x: 25, y: 10, width: 150, height:20))
+        let titleLabel = UILabel(frame: CGRect(x: 25, y: height+10, width: 150, height:20))
         titleLabel.textColor = .white
         titleLabel.textAlignment = .left
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         titleLabel.text = "部门总体数据"
-        wapper.addSubview(titleLabel)
+        scrollView.addSubview(titleLabel)
         height = titleLabel.frame.maxY //更新高度
         
         // 进度环
         progressView = COProgressView(frame: CGRect(x: mainSize.width*0.5-100, y: height, width: 200, height: 200), lineWidth: 18, trackColor: Colors.trackblue, progressColor: Colors.lightblue, idotColor: Colors.idotblue)
         // progressView.setProgress(CGFloat(0), animated: true, withDuration: 1.0)
-        wapper.addSubview(progressView)
+        scrollView.addSubview(progressView)
         progressView.setData(plan: limit, fund: fundding, animated: true, withDuration: 1.0)
         height = progressView.frame.maxY
         
         // 竖线
         let lineView = UIView(frame: CGRect(x: mainSize.width/2, y: height+18, width: 0.3, height: 34))
         lineView.backgroundColor = Colors.ligthgray
-        wapper.addSubview(lineView)
+        scrollView.addSubview(lineView)
         
         // 当前项目数
         projectsLabel = UILabel(frame: CGRect(x: mainSize.width/2-150, y: height+10, width: 150, height: 25))
@@ -395,14 +391,14 @@ class IndexViewController: UIViewController {
         projectsLabel.textAlignment = .center
         projectsLabel.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 17), size: 17)
         projectsLabel.text = String(pros)
-        wapper.addSubview(projectsLabel)
+        scrollView.addSubview(projectsLabel)
         // 说明
         let proLabel = UILabel(frame: CGRect(x: mainSize.width/2-150, y: height+35, width: 150, height: 25))
         proLabel.textColor = Colors.ligthgray
         proLabel.textAlignment = .center
         proLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         proLabel.text = "当前项目数"
-        wapper.addSubview(proLabel)
+        scrollView.addSubview(proLabel)
         
         // 已资助金额
         funddingLabel = UILabel(frame: CGRect(x: mainSize.width/2+1, y: height+10, width: 150, height: 25))
@@ -410,36 +406,27 @@ class IndexViewController: UIViewController {
         funddingLabel.textAlignment = .center
         funddingLabel.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 17), size: 17)
         funddingLabel.text = fundding.cleanZero
-        wapper.addSubview(funddingLabel)
+        scrollView.addSubview(funddingLabel)
         // 说明
         let fundLabel = UILabel(frame: CGRect(x: mainSize.width/2+1, y: height+35, width: 150, height: 25))
         fundLabel.textColor = Colors.ligthgray
         fundLabel.textAlignment = .center
         fundLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         fundLabel.text = "已资助金额(万)"
-        wapper.addSubview(fundLabel)
+        scrollView.addSubview(fundLabel)
         height = fundLabel.frame.maxY
-        
-        /*
-        // test
-        let testBtn = UIButton(frame: CGRect(x:0, y:height-40, width:80, height:40))
-        testBtn.setTitle("测试", for: .normal)
-        testBtn.addTarget(self, action: #selector(testButton), for: .touchUpInside)
-        wapper.addSubview(testBtn)
-         */
+        tableH = height
     }
-    /*
-    @objc func testButton() {
-        pro = pro + 0.1
-        progressView.setProgress(pro, animated: true)
-    }*/
     
     func drawDeptProjects(ProjectsList: [GetDeptInfoModel.resObj.Projects]) {
         // 白色view
-        deptView = UIView(frame: CGRect(x: mainSize.width/2-170, y: height+10, width: 340, height: 580))
+        if (deptView != nil) {
+            deptView.removeFromSuperview()
+        }
+        deptView = UIView(frame: CGRect(x: mainSize.width/2-170, y: tableH+10, width: 340, height: 580))
         deptView.backgroundColor = .white
         deptView.layer.cornerRadius = 5
-        wapper.addSubview(deptView)
+        scrollView.addSubview(deptView)
         height = deptView.frame.maxY
         
         // 部门项目情况 label
@@ -482,17 +469,55 @@ class IndexViewController: UIViewController {
         deptView.addSubview(deptTable.view)
         
         // 为了美观, 添加一个底部
-        // let botHeight = min(mainSize.width/2-175, mainSize.height-height-5)
         let botView = UIView(frame: CGRect(x: 0, y: height+5, width: mainSize.width, height: mainSize.width/2-175))
         botView.backgroundColor = Colors.blueBackground
-        wapper.addSubview(botView)
+        scrollView.addSubview(botView)
         height = botView.frame.maxY
+        scrollView.contentSize = CGSize(width: mainSize.width, height: height)
     }
     
-    func refreshData(limit: Float, fundding: Float, projects pros: Int) {
-        self.fundding = fundding
-        self.projects = pros
-        // progressView.setData(plan: limit, fund: fundding, animated: true)
+    @objc func onPullToFreshDept() {
+        refreshing = true
+        let headers: HTTPHeaders = [
+            "Cookie": getSession()!
+        ]
+        Alamofire.request(getDeptInfoUrl, method: .post, headers: headers).responseJSON {
+            response in
+            if response.result.isSuccess {
+                if (response.result.value! is NSNull) {
+                    self.jumpLoginbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                }
+                else if (response.response?.statusCode != 200) {
+                    self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+                }
+                else {
+                    let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
+                    // 判断返回结果
+                    if (result.Code == 0) {
+                        self.refreshDeptData(res: result)
+                    }
+                    else {
+                        self.jumpLoginbox(_message: "获取数据失败，点击返回重新登录")
+                    }
+                }
+            }
+            else {
+                self.jumpLoginbox(_message: "网络出错，连接不到服务器")
+            }
+            self.refreshing = false
+        }
+    }
+    
+    func refreshDeptData(res: GetDeptInfoModel) {
+        // 刷新圆环
+        progressView.setData(plan: res.getTotalLimit(), fund: res.getTotalFundding(), animated: true)
+        
+        // 刷新左右数字
+        projects = res.getTotalProjects()
+        fundding = res.getTotalFundding()
+        
+        // 刷新表格
+        drawDeptProjects(ProjectsList: res.ObjT.DeptProjectInfoList)
     }
 }
 

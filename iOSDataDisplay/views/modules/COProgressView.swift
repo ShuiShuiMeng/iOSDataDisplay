@@ -12,7 +12,6 @@ class COProgressView: OProgressView {
     
     var label1: UILabel!
     var label2: UILabel!
-    // var label3: UILabel!
     var label4: UILabel!
     var label5: UILabel!
     
@@ -56,23 +55,14 @@ class COProgressView: OProgressView {
         label2.attributedText = attrText
         self.addSubview(label2)
         
-        /*
-        label3 = UILabel(frame: CGRect(x: 115, y: 95, width: 25, height: 25))
-        // label3.adjustsFontSizeToFitWidth = true
-        label3.textColor = .white
-        label3.textAlignment = .center
-        label3.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 20), size: 20)
-        label3.text = "%"
-        self.addSubview(label3)*/
-        
-        label4 = UILabel(frame: CGRect(x: bounds.midX-35, y: 125, width: 70, height: 20))
+        label4 = UILabel(frame: CGRect(x: bounds.midX-45, y: 125, width: 90, height: 20))
         label4.textColor = Colors.ligthgray
         label4.textAlignment = .center
         label4.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         label4.text = "计划额度(万)"
         self.addSubview(label4)
         
-        label5 = UILabel(frame: CGRect(x:bounds.midX-30, y: 145, width: 60, height: 20))
+        label5 = UILabel(frame: CGRect(x:bounds.midX-40, y: 145, width: 80, height: 20))
         label5.textColor = Colors.lightblue
         label5.textAlignment = .center
         label5.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 15), size: 15)
@@ -99,7 +89,7 @@ class COProgressView: OProgressView {
     
     func setData(plan: Float, fund: Float, animated anim: Bool, withDuration duration: Double) {
         setProgress(CGFloat(fund/plan), animated: anim, withDuration: duration)
-        if fund >= 10000 {
+        if fund >= 100000 {
             label4.text = "计划额度(亿)"
             label5.text = (plan/10000).cleanZero
         }

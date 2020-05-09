@@ -15,6 +15,13 @@ class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         historyItem.selectedImage = Icons.historyIconB.iconFontImage(fontSize: 35, color: .gray)
+        
+        showMsgbox(_message: "历史数据功能暂未开放！")
+        
+        let label = UILabel(frame: CGRect(x: view.bounds.midX-100, y: view.bounds.midY-20, width: 200, height: 40))
+        label.text = "功能暂未开放！"
+        label.textAlignment = .center
+        view.addSubview(label)
     }
 
 

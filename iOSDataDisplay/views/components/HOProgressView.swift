@@ -129,17 +129,7 @@ class HOProgressView: UIView {
         self.addSubview(edot)
         
         // 绘制进度条头部原点
-        let sdotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7)).cgPath
-        let sarc = CAShapeLayer()
-        sarc.lineWidth = 0
-        sarc.path = sdotPath
-        sarc.strokeStart = 0
-        sarc.strokeEnd = 1
-        sarc.strokeColor = progressColor.cgColor
-        sarc.fillColor = progressColor.cgColor
-        sdot.layer.addSublayer(sarc)
-        sdot.layer.position = calcCircleCoordinateWithCenter(progressCenter, radius: radius, angle: CGFloat(-progress)*180+180)
-        self.addSubview(sdot)
+        drawSdot()
         
         // 绘制进度条
         progressLayer.frame = bounds
@@ -152,6 +142,10 @@ class HOProgressView: UIView {
         layer.addSublayer(progressLayer)
         
         // 绘制头部指示点
+        drawIdot()
+    }
+    
+    func drawIdot() {
         let idotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.5, height: lineWidth*0.5)).cgPath
         let iarc = CAShapeLayer()
         iarc.lineWidth = 0
@@ -163,7 +157,20 @@ class HOProgressView: UIView {
         idot.layer.addSublayer(iarc)
         idot.layer.position = calcCircleCoordinateWithCenter(progressCenter, radius: radius, angle: CGFloat(-progress)*180+180)
         self.addSubview(idot)
-        
+    }
+    
+    func drawSdot() {
+        let sdotPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: lineWidth*0.7, height: lineWidth*0.7)).cgPath
+        let sarc = CAShapeLayer()
+        sarc.lineWidth = 0
+        sarc.path = sdotPath
+        sarc.strokeStart = 0
+        sarc.strokeEnd = 1
+        sarc.strokeColor = progressColor.cgColor
+        sarc.fillColor = progressColor.cgColor
+        sdot.layer.addSublayer(sarc)
+        sdot.layer.position = calcCircleCoordinateWithCenter(progressCenter, radius: radius, angle: CGFloat(-progress)*180+180)
+        self.addSubview(sdot)
     }
     
     // 设置进度，anim表示是否播放动画
@@ -198,6 +205,9 @@ class HOProgressView: UIView {
         orbit.fillMode = CAMediaTimingFillMode.forwards
         sdot.layer.add(orbit, forKey: "Move")
         idot.layer.add(orbit, forKey: "Move")
+        drawSdot()
+        drawIdot()
+        // self.draw(<#T##rect: CGRect##CGRect#>)
     }
     
     // 角度转弧度

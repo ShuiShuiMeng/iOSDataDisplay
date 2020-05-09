@@ -152,22 +152,27 @@ class MineViewController: UIViewController {
         switch sender.tag {
         case 0:
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "MsgViewController") as! MsgViewController
+            VC.modalPresentationStyle = .fullScreen
             self.present(VC, animated: true, completion: nil)
             break
         case 1:
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "PhoneViewController") as! PhoneViewController
+            VC.modalPresentationStyle = .fullScreen
             self.present(VC, animated: true, completion: nil)
             break;
         case 2:
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "EmailViewController") as! EmailViewController
+            VC.modalPresentationStyle = .fullScreen
             self.present(VC, animated: true, completion: nil)
             break;
         case 3:
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "PwdViewController") as! PwdViewController
+            VC.modalPresentationStyle = .fullScreen
             self.present(VC, animated: true, completion: nil)
             break;
         case 4:
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+            VC.modalPresentationStyle = .fullScreen
             self.present(VC, animated: true, completion: nil)
             break;
         default:

@@ -75,6 +75,7 @@ class ProjectsCell: UITableViewCell {
     func initDetails(totalLimit: Float, limit: Float, fundding: Float) {
         details = UIView(frame: CGRect(x: 0, y: 50, width: 340, height: 56))
         details.backgroundColor = Colors.pullblue
+        details.isHidden = true
         // 计划额度
         let n0 = UILabel(frame: CGRect(x: 30, y: 11, width: 70, height: 15))
         n0.textColor = Colors.lineblue

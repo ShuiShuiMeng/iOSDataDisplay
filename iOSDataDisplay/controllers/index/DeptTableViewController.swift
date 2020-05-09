@@ -73,12 +73,14 @@ class DeptTableViewController: UIViewController, UITableViewDelegate, UITableVie
         cell?.initPulldown()
         cell?.initDetails(totalLimit: Arr[indexPath.row].TotalLimit, limit: Arr[indexPath.row].Limit, fundding: Arr[indexPath.row].Fundding)
         
-        // 点击展开
+        // 初始化点击展开
         if selectedCellIndexPaths.contains(indexPath) {
             cell?.setDown()
+            cell?.details.isHidden = false
         }
         else {
             cell?.setRight()
+            cell?.details.isHidden = true
         }
         
         cell!.layer.masksToBounds = true
@@ -103,7 +105,6 @@ class DeptTableViewController: UIViewController, UITableViewDelegate, UITableVie
         } else {
             selectedCellIndexPaths.append(indexPath)
         }
-        // print("click me")
         
         // 刷新cell
         tableView.reloadRows(at: [indexPath], with: .automatic)

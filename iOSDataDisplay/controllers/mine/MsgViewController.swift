@@ -133,6 +133,7 @@ class MsgViewController: UIViewController {
     
     func jumpToLogin() {
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
+        loginVC.modalPresentationStyle = .fullScreen
         self.present(loginVC, animated: true, completion: nil)
     }
     

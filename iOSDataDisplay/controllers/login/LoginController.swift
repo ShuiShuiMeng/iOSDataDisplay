@@ -23,6 +23,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     // 登陆按钮
     var loginButton: UIButton!
     
+    var height: CGFloat = 0
     
     // 登录框状态
     var showType: LoginShowType = LoginShowType.NONE
@@ -85,12 +86,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
         // 顶部图标 14.11 10.58
         nsfcImage = UIImageView(frame: CGRect(x: 100, y: 80, width: mainSize.width-200, height: (mainSize.width-200)*0.66))
         nsfcImage.image = UIImage(named: "NSFC.jpg")
-        self.view.addSubview(nsfcImage)
+        view.addSubview(nsfcImage)
+        height = nsfcImage.frame.maxY
     }
     
     func drawLoginButton() {
         // 登陆按钮
-        loginButton = UIButton(frame: CGRect(x: 45, y: 380, width: mainSize.width-90, height: 40))
+        loginButton = UIButton(frame: CGRect(x: 45, y: height+10, width: mainSize.width-90, height: 40))
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.setTitle("登录", for: .normal)
         loginButton.setTitleFontSize(size: 16)
@@ -99,14 +101,15 @@ class LoginController: UIViewController, UITextFieldDelegate {
         // 设置corner无效，因为设置了背景色（corner对subview无效）
         loginButton.layer.masksToBounds = true
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
-        self.view.addSubview(loginButton)
+        view.addSubview(loginButton)
     }
     
     func drawLoginBox() {
         // 登录框背景
-        vLogin = UIView(frame: CGRect(x:15, y:200, width:mainSize.width-30, height:160))
+        vLogin = UIView(frame: CGRect(x:15, y:height+10, width:mainSize.width-30, height:160))
         vLogin.backgroundColor = UIColor.white
-        self.view.addSubview(vLogin)
+        view.addSubview(vLogin)
+        height = vLogin.frame.maxY
     }
     
     func drawUserTextField() {
@@ -247,6 +250,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     func jumpToIndex() {
         let tbVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+        tbVC.modalPresentationStyle = .fullScreen
         self.present(tbVC, animated: true, completion: nil)
     }
     

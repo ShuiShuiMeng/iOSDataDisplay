@@ -13,6 +13,7 @@ class DeptViewController: UIViewController {
 
     var deptID: Int = 0
     var height: CGFloat = 0
+    var tableH: CGFloat = 0
     
     @IBOutlet var header: UIView!
     var backButton: BackButton!
@@ -29,6 +30,7 @@ class DeptViewController: UIViewController {
     var deptLabel3: UILabel!
     
     var deptTable: DeptTableViewController!
+    
     
     var projects: Int = 100 {
         didSet {
@@ -97,7 +99,6 @@ class DeptViewController: UIViewController {
         drawTotal(limit: res.getTotalLimit(), fundding: res.getTotalFundding(), projects: res.getTotalProjects())
         drawDeptProjects(ProjectsList: res.ObjT.DeptProjectInfoList)
         // 初始化wapper
-        wapper.contentSize = CGSize(width: mainSize.width, height: height)
         wapper.refreshControl = UIRefreshControl()
         wapper.refreshControl?.addTarget(self, action: #selector(onPullToFresh), for: UIControl.Event.valueChanged)
         //wapper.refreshControl = UIRefreshControl()
@@ -106,8 +107,38 @@ class DeptViewController: UIViewController {
     
     @objc func onPullToFresh() {
         refreshing = true
-        sleep(1)
-        refreshing = false
+        let headers: HTTPHeaders = [
+            "Cookie": getSession()!,
+            "Content-Type": "application/x-www-form-urlencoded"
+        ]
+        let parameters = [
+            "deptId": deptID
+        ]
+        Alamofire.request(getDeptInfoUrl, method: .post, parameters: parameters, headers: headers).responseJSON {
+            response in
+            if response.result.isSuccess {
+                if (response.result.value! is NSNull) {
+                    self.jumpLoginbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                }
+                else if (response.response?.statusCode != 200) {
+                    self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+                }
+                else {
+                    let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
+                    // 判断返回结果
+                    if (result.Code == 0) {
+                        self.refreshData(res: result)
+                    }
+                    else {
+                        self.jumpLoginbox(_message: "获取数据失败，点击返回重新登录")
+                    }
+                }
+            }
+            else {
+                self.jumpLoginbox(_message: "网络出错，连接不到服务器")
+            }
+            self.refreshing = false
+        }
     }
 
     // 设置背景颜色
@@ -181,7 +212,7 @@ class DeptViewController: UIViewController {
         funddingLabel.textColor = .white
         funddingLabel.textAlignment = .center
         funddingLabel.font = UIFont(descriptor: UIFontDescriptor(name: "DIN Alternate Bold", size: 17), size: 17)
-        funddingLabel.text = (fundding/10000).cleanZero4
+        funddingLabel.text = fundding.cleanZero
         wapper.addSubview(funddingLabel)
         // 说明
         let fundLabel = UILabel(frame: CGRect(x: mainSize.width/2+1, y: height+35, width: 150, height: 25))
@@ -191,11 +222,16 @@ class DeptViewController: UIViewController {
         fundLabel.text = "已资助金额(万)"
         wapper.addSubview(fundLabel)
         height = fundLabel.frame.maxY
+        tableH = height
     }
     
     func drawDeptProjects(ProjectsList: [GetDeptInfoModel.resObj.Projects]) {
         // 白色view
-        deptView = UIView(frame: CGRect(x: mainSize.width/2-170, y: height+10, width: 340, height: 580))
+        if (deptView != nil) {
+            deptView.removeFromSuperview()
+        }
+        // 使用tableH记录起始点
+        deptView = UIView(frame: CGRect(x: mainSize.width/2-170, y: tableH+10, width: 340, height: 580))
         deptView.backgroundColor = .white
         deptView.layer.cornerRadius = 5
         wapper.addSubview(deptView)
@@ -245,10 +281,23 @@ class DeptViewController: UIViewController {
         let botView = UIView(frame: CGRect(x: 0, y: height+5, width: mainSize.width, height: mainSize.width/2-175))
         botView.backgroundColor = Colors.blueBackground
         wapper.addSubview(botView)
-        height = botView.frame.maxY
+        
+        wapper.contentSize = CGSize(width: mainSize.width, height: botView.frame.maxY)
     }
     
     @objc func back(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func refreshData(res: GetDeptInfoModel) {
+        // 刷新圆环
+        progressView.setData(plan: res.getTotalLimit(), fund: res.getTotalFundding(), animated: true)
+        
+        // 刷新左右数字
+        projectsLabel.text = String(res.getTotalProjects())
+        funddingLabel.text = res.getTotalFundding().cleanZero
+        
+        // 刷新表格
+        drawDeptProjects(ProjectsList: res.ObjT.DeptProjectInfoList)
     }
 }

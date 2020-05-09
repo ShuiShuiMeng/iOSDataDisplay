@@ -184,7 +184,7 @@ class CHOProgressView: HOProgressView {
         // 执行额度
         var funddingStr = fund.cleanZero
         var woy = "万"
-        if (fund >= 10000) {
+        if (fund >= 100000) {
             funddingStr = (fund/10000).cleanZero
             woy = "亿"
         }
@@ -193,12 +193,11 @@ class CHOProgressView: HOProgressView {
         attrText.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .regular), range: NSRange(location: funddingStr.count, length: 1))
         label2.attributedText = attrText
         
-        
         // 执行率
         setProgress(CGFloat(r), animated: anim, withDuration: duration)
         
         // 当年计划额度
-        if (planNum >= 10000) {
+        if (planNum >= 100000) {
             label5.text = (planNum/10000).cleanZero
             label4.text = "当年计划额度(亿)"
         }
@@ -208,7 +207,7 @@ class CHOProgressView: HOProgressView {
         }
         
         // 当年预算总数
-        if (budgetNum >= 10000) {
+        if (budgetNum >= 100000) {
             label55.text = (budgetNum/10000).cleanZero
             label44.text = "当年预算额度(亿)"
         }
