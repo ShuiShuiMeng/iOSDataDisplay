@@ -295,7 +295,7 @@ class PwdViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
                 else {
-                    self.showMsgbox(_message: "修改失败，网络错误，无法连接到服务器")
+                    self.showMsgbox(_message: "修改失败，网络错误，无法连接到服务器。")
                 }
             }
         }
