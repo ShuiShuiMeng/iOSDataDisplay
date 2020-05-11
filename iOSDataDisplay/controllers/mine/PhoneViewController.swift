@@ -207,10 +207,9 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
             ]
             Alamofire.request(setAccountUrl, method: .post, parameters: parameters, headers: header).responseJSON {
                 response in
-                // print(response)
                 // cookie 无效
                 if (response.response?.statusCode != 200) {
-                    self.jumpLoginbox(_message: "修改失败，登录权限过期，请重新登录")
+                    self.jumpLoginbox(_message: "修改失败，登录过期，请重新登录。")
                 }
                 
                 else if response.result.isSuccess {
@@ -225,20 +224,20 @@ class PhoneViewController: UIViewController, UITextFieldDelegate {
                             refreshLoginName(name: self.phoneTextField.text!)
                         }
                         setPhoneToCookie(phone: self.phoneTextField.text!)
-                        self.jumpMinebox(_message: "修改成功！")
+                        self.jumpMinebox(_message: "绑定手机修改成功！")
                     }
                     else if res.ObjT == "Cannot match a user." {
-                        self.showMsgbox(_message: "修改失败，密码错误")
+                        self.showMsgbox(_message: "修改失败，密码错误。")
                     }
                     else if res.ObjT == "duplicated phone!" {
-                        self.showMsgbox(_message: "修改失败，手机号已被绑定，请尝试更换其他新手机号")
+                        self.showMsgbox(_message: "修改失败，手机号已被绑定，请尝试更换其他新手机号。")
                     }
                     else {
-                        self.showMsgbox(_message: "修改失败，发生了未知错误，请联系服务器管理员")
+                        self.showMsgbox(_message: "修改失败，发生了未知错误，请联系管理员。")
                     }
                 }
                 else {
-                    self.showMsgbox(_message: "修改失败，网络错误，无法连接到服务器")
+                    self.showMsgbox(_message: "修改失败，网络错误，无法连接到服务器。")
                 }
             }
         }

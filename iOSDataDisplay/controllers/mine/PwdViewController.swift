@@ -253,8 +253,11 @@ class PwdViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func modify(sender: UIButton) {
-        if (pwdTextField1.text! != pwdTextField2.text!) {
-            showMsgbox(_message: "两次输入的新密码不同，请检查后再试")
+        if (pwdTextField0.text!.isEmpty) {
+            showMsgbox(_message: "旧密码不能为空")
+        }
+        else if (pwdTextField1.text! != pwdTextField2.text!) {
+            showMsgbox(_message: "两次输入的新密码不一致，请检查后重试。")
         }
         else if (pwdTextField1.text!.count < 6) {
             showMsgbox(_message: "密码长度至少为六位")
@@ -274,7 +277,7 @@ class PwdViewController: UIViewController, UITextFieldDelegate {
                 if response.result.isSuccess {
                     // cookie 无效
                     if (response.response?.statusCode != 200) {
-                        self.jumpLoginbox(_message: "修改失败，登录权限过期，请重新登录")
+                        self.jumpLoginbox(_message: "修改失败，登录过期，请重新登录。")
                     }
                         // cookie 有效，登录成功
                     else {
@@ -284,10 +287,10 @@ class PwdViewController: UIViewController, UITextFieldDelegate {
                             self.pwdTextField0.isUserInteractionEnabled = false
                             self.pwdTextField1.isUserInteractionEnabled = false
                             self.pwdTextField2.isUserInteractionEnabled = false
-                            self.jumpMinebox(_message: "修改成功！")
+                            self.jumpMinebox(_message: "密码修改成功！")
                         }
                         else {
-                            self.showMsgbox(_message: "修改失败，请重试")
+                            self.showMsgbox(_message: "密码修改失败，请重试。")
                         }
                     }
                 }

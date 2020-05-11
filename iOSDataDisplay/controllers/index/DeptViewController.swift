@@ -70,10 +70,10 @@ class DeptViewController: UIViewController {
             response in
             if response.result.isSuccess {
                 if (response.result.value! is NSNull) {
-                    self.jumpLoginbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                    self.jumpLoginbox(_message: "您的账号权限类型为 Normal，且所属部门没有权限访问 APP 数据。请联系管理员升级为 Supervisor 权限或更换绑定部门后访问。")
                 }
                 else if (response.response?.statusCode != 200) {
-                    self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+                    self.jumpLoginbox(_message: "登录过期，请重新登录。")
                 }
                 else {
                     let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
@@ -82,12 +82,12 @@ class DeptViewController: UIViewController {
                         self.initialDept(res: result)
                     }
                     else {
-                        self.jumpLoginbox(_message: "获取数据失败，点击返回重新登录")
+                        self.jumpLoginbox(_message: "获取数据失败，请重新登录。")
                     }
                 }
             }
             else {
-                self.jumpLoginbox(_message: "网络出错，连接不到服务器")
+                self.jumpLoginbox(_message: "网络出错，连接不到服务器。")
             }
             
         }
@@ -118,10 +118,10 @@ class DeptViewController: UIViewController {
             response in
             if response.result.isSuccess {
                 if (response.result.value! is NSNull) {
-                    self.jumpLoginbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                    self.jumpLoginbox(_message: "您的账号权限类型为 Normal，且所属部门没有权限访问 APP 数据。请联系管理员升级为 Supervisor 权限或更换绑定部门后访问。")
                 }
                 else if (response.response?.statusCode != 200) {
-                    self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+                    self.jumpLoginbox(_message: "登录过期，请重新登录。")
                 }
                 else {
                     let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
@@ -130,12 +130,12 @@ class DeptViewController: UIViewController {
                         self.refreshData(res: result)
                     }
                     else {
-                        self.jumpLoginbox(_message: "获取数据失败，点击返回重新登录")
+                        self.jumpLoginbox(_message: "获取数据失败，请重新登录。")
                     }
                 }
             }
             else {
-                self.jumpLoginbox(_message: "网络出错，连接不到服务器")
+                self.jumpLoginbox(_message: "网络出错，连接不到服务器。")
             }
             self.refreshing = false
         }

@@ -60,10 +60,10 @@ class IndexViewController: UIViewController {
                 response in
                 if response.result.isSuccess {
                     if (response.result.value! is NSNull) {
-                        self.jumpLoginbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                        self.jumpLoginbox(_message: "您的账号权限类型为 Normal，且所属部门没有权限访问 APP 数据。请联系管理员升级为 Supervisor 权限或更换绑定部门后访问。")
                     }
                     else if (response.response?.statusCode != 200) {
-                        self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+                        self.jumpLoginbox(_message: "登录过期，请重新登录。")
                     }
                     else {
                         let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
@@ -72,12 +72,12 @@ class IndexViewController: UIViewController {
                             self.initialDept(res: result)
                         }
                         else {
-                            self.jumpLoginbox(_message: "获取数据失败，点击返回重新登录")
+                            self.jumpLoginbox(_message: "获取数据失败，请重新登录。")
                         }
                     }
                 }
                 else {
-                    self.jumpLoginbox(_message: "网络出错，连接不到服务器")
+                    self.jumpLoginbox(_message: "网络错误，连接不到服务器。")
                 }
             }
         }
@@ -197,7 +197,7 @@ class IndexViewController: UIViewController {
         Alamofire.request(getNumbersUrl, method: .post, headers: header).responseJSON { response in
             // 未登录
             if (response.response?.statusCode != 200) {
-                self.jumpLoginbox(_message: "登录状态失效，请重新登录")
+                self.jumpLoginbox(_message: "登录过期，请重新登录。")
                 self.refreshing = false
             }
                 // 已登录
@@ -205,11 +205,11 @@ class IndexViewController: UIViewController {
                 if response.result.isSuccess {
                     //把得到的JSON数据转为数组
                     if response.result.value! is NSNull {
-                        self.showMsgbox(_message: "网络错误，只更新了部分数据")
+                        self.showMsgbox(_message: "权限错误，请重新登录。")
                         self.refreshing = false
                     }
                     else if response.response?.statusCode != 200 {
-                        self.showMsgbox(_message: "网络错误，只更新了部分数据")
+                        self.jumpLoginbox(_message: "登录过期，请重新登录。")
                         self.refreshing = false
                     }
                     else {
@@ -219,7 +219,7 @@ class IndexViewController: UIViewController {
                     }
                 }
                 else {
-                    self.showMsgbox(_message: "网络错误，只更新了部分数据")
+                    self.showMsgbox(_message: "网络错误，连接不到服务器。")
                     self.refreshing = false
                 }
             }
@@ -234,22 +234,21 @@ class IndexViewController: UIViewController {
         Alamofire.request(getProjectsUrl, method: .post, headers: header).responseJSON { response in
             // 未登录
             if (response.response?.statusCode != 200) {
-                self.jumpLoginbox(_message: "登录状态失效，请重新登录")
+                self.jumpLoginbox(_message: "登录过期，请重新登录。")
             }
             // 已登录
             else {
                 if response.result.isSuccess {
                     //把得到的JSON数据转为数组
                     if response.result.value! is NSNull {
-                        self.showMsgbox(_message: "网络错误，没有数据被更新")
+                        self.showMsgbox(_message: "网络错误，连接不到服务器。")
                     }
                     else if response.response?.statusCode != 200 {
-                        self.showMsgbox(_message: "网络错误，没有数据被更新")
+                        self.showMsgbox(_message: "登录过期，请重新登录。")
                     }
                     else {
                         self.barDatas.removeAll()
                         let result = GetProjectsInfoDecoder.decode(jsonData: response.data!)
-                        // print(result.ObjT.ProjectInfoList)
                         for item in result.ObjT.ProjectInfoList {
                             self.barDatas.append(BarData(name: item.Name, percent: item.ExeRate, total: item.Items, plan: item.TotalOfPlan, exc: item.ExeQuota))
                         }
@@ -257,7 +256,7 @@ class IndexViewController: UIViewController {
                     }
                 }
                 else {
-                    self.showMsgbox(_message: "网络错误，没有数据被更新")
+                    self.showMsgbox(_message: "网络错误，连接不到服务器。")
                 }
             }
             self.refreshing = false
@@ -357,7 +356,7 @@ class IndexViewController: UIViewController {
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        titleLabel.text = "首页"
+        titleLabel.text = getDepartmentFromCookie()
         header.addSubview(titleLabel)
     }
     
@@ -484,10 +483,10 @@ class IndexViewController: UIViewController {
             response in
             if response.result.isSuccess {
                 if (response.result.value! is NSNull) {
-                    self.jumpLoginbox(_message: "您的账号权限类型为normal，且所属部门没有权限访问App数据。请联系管理员升级为supervisor权限或更换绑定部门后访问App。")
+                    self.jumpLoginbox(_message: "您的账号权限类型为 Normal，且所属部门没有权限访问 APP 数据。请联系管理员升级为 Supervisor 权限或更换绑定部门后访问。")
                 }
                 else if (response.response?.statusCode != 200) {
-                    self.jumpLoginbox(_message: "登录权限过期，请重新登录")
+                    self.jumpLoginbox(_message: "登录过期，请重新登录。")
                 }
                 else {
                     let result = GetDeptInfoDecoder.decode(jsonData: response.data!)
@@ -496,12 +495,12 @@ class IndexViewController: UIViewController {
                         self.refreshDeptData(res: result)
                     }
                     else {
-                        self.jumpLoginbox(_message: "获取数据失败，点击返回重新登录")
+                        self.jumpLoginbox(_message: "获取数据失败，请重新登录。")
                     }
                 }
             }
             else {
-                self.jumpLoginbox(_message: "网络出错，连接不到服务器")
+                self.jumpLoginbox(_message: "网络出错，连接不到服务器。")
             }
             self.refreshing = false
         }

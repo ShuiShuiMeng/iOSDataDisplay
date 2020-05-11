@@ -213,11 +213,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 // 返回null admin用户
                 // print(response)
                 if (response.response?.statusCode != 200) {
-                    self?.showMsgbox(_message: "用户名密码错误，请重新输入")
+                    self?.showMsgbox(_message: "用户名密码错误")
                 }
                 else if (response.result.isSuccess) {
                     if (response.result.value! is NSNull) {
-                        self?.showMsgbox(_message: "您的用户是电脑端账户，不能用于登录App。请使用拥有权限的账户登录App。")
+                        self?.showMsgbox(_message: "您的账号权限类型为 Admin，不能用于登录 APP。请联系管理员修改权限。")
                     }
                     // 200 用户名密码正确
                     else if response.response?.statusCode == 200 {
@@ -235,7 +235,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
             }
         }
         else {
-            showMsgbox(_message: "账号不符合格式，请输入手机号或邮箱")
+            showMsgbox(_message: "输入的账号不符合格式，请输入正确的手机号或邮箱")
         }
     }
     

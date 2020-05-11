@@ -210,7 +210,7 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
                 if response.result.isSuccess {
                     // cookie 无效
                     if (response.response?.statusCode != 200) {
-                        self.jumpLoginbox(_message: "修改失败，登录权限过期，请重新登录")
+                        self.jumpLoginbox(_message: "修改失败，登录过期，请重新登录。")
                     }
                         // cookie 有效，登录成功
                     else {
@@ -223,13 +223,13 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
                                 refreshLoginName(name: self.emailTextField.text!)
                             }
                             setEmailToCookie(email: self.emailTextField.text!)
-                            self.jumpMinebox(_message: "修改成功！")
+                            self.jumpMinebox(_message: "绑定邮箱修改成功！")
                         }
-                        else if res.ObjT == "Cannot match a user" {
-                            self.showMsgbox(_message: "修改失败，密码错误")
+                        else if res.ObjT == "Cannot match a user." {
+                            self.showMsgbox(_message: "修改失败，密码错误。")
                         }
                         else {
-                            self.showMsgbox(_message: "修改失败，新邮箱重复")
+                            self.showMsgbox(_message: "修改失败，该邮箱已被他人绑定。")
                         }
                     }
                 }

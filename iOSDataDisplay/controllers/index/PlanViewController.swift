@@ -44,7 +44,7 @@ class PlanViewController: UIViewController {
             }
         
             else {
-                self.showMsgbox(_message: "网络出错，无法下载文件,连接不到服务器")
+                self.showMsgbox(_message: "网络出错，下载文件失败。")
             }
         }
     }
